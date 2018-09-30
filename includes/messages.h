@@ -1,8 +1,13 @@
 #ifndef MESSAGES_H
 # define MESSAGES_H
 
-# define MSP_FORMAT		"%~s  [%~s] %~s  "
-# define MSP_1			"✰"
-# define MSP_3			"➥"
+# define MSH_NAME		"minishell"
+
+# define MSH_P_LEFT		"✰"
+# define MSH_P_RIGHT	"➥"
+
+# define MSH_ERR		"ERROR: " MSH_NAME ": %s\n"
+
+# define MSH_EXIT		"exit"
 
 #endif
