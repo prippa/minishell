@@ -3,8 +3,7 @@
 
 # define MSH_NAME		"minishell"
 
-# define MSH_P_LEFT		"✰"
-# define MSH_P_RIGHT	"➥"
+# define MSH_P_ICON		"➥"
 
 # define MSH_ERR		"ERROR: " MSH_NAME ": %s\n"
 

@@ -2,18 +2,12 @@
 
 static void msh_construct_prompt(t_msh *msh)
 {
-	ft_strcpy(msh->prompt, YELLOW);
-	ft_strcat(msh->prompt, MSH_P_LEFT);
-	ft_strcat(msh->prompt, COLOR_RESET);
-	ft_strcat(msh->prompt, " [");
-	ft_strcat(msh->prompt, MAGENTA);
+	ft_strcpy(msh->prompt, BOLD_GREEN MSH_P_ICON COLOR_RESET);
+	ft_strcat(msh->prompt, BOLD_CYAN " (" COLOR_RESET);
+	ft_strcat(msh->prompt, BOLD_YELLOW);
 	ft_strcat(msh->prompt, msh->curent_dir_name);
 	ft_strcat(msh->prompt, COLOR_RESET);
-	ft_strcat(msh->prompt, "] ");
-	ft_strcat(msh->prompt, GREEN);
-	ft_strcat(msh->prompt, MSH_P_RIGHT);
-	ft_strcat(msh->prompt, COLOR_RESET);
-	ft_strcat(msh->prompt, " ");
+	ft_strcat(msh->prompt, BOLD_CYAN ") " COLOR_RESET);
 }
 
 static void	msh_loop(t_msh *msh)
