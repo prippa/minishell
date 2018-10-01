@@ -3,11 +3,11 @@
 static void msh_construct_prompt(t_msh *msh)
 {
 	ft_strcpy(msh->prompt, BOLD_GREEN MSH_P_ICON COLOR_RESET);
-	ft_strcat(msh->prompt, BOLD_CYAN " (" COLOR_RESET);
-	ft_strcat(msh->prompt, BOLD_YELLOW);
-	ft_strcat(msh->prompt, msh->curent_dir_name);
+	ft_strcat(msh->prompt, BOLD_CYAN " <[" COLOR_RESET);
+	ft_strcat(msh->prompt, BOLD_MAGENTA);
+	ft_strcat(msh->prompt, msh->curent_dir_path);
 	ft_strcat(msh->prompt, COLOR_RESET);
-	ft_strcat(msh->prompt, BOLD_CYAN ") " COLOR_RESET);
+	ft_strcat(msh->prompt, BOLD_CYAN "]> " COLOR_RESET);
 }
 
 static void	msh_loop(t_msh *msh)
@@ -18,15 +18,10 @@ static void	msh_loop(t_msh *msh)
 	{
 		if (*msh->line)
 		{
-			if (!ft_strcmp(msh->line, MSH_EXIT))
-			{
-				free(msh->line);
-				return ;
-			}
 			msh_parse_line(msh);
 			add_history(msh->line);
 		}
-		free(msh->line);
+		ft_strdel(&msh->line);
 	}
 }
 
@@ -61,6 +56,5 @@ int			main(int argc, char **argv, char **environ)
 	msh_init(&msh, environ);
 	msh_loop(&msh);
 	msh_free(&msh);
-	system("leaks -q minishell");
 	return (0);
 }

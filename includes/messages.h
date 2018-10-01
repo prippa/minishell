@@ -4,9 +4,10 @@
 # define MSH_NAME		"minishell"
 
 # define MSH_P_ICON		"➥"
-
 # define MSH_ERR		"ERROR: " MSH_NAME ": %s\n"
 
 # define MSH_EXIT		"exit"
+
+# define MSH_GETCWD_ERR	"getcwd failed"
 
 #endif

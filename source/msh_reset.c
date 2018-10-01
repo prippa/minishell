@@ -8,7 +8,7 @@ void		msh_update_curent_dir_name(t_msh *msh)
 	while (start)
 	{
 		if (!ft_strcmp(((t_env *)start->content)->name, "PWD"))
-			ft_strcpy(msh->curent_dir_name,
+			ft_strcpy(msh->curent_dir_path,
 				ft_strrchr(((t_env *)start->content)->arg, '/') + 1);
 		start = start->next;
 	}

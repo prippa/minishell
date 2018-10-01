@@ -142,6 +142,10 @@ void				ft_lst2_push_front(t_list2 **start, t_list2 **end,
 void				ft_lst2_push_back(t_list2 **start, t_list2 **end,
 						t_list2 *new_obj);
 void				ft_lst2iter(t_list2 *start, void (*f)(t_list2 *elem));
+void				ft_lst2_pop_front(t_list2 **start, t_list2 **end,
+						void (*del)(void *, size_t));
+void				ft_lst2_pop_back(t_list2 **start, t_list2 **end,
+						void (*del)(void *, size_t));
 
 int					ft_isspace(int c);
 int					ft_isupper(int c);
