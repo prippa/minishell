@@ -1,13 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/04 12:36:11 by prippa            #+#    #+#             */
+/*   Updated: 2018/10/04 12:36:12 by prippa           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void msh_construct_prompt(t_msh *msh)
+static void	msh_construct_prompt(t_msh *msh)
 {
-	ft_strcpy(msh->prompt, BOLD_GREEN MSH_P_ICON COLOR_RESET);
-	ft_strcat(msh->prompt, BOLD_CYAN " <[" COLOR_RESET);
+	ft_strcpy(msh->prompt, BOLD_GREEN);
+	ft_strcat(msh->prompt, MSH_P_ICON);
+	ft_strcat(msh->prompt, COLOR_RESET);
+	ft_strcat(msh->prompt, BOLD_CYAN);
+	ft_strcat(msh->prompt, " <[");
+	ft_strcat(msh->prompt, COLOR_RESET);
 	ft_strcat(msh->prompt, BOLD_MAGENTA);
 	ft_strcat(msh->prompt, msh->curent_dir_path);
 	ft_strcat(msh->prompt, COLOR_RESET);
-	ft_strcat(msh->prompt, BOLD_CYAN "]> " COLOR_RESET);
+	ft_strcat(msh->prompt, BOLD_CYAN);
+	ft_strcat(msh->prompt, "]> ");
+	ft_strcat(msh->prompt, COLOR_RESET);
 }
 
 static void	msh_loop(t_msh *msh)

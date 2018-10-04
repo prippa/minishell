@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/04 12:34:00 by prippa            #+#    #+#             */
+/*   Updated: 2018/10/04 12:34:02 by prippa           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -53,10 +65,10 @@ static const char	*g_cmd_string[MSH_CMD_SIZE] =
 };
 
 typedef void		(*t_func_cmd)(t_msh *msh);
-static const 		t_func_cmd	g_cmd_func[MSH_CMD_SIZE] =
+static const		t_func_cmd	g_cmd_func[MSH_CMD_SIZE] =
 {
 	msh_cd, msh_echo, msh_env, msh_setenv,
 	msh_unsetenv, msh_exit
 };
 
-# endif
+#endif
