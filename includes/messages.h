@@ -27,4 +27,6 @@
 # define MSH_UNSETENV_USG		"Usage: unsetenv [name] ...\n"
 # define MSH_UNSETENV_NO_NAME	"unsetenv: '%s' not found.\n"
 
+# define ECHO_FLAG	"-n"
+
 #endif
