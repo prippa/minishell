@@ -24,7 +24,7 @@ DIR_LIB_INC	=	$(DIR_LIB)includes/
 LIBFT		=	$(DIR_LIB)libft.a
 
 #-------------------------- Header files ---------------------------------------
-HEAD_MSH	=	minishell.h messages.h
+HEAD_MSH	=	minishell.h messages.h commands.h
 
 #-------------------------- Source files ---------------------------------------
 C_MSH		= 	main.c msh_reset.c msh_exit.c msh_free.c msh_parse_line.c\

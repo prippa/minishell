@@ -14,7 +14,7 @@
 
 static void	msh_construct_prompt(t_msh *msh)
 {
-	ft_strcpy(msh->prompt, BOLD_GREEN);
+	ft_strcpy(msh->prompt, (msh->execute_flag ? BOLD_GREEN : BOLD_RED));
 	ft_strcat(msh->prompt, MSH_P_ICON);
 	ft_strcat(msh->prompt, COLOR_RESET);
 	ft_strcat(msh->prompt, BOLD_CYAN);
@@ -37,7 +37,9 @@ static void	msh_loop(t_msh *msh)
 		if (*msh->line)
 		{
 			msh_parse_line(msh);
+			msh_construct_prompt(msh);
 			add_history(msh->line);
+			msh->execute_flag = true;
 		}
 		ft_strdel(&msh->line);
 	}
@@ -45,24 +47,9 @@ static void	msh_loop(t_msh *msh)
 
 static void	msh_init(t_msh *msh, char **environ)
 {
-	t_list2	*new_obj;
-	t_env	e;
-	size_t	separate_index;
-
 	ft_bzero(msh, sizeof(t_msh));
-	while (*environ)
-	{
-		separate_index = ft_strchr(*environ, '=') - *environ;
-		(*environ)[separate_index] = 0;
-		if (!(e.name = ft_strdup(*environ)))
-			msh_error_exit(msh, MALLOC_ERR);
-		if (!(e.arg = ft_strdup(&(*environ)[separate_index + 1])))
-			msh_error_exit(msh, MALLOC_ERR);
-		if (!(new_obj = ft_lst2new(&e, sizeof(t_env))))
-			msh_error_exit(msh, MALLOC_ERR);
-		ft_lst2_push_back(&msh->env_start, &msh->env_end, new_obj);
-		++environ;
-	}
+	msh_setenv(msh, environ);
+	msh->execute_flag = true;
 }
 
 int			main(int argc, char **argv, char **environ)

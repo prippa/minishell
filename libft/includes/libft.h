@@ -26,6 +26,12 @@
 ************************************ Defines ***********************************
 */
 
+typedef enum	e_bool
+{
+	false,
+	true
+}				t_bool;
+
 # define ABS(x)		(((x) < 0) ? -(x) : (x))
 # define MAX(a, b)	((a) > (b) ? (a) : (b))
 # define MIN(a, b)	((a) < (b) ? (a) : (b))

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "commands.h"
 
 void		msh_execute_cmds(t_msh *msh)
 {
@@ -24,7 +24,7 @@ void		msh_execute_cmds(t_msh *msh)
 		i = -1;
 		while (++i < MSH_CMD_SIZE)
 			if (!ft_strcmp(cm->args[0], g_cmd_string[i]))
-				g_cmd_func[i](msh);
+				g_cmd_func[i](msh, &cm->args[1]);
 		ft_lst2_pop_front(&msh->cmd_start, &msh->cmd_end, msh_del_cmd_list);
 	}
 }

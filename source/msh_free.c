@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void	msh_del_env_list(void *content, size_t content_size)
+void		msh_del_env_list(void *content, size_t content_size)
 {
 	t_env *e;
 

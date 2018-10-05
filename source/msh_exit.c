@@ -19,8 +19,9 @@ void		msh_error_exit(t_msh *msh, const char *message)
 	exit(-1);
 }
 
-void		msh_exit(t_msh *msh)
+void		msh_exit(t_msh *msh, char **args)
 {
+	(void)args;
 	msh_free(msh);
 	system("leaks -q minishell");
 	exit(0);

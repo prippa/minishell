@@ -20,7 +20,8 @@ static void	msh_print_env_elem(t_list2 *elem)
 	ft_printf("%s=%s\n", e->name, e->arg);
 }
 
-void		msh_env(t_msh *msh)
+void		msh_env(t_msh *msh, char **args)
 {
+	(void)args;
 	ft_lst2iter(msh->env_start, msh_print_env_elem);
 }
