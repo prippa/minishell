@@ -27,11 +27,6 @@ typedef enum		e_echo_mode
 	IN_BRACKETS_MOD
 }					t_echo_mode;
 
-typedef struct		s_cmd
-{
-	char			**args;
-}					t_cmd;
-
 typedef struct		s_env
 {
 	char			*name;
@@ -44,8 +39,6 @@ typedef struct		s_msh
 	char			curent_dir_path[PATH_MAX + 1];
 	t_list2			*env_start;
 	t_list2			*env_end;
-	t_list2			*cmd_start;
-	t_list2			*cmd_end;
 	char			*line;
 	t_bool			execute_flag;
 }					t_msh;
@@ -53,10 +46,9 @@ typedef struct		s_msh
 void				msh_free(t_msh *msh);
 void				msh_error_exit(t_msh *msh, const char *message);
 void				msh_update_curent_dir_name(t_msh *msh);
-void				msh_parse_line(t_msh *msh);
-void				msh_del_cmd_list(void *content, size_t content_size);
 void				msh_del_env_list(void *content, size_t content_size);
-void				msh_execute_cmds(t_msh *msh);
+void				msh_execute_command(t_msh *msh);
+void				msh_print_error(t_msh *msh, const char *message);
 
 void				msh_cd(t_msh *msh, char **args);
 void				msh_echo(t_msh *msh, char **args);

@@ -12,10 +12,22 @@
 
 #include "minishell.h"
 
-static void		msh_unsetenv_print_usage(t_msh *msh)
+static t_bool	msh_unsetenv_del_by_name(t_msh *msh, const char *name)
 {
-	ft_dprintf(2, MSH_UNSETENV_USG);
-	msh->execute_flag = false;
+	t_list2 *lst;
+
+	lst = msh->env_start;
+	while (lst)
+	{
+		if (!ft_strcmp(((t_env *)lst->content)->name, name))
+		{
+			ft_lst2del_by_obj(&msh->env_start, &msh->env_end,
+				lst, msh_del_env_list);
+			return (false);
+		}
+		lst = lst->next;
+	}
+	return (true);
 }
 
 static void		msh_unsetenv_no_name(t_msh *msh, const char *name)
@@ -24,35 +36,15 @@ static void		msh_unsetenv_no_name(t_msh *msh, const char *name)
 	msh->execute_flag = false;
 }
 
-static t_bool	msh_unsetenv_del_by_name(t_msh *msh, const char *name)
-{
-	t_list2 *tmp;
-	t_list2 *lst;
-
-	lst = msh->env_start;
-	while (lst)
-	{
-		tmp = lst;
-		lst = lst->next;
-		if (!ft_strcmp(((t_env *)tmp->content)->name, name))
-		{
-			ft_lst2del_by_obj(&msh->env_start, &msh->env_end,
-				tmp, msh_del_env_list);
-			return (true);
-		}
-	}
-	return (false);
-}
-
 void			msh_unsetenv(t_msh *msh, char **args)
 {
 	if (!*args)
-		msh_unsetenv_print_usage(msh);
+		msh_print_error(msh, MSH_UNSETENV_USG);
 	else
 	{
 		while (*args)
 		{
-			if (!(msh_unsetenv_del_by_name(msh, *args)))
+			if (msh_unsetenv_del_by_name(msh, *args))
 				msh_unsetenv_no_name(msh, *args);
 			++args;
 		}

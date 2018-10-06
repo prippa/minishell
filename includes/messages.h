@@ -22,10 +22,11 @@
 
 # define MSH_GETCWD_ERR		"getcwd failed"
 
-# define MSH_SETENV_USG		"Usage: setenv [name=arg] ...\n"
+# define MSH_SETENV_USG			"Usage: setenv [name=arg] ...\n"
+# define MSH_SETENV_INVALID_ARG	"setenv: '%s' is invalid\n"
 
 # define MSH_UNSETENV_USG		"Usage: unsetenv [name] ...\n"
-# define MSH_UNSETENV_NO_NAME	"unsetenv: '%s' not found.\n"
+# define MSH_UNSETENV_NO_NAME	"unsetenv: '%s' not found\n"
 
 # define ECHO_FLAG	"-n"
 

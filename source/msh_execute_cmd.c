@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_free.c                                         :+:      :+:    :+:   */
+/*   msh_execute_cmds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/04 12:36:26 by prippa            #+#    #+#             */
-/*   Updated: 2018/10/04 12:36:27 by prippa           ###   ########.fr       */
+/*   Created: 2018/10/04 12:36:16 by prippa            #+#    #+#             */
+/*   Updated: 2018/10/04 12:36:17 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "commands.h"
 
-void		msh_del_env_list(void *content, size_t content_size)
+void		msh_execute_command(t_msh *msh)
 {
-	t_env *e;
+	char		**args;
+	uint32_t	i;
 
-	e = (t_env *)content;
-	(void)content_size;
-	free(e->name);
-	free(e->arg);
-	free(content);
-}
-
-void		msh_free(t_msh *msh)
-{
-	ft_lst2del(&msh->env_start, &msh->env_end, msh_del_env_list);
-	ft_strdel(&msh->line);
+	if (!(args = ft_strsplit(msh->line, ' ')))
+		msh_error_exit(msh, MALLOC_ERR);
+	i = -1;
+	while (++i < MSH_CMD_SIZE)
+		if (!ft_strcmp(args[0], g_cmd_string[i]))
+			g_cmd_func[i](msh, &args[1]);
+	ft_arrdel(&args);
 }

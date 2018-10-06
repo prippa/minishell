@@ -26,11 +26,9 @@
 ************************************ Defines ***********************************
 */
 
-typedef enum	e_bool
-{
-	false,
-	true
-}				t_bool;
+typedef char	t_bool;
+# define true	1
+# define false	0
 
 # define ABS(x)		(((x) < 0) ? -(x) : (x))
 # define MAX(a, b)	((a) > (b) ? (a) : (b))
@@ -182,5 +180,6 @@ char				*ft_memjoin_free(void **dst, const void *src,
 						size_t dstsize, size_t srcsize);
 void				ft_perror_exit(const char *message);
 int					ft_base(const char c);
+char				*ft_strdup_free(char **dst, const char *src);
 
 #endif

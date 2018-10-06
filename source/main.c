@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void	msh_construct_prompt(t_msh *msh)
+static void	msh_update_prompt(t_msh *msh)
 {
 	ft_strcpy(msh->prompt, (msh->execute_flag ? BOLD_GREEN : BOLD_RED));
 	ft_strcat(msh->prompt, MSH_P_ICON);
@@ -31,13 +31,13 @@ static void	msh_construct_prompt(t_msh *msh)
 static void	msh_loop(t_msh *msh)
 {
 	msh_update_curent_dir_name(msh);
-	msh_construct_prompt(msh);
+	msh_update_prompt(msh);
 	while ((msh->line = readline(msh->prompt)))
 	{
 		if (*msh->line)
 		{
-			msh_parse_line(msh);
-			msh_construct_prompt(msh);
+			msh_execute_command(msh);
+			msh_update_prompt(msh);
 			add_history(msh->line);
 			msh->execute_flag = true;
 		}
