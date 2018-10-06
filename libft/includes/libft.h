@@ -27,8 +27,7 @@
 */
 
 typedef char	t_bool;
-# define true	1
-# define false	0
+enum	{ false, true };
 
 # define ABS(x)		(((x) < 0) ? -(x) : (x))
 # define MAX(a, b)	((a) > (b) ? (a) : (b))
