@@ -21,12 +21,6 @@
 
 # define PROMPT_SIZE	512
 
-typedef enum		e_echo_mode
-{
-	BASE_MODE,
-	IN_BRACKETS_MOD
-}					t_echo_mode;
-
 typedef struct		s_env
 {
 	char			*name;

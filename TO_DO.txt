@@ -1,0 +1,5 @@
+1. echo
+2. cd
+3. fork, exec
+4. message managment
+5. check bugs
