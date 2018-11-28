@@ -17,9 +17,12 @@ static void		msh_set_new_env(t_msh *msh, const char *arg, size_t si)
 	t_list2	*new_obj;
 	t_env	e;
 
-	SAFE_ALLOC(msh, msh_error_exit, e.name, ft_strdup, arg);
-	SAFE_ALLOC(msh, msh_error_exit, e.arg, ft_strdup, &arg[si + 1]);
-	SAFE_ALLOC(msh, msh_error_exit, new_obj, ft_lst2new, &e, sizeof(t_env));
+	if (!(e.name = ft_strdup(arg)))
+		msh_error_exit(msh, MALLOC_ERR);
+	if (!(e.arg = ft_strdup(&arg[si + 1])))
+		msh_error_exit(msh, MALLOC_ERR);
+	if (!(new_obj = ft_lst2new(&e, sizeof(t_env))))
+		msh_error_exit(msh, MALLOC_ERR);
 	ft_lst2_push_back(&msh->env_start, &msh->env_end, new_obj);
 }
 
@@ -34,8 +37,8 @@ static t_bool	msh_edit_env(t_msh *msh, const char *arg, size_t si)
 		e = (t_env *)lst->content;
 		if (!ft_strcmp(e->name, arg))
 		{
-			SAFE_ALLOC(msh, msh_error_exit, e->arg,
-				ft_strdup_free, &e->arg, &arg[si + 1]);
+			if (!(ft_strdup_free(&e->arg, &arg[si + 1])))
+				msh_error_exit(msh, MALLOC_ERR);
 			return (false);
 		}
 		lst = lst->next;

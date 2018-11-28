@@ -17,7 +17,8 @@ void		msh_execute_command(t_msh *msh)
 	char		**args;
 	uint32_t	i;
 
-	SAFE_ALLOC(msh, msh_error_exit, args, ft_strsplit, msh->line, ' ');
+	if (!(args = ft_strsplit(msh->line, ' ')))
+		msh_error_exit(msh, MALLOC_ERR);
 	i = -1;
 	while (++i < MSH_CMD_SIZE)
 		if (!ft_strcmp(args[0], g_cmd_string[i]))

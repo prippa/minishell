@@ -42,7 +42,6 @@ enum { false, true };
 # define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 # define SWITCH_LOGIC(x) ((x) ? 0 : 1)
-# define SAFE_ALLOC(s, e, p, f, a ...) if (!(p = f(a))) e(s, MALLOC_ERR)
 
 /*
 ************************************ Data **************************************
