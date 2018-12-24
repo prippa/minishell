@@ -21,7 +21,7 @@ char	*ft_memjoin_free(void **dst, const void *src,
 	if (!(*dst = (char *)malloc(sizeof(char) * (dstsize + srcsize))))
 		return (NULL);
 	ft_memcpy(*dst, tmp, dstsize);
-	ft_memcpy(&(*dst)[dstsize], src, srcsize);
+	ft_memcpy(*dst + dstsize, src, srcsize);
 	free(tmp);
 	return (*dst);
 }

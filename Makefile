@@ -10,10 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	minishell
-# FLAGS		= 	-Wall -Werror -Wextra
-COMP_FLAGS	=	-g -lreadline
-CC			=	gcc
+NAME			=	minishell
+# FLAGS			= 	-Wall -Werror -Wextra
+READLINE_FLAG	=	-lreadline
+CC				=	gcc -g
 
 DIR_INC		=	./includes/
 DIR_SRC		=	./source/
@@ -46,7 +46,7 @@ lib:
 
 #-------------------------- Compil Block ---------------------------------------
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(COMP_FLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+	@$(CC) -o $(NAME) $(OBJ) $(READLINE_FLAG) $(LIBFT) 
 	@echo "Compiling" [ $(NAME) ]
 
 #-------------------------- Link Block -----------------------------------------

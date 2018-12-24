@@ -15,10 +15,10 @@
 
 # include "libft.h"
 # include "messages.h"
-# include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define PATH_MAX	4096
 # define PROMPT_SIZE	512
 
 typedef struct		s_env

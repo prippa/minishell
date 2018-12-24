@@ -42,9 +42,7 @@ void		fpf_output_s(t_printf *fpf)
 		fpf->precision = 0;
 	else if (fpf->precision)
 	{
-		if (fpf->type == 'S'
-			&& !(fpf->str[fpf->precision - 1] >= 0
-			&& fpf->str[fpf->precision - 1] <= 127))
+		if (fpf->type == 'S' && fpf->str[fpf->precision - 1] < 0)
 		{
 			while (fpf->precision % 3 > 0)
 				fpf->precision--;
