@@ -12,27 +12,19 @@
 
 #include "minishell.h"
 
-static void	msh_echo_print(const char *arg, t_bool *mod)
-{
-	// while (*arg)
-	// {
-	// 	if (*arg == '\'' || *arg == '\"')
-	// 		*mod = SWITCH_LOGIC(*mod);
-	// 	if (*mod)
-	// 		msh_echo_print_base()
-	// 	++arg;
-	// }
-}
+// static void	msh_echo_print(const char *arg, t_bool *mod)
+// {
+
+// }
 
 static void	msh_echo_loop(char **args)
 {
-	t_bool	mod;
-
-	mod = 1;
 	while (*args)
 	{
-		msh_echo_print(*args++, &mod);
-		ft_putchar(' ');
+		// msh_echo_print(*args++, &mod);
+		ft_putstr(*args++);
+		if (*args)
+			ft_putchar(' ');
 	}
 }
 
