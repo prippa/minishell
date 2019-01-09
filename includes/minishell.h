@@ -43,6 +43,9 @@ void				msh_update_curent_dir_name(t_msh *msh);
 void				msh_del_env_list(void *content, size_t content_size);
 void				msh_execute_command(t_msh *msh);
 void				msh_print_error(t_msh *msh, const char *message);
+char				*msh_env_get_arg_by_name(t_list2 *start, const char *name);
+t_env				*msh_env_get_obj_by_name(t_list2 *start, const char *name);
+void				msh_setenv_one_arg(t_msh *msh, char *arg);
 
 void				msh_cd(t_msh *msh, char **args);
 void				msh_echo(t_msh *msh, char **args);

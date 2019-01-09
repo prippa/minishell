@@ -14,14 +14,13 @@
 
 void		msh_update_curent_dir_name(t_msh *msh)
 {
-	t_list2 *start;
+	char *path;
+	char *dir;
 
-	start = msh->env_start;
-	while (start)
-	{
-		if (!ft_strcmp(((t_env *)start->content)->name, "PWD"))
-			ft_strcpy(msh->curent_dir_path,
-				ft_strrchr(((t_env *)start->content)->arg, '/') + 1);
-		start = start->next;
-	}
+	path = msh_env_get_arg_by_name(msh->env_start, "PWD");
+	if ((dir = ft_strrchr(path, '/')))
+		++dir;
+	else
+		dir = path;
+	ft_strcpy(msh->curent_dir_path, dir);
 }
