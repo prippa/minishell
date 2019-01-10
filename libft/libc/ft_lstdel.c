@@ -14,15 +14,14 @@
 
 void	ft_lstdel(t_list **lst, void (*del)(void *, size_t))
 {
-	t_list	*tmp;
-
 	while (*lst)
-	{
-		tmp = *lst;
-		del((*lst)->content, (*lst)->content_size);
-		*lst = (*lst)->next;
-		free(tmp);
-	}
+		ft_lstpop(lst, del);
+}
+
+void	ft_lst2del(t_list2 **start, t_list2 **end, void (*del)(void *, size_t))
+{
+	while (*start)
+		ft_lst2_pop_front(start, end, del);
 }
 
 void	ft_lst2del_by_obj(t_list2 **start, t_list2 **end,
@@ -48,21 +47,5 @@ void	ft_lst2del_by_obj(t_list2 **start, t_list2 **end,
 		obj->prev->next = obj->next;
 		obj->next->prev = obj->prev;
 	}
-	del(obj->content, obj->content_size);
-	free(obj);
-}
-
-void	ft_lst2del(t_list2 **start, t_list2 **end,
-			void (*del)(void *, size_t))
-{
-	t_list2	*tmp;
-
-	while (*start)
-	{
-		tmp = *start;
-		del((*start)->content, (*start)->content_size);
-		*start = (*start)->next;
-		free(tmp);
-	}
-	*end = NULL;
+	ft_lstdelone((t_list **)(&obj), del);
 }

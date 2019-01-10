@@ -17,7 +17,8 @@ CC				=	gcc -g
 
 DIR_INC		=	./includes/
 DIR_SRC		=	./source/
-DIR_CMDS	=	./source/msh_commands/
+DIR_CMDS	=	$(DIR_SRC)msh_commands/
+DIR_MLP		=	$(DIR_SRC)msh_line_parser/
 DIR_OBJ		= 	./obj/
 DIR_LIB		=	./libft/
 DIR_LIB_INC	=	$(DIR_LIB)includes/
@@ -32,8 +33,10 @@ C_MSH		= 	main.c msh_reset.c msh_exit.c msh_free.c msh_execute_cmd.c\
 
 C_CMDS		=	msh_cd.c msh_echo.c msh_env.c msh_setenv.c msh_unsetenv.c
 
+C_MLP		=	msh_line_parser.c
 
-OBJ 		= 	$(addprefix $(DIR_OBJ), $(C_MSH:.c=.o) $(C_CMDS:.c=.o))
+OBJ 		= 	$(addprefix $(DIR_OBJ), $(C_MSH:.c=.o) $(C_CMDS:.c=.o) \
+				$(C_MLP:.c=.o))
 
 INC 		= 	$(addprefix -I, $(DIR_INC) $(DIR_LIB_INC))
 INC_MSH 	= 	$(addprefix $(DIR_INC), $(HEAD_MSH))
@@ -58,6 +61,12 @@ $(DIR_OBJ)%.o: $(DIR_SRC)%.c $(INC_MSH)
 
 #msh_commands
 $(DIR_OBJ)%.o: $(DIR_CMDS)%.c $(INC_MSH)
+	@mkdir -p $(DIR_OBJ)
+	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
+	@echo "Linking" [ $< ]
+
+#msh_line_parser
+$(DIR_OBJ)%.o: $(DIR_MLP)%.c $(INC_MSH)
 	@mkdir -p $(DIR_OBJ)
 	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
 	@echo "Linking" [ $< ]

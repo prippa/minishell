@@ -138,13 +138,13 @@ void				ft_lstadd(t_list **lst, t_list *new_obj);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstpop(t_list **lst, void (*del)(void *, size_t));
+void				ft_lstrev(t_list **lst);
 
 t_list2				*ft_lst2new(void const *content, size_t content_size);
-void				ft_lst2delone(t_list2 **obj, void (*del)(void *, size_t));
-void				ft_lst2del_by_obj(t_list2 **start, t_list2 **end,
-						t_list2 *obj, void (*del)(void *, size_t));
 void				ft_lst2del(t_list2 **start, t_list2 **end,
 						void (*del)(void *, size_t));
+void				ft_lst2del_by_obj(t_list2 **start, t_list2 **end,
+						t_list2 *obj, void (*del)(void *, size_t));
 void				ft_lst2_push_front(t_list2 **start, t_list2 **end,
 						t_list2 *new_obj);
 void				ft_lst2_push_back(t_list2 **start, t_list2 **end,
@@ -154,6 +154,7 @@ void				ft_lst2_pop_front(t_list2 **start, t_list2 **end,
 						void (*del)(void *, size_t));
 void				ft_lst2_pop_back(t_list2 **start, t_list2 **end,
 						void (*del)(void *, size_t));
+void				ft_lst2rev(t_list2 **start, t_list2 **end);
 
 int					ft_isspace(int c);
 int					ft_isupper(int c);

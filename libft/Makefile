@@ -43,6 +43,7 @@ C_LIBC		= 	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c\
 			ft_toupper.c get_next_line.c ft_arrdel.c ft_arrlen.c ft_nbrlen.c\
 			ft_clear.c ft_arrnew.c ft_putarr.c ft_putarr_fd.c ft_lstpop.c\
 			ft_memrev.c ft_strjoin_free.c ft_memjoin_free.c ft_perror_exit.c\
+			ft_lstrev.c
 
 C_FPF		= 	ft_printf.c fpf_cat_data.c fpf_parser.c fpf_trash.c\
 				fpf_parser_get_type.c fpf_conversions.c fpf_unicode.c\

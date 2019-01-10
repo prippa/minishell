@@ -60,6 +60,5 @@ int			main(int argc, char **argv, char **environ)
 	(void)argv;
 	msh_init(&msh, environ);
 	msh_loop(&msh);
-	msh_free(&msh);
 	return (0);
 }

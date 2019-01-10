@@ -18,8 +18,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define PATH_MAX	4096
+# define PATH_MAX		4096
 # define PROMPT_SIZE	512
+
+typedef struct		s_command
+{
+	char			**args;
+}					t_command;
 
 typedef struct		s_env
 {
@@ -34,6 +39,7 @@ typedef struct		s_msh
 	t_list2			*env_start;
 	t_list2			*env_end;
 	char			*line;
+	t_list			*commands;
 	t_bool			execute_flag;
 }					t_msh;
 
@@ -46,6 +52,8 @@ void				msh_print_error(t_msh *msh, const char *message);
 char				*msh_env_get_arg_by_name(t_list2 *start, const char *name);
 t_env				*msh_env_get_obj_by_name(t_list2 *start, const char *name);
 void				msh_setenv_one_arg(t_msh *msh, char *arg);
+
+void				msh_line_parser(t_msh *msh);
 
 void				msh_cd(t_msh *msh, char **args);
 void				msh_echo(t_msh *msh, char **args);

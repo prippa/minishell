@@ -20,12 +20,3 @@ void	ft_lstdelone(t_list **lst, void (*del)(void *, size_t))
 	free(*lst);
 	*lst = NULL;
 }
-
-void	ft_lst2delone(t_list2 **obj, void (*del)(void *, size_t))
-{
-	if (!*obj)
-		return ;
-	del((*obj)->content, (*obj)->content_size);
-	free(*obj);
-	*obj = NULL;
-}

@@ -14,6 +14,7 @@
 
 void		msh_execute_command(t_msh *msh)
 {
+	// msh_line_parser(msh);
 	char		**args;
 	uint32_t	i;
 
