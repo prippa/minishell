@@ -12,20 +12,20 @@
 
 #include "minishell.h"
 
+void		msh_update_curent_dir_name(t_msh *msh)
+{
+	char *path;
+
+	if ((path = msh_env_get_arg_by_name(msh->env_start, "PWD", ft_strlen("PWD"))))
+		ft_strcpy(msh->curent_path, path);
+}
+
 static void	msh_update_prompt(t_msh *msh)
 {
-	ft_strcpy(msh->prompt, (msh->execute_flag ? BOLD_GREEN : BOLD_RED));
-	ft_strcat(msh->prompt, MSH_P_ICON);
-	ft_strcat(msh->prompt, COLOR_RESET);
-	ft_strcat(msh->prompt, BOLD_CYAN);
-	ft_strcat(msh->prompt, " <[");
-	ft_strcat(msh->prompt, COLOR_RESET);
-	ft_strcat(msh->prompt, BOLD_MAGENTA);
-	ft_strcat(msh->prompt, "dir");
-	ft_strcat(msh->prompt, COLOR_RESET);
-	ft_strcat(msh->prompt, BOLD_CYAN);
-	ft_strcat(msh->prompt, "]> ");
-	ft_strcat(msh->prompt, COLOR_RESET);
+	ft_strcpy(msh->prompt, (msh->execute_flag ? MSH_OK_ICON : MSH_ERROR_ICON));
+	ft_strcat(msh->prompt, " (");
+	ft_strcat(msh->prompt, msh->curent_path);
+	ft_strcat(msh->prompt, ") $> ");
 }
 
 static void	msh_loop(t_msh *msh)
@@ -45,20 +45,22 @@ static void	msh_loop(t_msh *msh)
 	}
 }
 
-static void	msh_init(t_msh *msh, char **environ)
+static void	msh_init(t_msh *msh)
 {
+	extern char	**environ;
+
 	ft_bzero(msh, sizeof(t_msh));
-	// msh_setenv(msh, environ);
+	msh_setenv(msh, environ);
 	msh->execute_flag = true;
 }
 
-int			main(int argc, char **argv, char **environ)
+int			main(void)
 {
 	t_msh	msh;
 
-	(void)argc;
-	(void)argv;
-	msh_init(&msh, environ);
+	msh_init(&msh);
 	msh_loop(&msh);
+	msh_free(&msh);
+	system("leaks -q minishell");
 	return (0);
 }

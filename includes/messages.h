@@ -15,7 +15,8 @@
 
 # define MSH_NAME			"minishell"
 
-# define MSH_P_ICON			"➥"
+# define MSH_OK_ICON		"✓"
+# define MSH_ERROR_ICON		"✕"
 # define MSH_ERR			"ERROR: " MSH_NAME ": %s\n"
 
 # define MSH_EXIT			"exit"

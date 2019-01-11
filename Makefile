@@ -28,7 +28,7 @@ LIBFT		=	$(DIR_LIB)libft.a
 HEAD_MSH	=	minishell.h messages.h commands.h
 
 #-------------------------- Source files ---------------------------------------
-C_MSH		= 	main.c msh_reset.c msh_exit.c msh_free.c msh_execute_cmd.c\
+C_MSH		= 	main.c msh_exit.c msh_free.c msh_execute_cmd.c\
 				msh_utility.c msh_env_get.c
 
 C_CMDS		=	msh_cd.c msh_echo.c msh_env.c msh_setenv.c msh_unsetenv.c

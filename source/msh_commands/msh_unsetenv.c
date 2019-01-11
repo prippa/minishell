@@ -12,21 +12,21 @@
 
 #include "minishell.h"
 
-void			msh_unsetenv_one_value(t_msh *msh, const char *value)
+void	msh_unsetenv_one_value(t_msh *msh, const char *value)
 {
-	t_list2		*obj;
+	t_list2		*t;
 
-	if ((obj = msh_env_get_obj_by_name(msh->env_start, value)))
-		ft_lst2del_by_obj(&msh->env_start, &msh->env_end,
-			obj, msh_del_env_list);
-	else
+	if (!(t = msh_env_get_obj_by_name(msh->env_start, value, ft_strlen(value))))
 	{
 		ft_dprintf(2, MSH_UNSETENV_NO_NAME, value);
 		msh->execute_flag = false;
+		return ;
 	}
+	ft_lst2del_by_obj(&msh->env_start, &msh->env_end, t, msh_del_env_list);
+	--msh->env_size;
 }
 
-void			msh_unsetenv(t_msh *msh, char **args)
+void	msh_unsetenv(t_msh *msh, char **args)
 {
 	if (!*args)
 	{
