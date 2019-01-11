@@ -14,10 +14,7 @@
 
 static void	msh_print_env_elem(t_list2 *elem)
 {
-	t_env *e;
-
-	e = (t_env *)elem->content;
-	ft_printf("%s=%s\n", e->name, e->arg);
+	ft_putendl(((t_env *)elem->content)->value);
 }
 
 void		msh_env(t_msh *msh, char **args)

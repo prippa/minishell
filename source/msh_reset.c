@@ -17,10 +17,12 @@ void		msh_update_curent_dir_name(t_msh *msh)
 	char *path;
 	char *dir;
 
-	path = msh_env_get_arg_by_name(msh->env_start, "PWD");
-	if ((dir = ft_strrchr(path, '/')))
-		++dir;
-	else
-		dir = path;
-	ft_strcpy(msh->curent_dir_path, dir);
+	if ((path = msh_env_get_arg_by_name(msh->env_start, "PWD")))
+	{
+		if ((dir = ft_strrchr(path, '/')))
+			++dir;
+		else
+			dir = path;
+		ft_strcpy(msh->curent_dir, dir);
+	}
 }

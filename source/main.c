@@ -21,7 +21,7 @@ static void	msh_update_prompt(t_msh *msh)
 	ft_strcat(msh->prompt, " <[");
 	ft_strcat(msh->prompt, COLOR_RESET);
 	ft_strcat(msh->prompt, BOLD_MAGENTA);
-	ft_strcat(msh->prompt, msh->curent_dir_path);
+	ft_strcat(msh->prompt, "dir");
 	ft_strcat(msh->prompt, COLOR_RESET);
 	ft_strcat(msh->prompt, BOLD_CYAN);
 	ft_strcat(msh->prompt, "]> ");
@@ -48,7 +48,7 @@ static void	msh_loop(t_msh *msh)
 static void	msh_init(t_msh *msh, char **environ)
 {
 	ft_bzero(msh, sizeof(t_msh));
-	msh_setenv(msh, environ);
+	// msh_setenv(msh, environ);
 	msh->execute_flag = true;
 }
 

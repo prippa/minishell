@@ -12,51 +12,34 @@
 
 #include "minishell.h"
 
-static void		msh_set_new_env(t_msh *msh, t_env *e)
+static void		msh_edit_or_set_new_env(t_msh *msh, const char *value)
 {
-	t_list2	*new_obj;
+	t_env	new_env;
+	t_env	*edit_env;
+	t_list2	*obj;
 
-	if (!(new_obj = ft_lst2new(e, sizeof(t_env))))
+	new_env.index = ft_strchr(value, '=') - value;
+	if (!(new_env.value = ft_strdup(value)))
 		msh_error_exit(msh, MALLOC_ERR);
-	ft_lst2_push_back(&msh->env_start, &msh->env_end, new_obj);
-}
-
-static t_bool	msh_edit_env(t_msh *msh, t_env *e)
-{
-	t_env	*env_obj_for_edit;
-
-	if ((env_obj_for_edit = msh_env_get_obj_by_name(msh->env_start, e->name)))
+	if ((obj = msh_env_get_obj_by_name(msh->env_start, value)))
 	{
-		ft_strdel(&env_obj_for_edit->arg);
-		env_obj_for_edit->arg = e->arg;
-		return (true);
+		edit_env = (t_env *)obj->content;
+		msh_del_env_body(edit_env);
+		ft_memcpy(edit_env, &new_env, sizeof(t_env));
+		return ;
 	}
-	return (false);
+	if (!(obj = ft_lst2new(&new_env, sizeof(t_env))))
+		msh_error_exit(msh, MALLOC_ERR);
+	ft_lst2_push_back(&msh->env_start, &msh->env_end, obj);
 }
 
-static void		msh_edit_or_set_new_env(t_msh *msh, char *str)
+void			msh_setenv_one_value(t_msh *msh, const char *value)
 {
-	size_t	separate_index;
-	t_env	e;
-
-	separate_index = ft_strchr(str, '=') - str;
-	if (!(e.name = ft_strsub(str, 0, separate_index)))
-		msh_error_exit(msh, MALLOC_ERR);
-	if (!(e.arg = ft_strdup(&str[separate_index + 1])))
-		msh_error_exit(msh, MALLOC_ERR);
-	if (!msh_edit_env(msh, &e))
-		msh_set_new_env(msh, &e);
-	else
-		ft_strdel(&e.name);
-}
-
-void			msh_setenv_one_arg(t_msh *msh, char *str)
-{
-	if (*str != '=' && ft_strchr(str, '='))
-		msh_edit_or_set_new_env(msh, str);
+	if (*value != '=' && ft_strchr(value, '='))
+		msh_edit_or_set_new_env(msh, value);
 	else
 	{
-		ft_dprintf(2, MSH_SETENV_INVALID_ARG, str);
+		ft_dprintf(2, MSH_SETENV_INVALID_ARG, value);
 		msh->execute_flag = false;
 	}
 }
@@ -69,5 +52,5 @@ void			msh_setenv(t_msh *msh, char **args)
 		return ;
 	}
 	while (*args)
-		msh_setenv_one_arg(msh, *args++);
+		msh_setenv_one_value(msh, *args++);
 }

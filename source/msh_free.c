@@ -12,14 +12,18 @@
 
 #include "minishell.h"
 
+void		msh_del_env_body(t_env *e)
+{
+	ft_strdel(&e->value);
+}
+
 void		msh_del_env_list(void *content, size_t content_size)
 {
 	t_env *e;
 
 	e = (t_env *)content;
 	(void)content_size;
-	free(e->name);
-	free(e->arg);
+	msh_del_env_body(e);
 	free(content);
 }
 
