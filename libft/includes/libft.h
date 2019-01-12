@@ -35,8 +35,8 @@
 # define READ_ERR		"read failed"
 # define OTHER_ERR		"some error hapend"
 
-typedef char t_bool;
-enum { false, true };
+typedef char	t_bool;
+enum			{ false, true };
 
 # define ABS(x) (((x) < 0) ? -(x) : (x))
 
@@ -181,7 +181,9 @@ void				ft_clear(void);
 void				*ft_memrev(void *dst, size_t n);
 char				*ft_strjoin_free(char **dst, const char *src,
 						size_t dstsize, size_t srcsize);
-char				*ft_memjoin_free(void **dst, const void *src,
+void				*ft_memjoin_free(void **dst, const void *src,
+						size_t dstsize, size_t srcsize);
+void				*ft_memjoin(const void *dst, const void *src,
 						size_t dstsize, size_t srcsize);
 void				ft_perror_exit(const char *message);
 int					ft_base(const char c);

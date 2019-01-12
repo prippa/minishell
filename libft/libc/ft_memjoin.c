@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
+/*   ft_memjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/25 12:59:59 by prippa            #+#    #+#             */
-/*   Updated: 2018/08/25 13:00:00 by prippa           ###   ########.fr       */
+/*   Created: 2019/01/12 19:24:03 by prippa            #+#    #+#             */
+/*   Updated: 2019/01/12 19:24:08 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memjoin_free(void **dst, const void *src,
+void	*ft_memjoin(const void *dst, const void *src,
 			size_t dstsize, size_t srcsize)
 {
-	void *tmp;
+	void *new_obj;
 
-	tmp = *dst;
-	if (!(*dst = (void *)malloc(sizeof(void) * (dstsize + srcsize))))
+	if (!(new_obj = (void *)malloc(sizeof(void) * (dstsize + srcsize))))
 		return (NULL);
-	ft_memcpy(*dst, tmp, dstsize);
-	ft_memcpy(*dst + dstsize, src, srcsize);
-	free(tmp);
-	return (*dst);
+	ft_memcpy(new_obj, dst, dstsize);
+	ft_memcpy(new_obj + dstsize, src, srcsize);
+	return (new_obj);
 }

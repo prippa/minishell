@@ -21,8 +21,7 @@ char	*ft_strjoin_free(char **dst, const char *src,
 	if (!(*dst = (char *)malloc(sizeof(char) * (dstsize + srcsize + 1))))
 		return (NULL);
 	ft_strcpy(*dst, tmp);
-	ft_strncpy(&(*dst)[dstsize], src, srcsize);
-	(*dst)[dstsize + srcsize] = 0;
+	ft_strcpy(*dst + dstsize, src);
 	free(tmp);
 	return (*dst);
 }
