@@ -26,7 +26,7 @@ LIBFT		=	$(DIR_LIB)libft.a
 
 #-------------------------- Header files ---------------------------------------
 HEAD_BASE		=	minishell.h messages.h commands.h
-HEAD_LINE_PRS	=	line_parser.h
+HEAD_LINE_lp	=	line_parser.h
 
 #-------------------------- Source files ---------------------------------------
 C_MSH		= 	main.c msh_exit.c msh_free.c msh_execute_cmd.c\
@@ -34,14 +34,15 @@ C_MSH		= 	main.c msh_exit.c msh_free.c msh_execute_cmd.c\
 
 C_CMDS		=	msh_cd.c msh_echo.c msh_env.c msh_setenv.c msh_unsetenv.c
 
-C_MLP		=	msh_line_parser.c msh_arg_buf_control.c
+C_MLP		=	msh_line_parser.c msh_lp_arg_buf_control.c msh_lp_free.c\
+				msh_lp_utility.c
 
 OBJ 		= 	$(addprefix $(DIR_OBJ), $(C_MSH:.c=.o) $(C_CMDS:.c=.o) \
 				$(C_MLP:.c=.o))
 
 INC 			= 	$(addprefix -I, $(DIR_INC) $(DIR_LIB_INC))
 INC_BASE 		= 	$(addprefix $(DIR_INC), $(HEAD_BASE))
-INC_LINE_PRS	= 	$(addprefix $(DIR_INC), $(HEAD_BASE) $(HEAD_LINE_PRS))
+INC_LINE_lp	= 	$(addprefix $(DIR_INC), $(HEAD_BASE) $(HEAD_LINE_lp))
 
 
 all: lib $(NAME)
@@ -68,7 +69,7 @@ $(DIR_OBJ)%.o: $(DIR_CMDS)%.c $(INC_BASE)
 	@echo "Linking" [ $< ]
 
 #msh_line_parser
-$(DIR_OBJ)%.o: $(DIR_MLP)%.c $(INC_LINE_PRS)
+$(DIR_OBJ)%.o: $(DIR_MLP)%.c $(INC_LINE_lp)
 	@mkdir -p $(DIR_OBJ)
 	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
 	@echo "Linking" [ $< ]

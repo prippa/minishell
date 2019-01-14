@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void		msh_cd(t_msh *msh, char **args)
+void		msh_cd(t_minishel *msh, char **args)
 {
 	ft_printf("cd\n");
 }

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void		msh_edit_or_set_new_env(t_msh *msh, const char *value)
+static void		msh_edit_or_set_new_env(t_minishel *msh, const char *value)
 {
 	t_env	new_env;
 	t_env	*edit_env;
@@ -34,7 +34,7 @@ static void		msh_edit_or_set_new_env(t_msh *msh, const char *value)
 	++msh->env_size;
 }
 
-void			msh_setenv_one_value(t_msh *msh, const char *value)
+void			msh_setenv_one_value(t_minishel *msh, const char *value)
 {
 	if (*value != '=' && ft_strchr(value, '='))
 		msh_edit_or_set_new_env(msh, value);
@@ -45,7 +45,7 @@ void			msh_setenv_one_value(t_msh *msh, const char *value)
 	}
 }
 
-void			msh_setenv(t_msh *msh, char **args)
+void			msh_setenv(t_minishel *msh, char **args)
 {
 	if (!*args)
 	{

@@ -23,7 +23,7 @@ static const char	*g_cmd_string[MSH_CMD_SIZE] =
 	"unsetenv", "exit"
 };
 
-typedef void		(*t_func_cmd)(t_msh *msh, char **args);
+typedef void		(*t_func_cmd)(t_minishel *msh, char **args);
 static const		t_func_cmd	g_cmd_func[MSH_CMD_SIZE] =
 {
 	msh_cd, msh_echo, msh_env, msh_setenv,

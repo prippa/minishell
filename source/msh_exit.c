@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void		msh_error_exit(t_msh *msh, const char *message)
+void		msh_error_exit(t_minishel *msh, const char *message)
 {
 	ft_dprintf(2, MSH_ERR, message);
 	msh_free(msh);
@@ -20,7 +20,7 @@ void		msh_error_exit(t_msh *msh, const char *message)
 	exit(-1);
 }
 
-void		msh_exit(t_msh *msh, char **args)
+void		msh_exit(t_minishel *msh, char **args)
 {
 	(void)args;
 	msh_free(msh);

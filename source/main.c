@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void		msh_update_curent_dir_name(t_msh *msh)
+void		msh_update_curent_dir_name(t_minishel *msh)
 {
 	char *path;
 
@@ -20,7 +20,7 @@ void		msh_update_curent_dir_name(t_msh *msh)
 		ft_strcpy(msh->curent_path, path);
 }
 
-static void	msh_update_prompt(t_msh *msh)
+static void	msh_update_prompt(t_minishel *msh)
 {
 	ft_strcpy(msh->prompt, (msh->execute_flag ? MSH_OK_ICON : MSH_ERROR_ICON));
 	ft_strcat(msh->prompt, " (");
@@ -28,7 +28,7 @@ static void	msh_update_prompt(t_msh *msh)
 	ft_strcat(msh->prompt, ") $> ");
 }
 
-static void	msh_loop(t_msh *msh)
+static void	msh_loop(t_minishel *msh)
 {
 	msh_update_curent_dir_name(msh);
 	msh_update_prompt(msh);
@@ -45,18 +45,18 @@ static void	msh_loop(t_msh *msh)
 	}
 }
 
-static void	msh_init(t_msh *msh)
+static void	msh_init(t_minishel *msh)
 {
 	extern char	**environ;
 
-	ft_bzero(msh, sizeof(t_msh));
+	ft_bzero(msh, sizeof(t_minishel));
 	msh_setenv(msh, environ);
 	msh->execute_flag = true;
 }
 
 int			main(void)
 {
-	t_msh	msh;
+	t_minishel	msh;
 
 	msh_init(&msh);
 	msh_loop(&msh);

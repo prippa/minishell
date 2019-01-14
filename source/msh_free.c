@@ -27,7 +27,7 @@ void		msh_del_env_list(void *content, size_t content_size)
 	free(content);
 }
 
-void		msh_free(t_msh *msh)
+void		msh_free(t_minishel *msh)
 {
 	ft_lst2del(&msh->env_start, &msh->env_end, msh_del_env_list);
 	ft_strdel(&msh->line);

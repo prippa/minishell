@@ -12,17 +12,15 @@
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2,
+			size_t s1len, size_t s2len)
 {
 	char	*new_obj;
-	size_t	s2len;
 
-	if (!s1 || !s2)
-		return (NULL);
-	s2len = ft_strlen(s2);
-	if (!(new_obj = (char *)malloc(sizeof(char) * (ft_strlen(s1) + s2len + 1))))
+	if (!(new_obj = (char *)malloc(sizeof(char) * (s1len + s2len + 1))))
 		return (NULL);
 	ft_strcpy(new_obj, s1);
-	ft_strcpy(new_obj + s2len, s2);
+	ft_strncpy(new_obj + s1len, s2, s2len);
+	*(new_obj + s1len + s2len) = 0;
 	return (new_obj);
 }

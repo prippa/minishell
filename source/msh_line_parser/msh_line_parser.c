@@ -12,7 +12,7 @@
 
 #include "line_parser.h"
 
-static void	msh_line_parser_loop(t_msh *msh, t_line_parser *prs)
+static void	msh_lp_loop(t_minishel *msh, t_line_parser *lp)
 {
 	const char *line;
 
@@ -23,14 +23,20 @@ static void	msh_line_parser_loop(t_msh *msh, t_line_parser *prs)
 	}
 }
 
-void		msh_line_parser(t_msh *msh)
+static void	msh_lp_init(t_minishel *msh, t_line_parser *lp)
 {
-	t_line_parser prs;
-
-	ft_bzero(&prs, sizeof(t_line_parser));
-	if (!(prs.arg = ft_strdup("")))
+	ft_bzero(lp, sizeof(t_line_parser));
+	if (!(lp->arg = ft_strdup("")))
 		msh_error_exit(msh, MALLOC_ERR);
-	msh_line_parser_loop(msh, &prs);
+}
+
+void		msh_line_parser(t_minishel *msh)
+{
+	t_line_parser lp;
+
+	msh_lp_init(msh, &lp);
+	msh_lp_loop(msh, &lp);
+	msh_lp_free(msh, &lp);
 	// char	**arr;
 	// size_t	i;
 	// t_list2	*start;

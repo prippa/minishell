@@ -28,4 +28,13 @@ typedef struct		s_line_parser
 	size_t			arg_len;
 }					t_line_parser;
 
+void				msh_lp_error_exit(t_minishel *msh, t_line_parser *lp,
+						const char *message);
+void				msh_lp_free(t_line_parser *lp);
+
+void				msh_write_to_arg_buf_str(t_minishel *msh, t_line_parser *lp,
+						const char *s, size_t len);
+void				msh_write_to_arg_buf_char(t_minishel *msh, t_line_parser *lp,
+						char c);
+
 #endif

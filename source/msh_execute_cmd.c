@@ -12,7 +12,7 @@
 
 #include "commands.h"
 
-void		msh_execute_command(t_msh *msh)
+void		msh_execute_command(t_minishel *msh)
 {
 	// msh_line_parser(msh);
 	char		**args;

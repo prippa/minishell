@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	msh_unsetenv_one_value(t_msh *msh, const char *value)
+void	msh_unsetenv_one_value(t_minishel *msh, const char *value)
 {
 	t_list2		*t;
 
@@ -26,7 +26,7 @@ void	msh_unsetenv_one_value(t_msh *msh, const char *value)
 	--msh->env_size;
 }
 
-void	msh_unsetenv(t_msh *msh, char **args)
+void	msh_unsetenv(t_minishel *msh, char **args)
 {
 	if (!*args)
 	{

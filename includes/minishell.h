@@ -32,7 +32,7 @@ typedef struct		s_env
 	uint32_t		index;
 }					t_env;
 
-typedef struct		s_msh
+typedef struct		s_minishel
 {
 	char			prompt[PROMPT_SIZE];
 	char			curent_path[PATH_MAX + 1];
@@ -42,28 +42,28 @@ typedef struct		s_msh
 	char			*line;
 	t_list			*commands;
 	t_bool			execute_flag;
-}					t_msh;
+}					t_minishel;
 
-void				msh_free(t_msh *msh);
+void				msh_free(t_minishel *msh);
 void				msh_del_env_list(void *content, size_t content_size);
 void				msh_del_env_body(t_env *e);
-void				msh_error_exit(t_msh *msh, const char *message);
-void				msh_execute_command(t_msh *msh);
-void				msh_print_error(t_msh *msh, const char *message);
+void				msh_error_exit(t_minishel *msh, const char *message);
+void				msh_execute_command(t_minishel *msh);
+void				msh_print_error(t_minishel *msh, const char *message);
 char				*msh_env_get_arg_by_name(t_list2 *start,
 						const char *value, size_t len);
 t_list2				*msh_env_get_obj_by_name(t_list2 *start,
 						const char *value, size_t len);
-void				msh_setenv_one_value(t_msh *msh, const char *value);
-void				msh_unsetenv_one_value(t_msh *msh, const char *value);
+void				msh_setenv_one_value(t_minishel *msh, const char *value);
+void				msh_unsetenv_one_value(t_minishel *msh, const char *value);
 
-void				msh_line_parser(t_msh *msh);
+void				msh_line_parser(t_minishel *msh);
 
-void				msh_cd(t_msh *msh, char **args);
-void				msh_echo(t_msh *msh, char **args);
-void				msh_env(t_msh *msh, char **args);
-void				msh_setenv(t_msh *msh, char **args);
-void				msh_unsetenv(t_msh *msh, char **args);
-void				msh_exit(t_msh *msh, char **args);
+void				msh_cd(t_minishel *msh, char **args);
+void				msh_echo(t_minishel *msh, char **args);
+void				msh_env(t_minishel *msh, char **args);
+void				msh_setenv(t_minishel *msh, char **args);
+void				msh_unsetenv(t_minishel *msh, char **args);
+void				msh_exit(t_minishel *msh, char **args);
 
 #endif

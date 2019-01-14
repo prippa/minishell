@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void		msh_print_error(t_msh *msh, const char *message)
+void		msh_print_error(t_minishel *msh, const char *message)
 {
 	ft_putstr_fd(message, 2);
 	msh->execute_flag = false;
