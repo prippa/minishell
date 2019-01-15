@@ -12,6 +12,34 @@
 
 #include "line_parser.h"
 
+static void	msh_lp_build_command(t_minishel *msh, t_line_parser *lp,
+				t_command *cmd)
+{
+	t_list		*args;
+	uint32_t	i;
+
+	if (!(cmd->args = (char **)ft_memalloc(sizeof(char *) * lp->args_size + 1)))
+		msh_lp_error_exit(msh, lp, MALLOC_ERR);
+	args = lp->args;
+	i = -1;
+	while (args)
+	{
+		cmd->args[++i] = (char *)args->content;
+		args = args->next;
+	}
+}
+
+static void	msh_lp_push_command(t_minishel *msh, t_line_parser *lp)
+{
+	t_command	cmd;
+	t_list		*l;
+
+	msh_lp_build_command(msh, lp, &cmd);
+	if (!(l = ft_lstnew(&cmd, 0)))
+		msh_lp_error_exit(msh, lp, MALLOC_ERR);
+	ft_lstadd(&msh->commands, l);
+}
+
 static void	msh_lp_loop(t_minishel *msh, t_line_parser *lp)
 {
 	const char *line;

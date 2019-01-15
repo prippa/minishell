@@ -19,7 +19,6 @@
 
 typedef struct		s_line_parser
 {
-	t_command		cmd;
 	t_list			*args;
 	size_t			args_size;
 	char			arg_buf[ARG_BUF_SIZE + 1];

@@ -49,3 +49,9 @@ void	ft_lst2del_by_obj(t_list2 **start, t_list2 **end,
 	}
 	ft_lstdelone((t_list **)(&obj), del);
 }
+
+void	ft_lstdel_content(void *content, size_t content_size)
+{
+	(void)content_size;
+	free(content);
+}

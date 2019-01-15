@@ -145,6 +145,8 @@ void				ft_lst2_pop_back(t_list2 **start, t_list2 **end,
 						void (*del)(void *, size_t));
 void				ft_lst2rev(t_list2 **start, t_list2 **end);
 
+void				ft_lstdel_content(void *content, size_t content_size);
+
 int32_t				ft_isspace(int32_t c);
 int32_t				ft_isupper(int32_t c);
 int32_t				ft_islower(int32_t c);
