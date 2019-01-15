@@ -19,7 +19,7 @@ char	*ft_strjoin(char const *s1, char const *s2,
 
 	if (!(new_obj = (char *)malloc(sizeof(char) * (s1len + s2len + 1))))
 		return (NULL);
-	ft_strcpy(new_obj, s1);
+	ft_strncpy(new_obj, s1, s1len);
 	ft_strncpy(new_obj + s1len, s2, s2len);
 	*(new_obj + s1len + s2len) = 0;
 	return (new_obj);

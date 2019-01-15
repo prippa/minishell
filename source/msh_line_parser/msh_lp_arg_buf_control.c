@@ -21,13 +21,13 @@ static void	msh_double_join(t_minishel *msh, t_line_parser *lp,
 	{
 		if (!(buf_plus_s = (char *)ft_strjoin(lp->arg_buf, s,
 			lp->arg_buf_len, len)))
-				msh_error_exit(msh, MALLOC_ERR);
+				msh_lp_error_exit(msh, lp, MALLOC_ERR);
 	}
 	else if (!(buf_plus_s = ft_strsub(s, 0, len)))
-		msh_error_exit(msh, MALLOC_ERR);
+		msh_lp_error_exit(msh, lp, MALLOC_ERR);
 	if (!ft_strjoin_free(&lp->arg, buf_plus_s,
 		lp->arg_len, lp->arg_buf_len + len))
-			msh_error_exit(msh, MALLOC_ERR);
+			msh_lp_error_exit(msh, lp, MALLOC_ERR);
 	ft_strdel(&buf_plus_s);
 	lp->arg_len += lp->arg_buf_len + len;
 	lp->arg_buf_len = 0;
@@ -39,7 +39,7 @@ static void	msh_join_cpy(t_minishel *msh, t_line_parser *lp,
 {
 	if (!ft_strjoin_free(&lp->arg, lp->arg_buf,
 		lp->arg_len, lp->arg_buf_len))
-			msh_error_exit(msh, MALLOC_ERR);
+			msh_lp_error_exit(msh, lp, MALLOC_ERR);
 	lp->arg_len += lp->arg_buf_len;
 	ft_strncpy(lp->arg_buf, s, len);
 	lp->arg_buf_len = len;

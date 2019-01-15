@@ -20,7 +20,7 @@ char	*ft_strjoin_free(char **dst, const char *src,
 	tmp = *dst;
 	if (!(*dst = (char *)malloc(sizeof(char) * (dstsize + srcsize + 1))))
 		return (NULL);
-	ft_strcpy(*dst, tmp);
+	ft_strncpy(*dst, tmp, dstsize);
 	ft_strncpy(*dst + dstsize, src, srcsize);
 	*(*dst + dstsize + srcsize) = 0;
 	free(tmp);

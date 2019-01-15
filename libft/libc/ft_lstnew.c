@@ -27,7 +27,7 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 			ft_memcpy(data, content, content_size);
 		}
 		else
-			data = content;
+			data = (void *)content;
 	}
 	else
 		content_size = 0;
@@ -54,7 +54,7 @@ t_list2	*ft_lst2new(void const *content, size_t content_size)
 			ft_memcpy(data, content, content_size);
 		}
 		else
-			data = content;
+			data = (void *)content;
 	}
 	else
 		content_size = 0;

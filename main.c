@@ -22,13 +22,17 @@ int main(int argc, char const *argv[])
 	char *str2 = ft_strdup("String two");
 	char *str3 = ft_strdup("1234");
 
-	ft_lstadd(&lst, ft_lstnew(NULL, 0));
-	lst->content = str1;
-	ft_lstadd(&lst, ft_lstnew(NULL, 0));
-	lst->content = str2;
-	ft_lstadd(&lst, ft_lstnew(NULL, 0));
-	lst->content = str3;
+	ft_lstadd(&lst, ft_lstnew(str1, 0));
+	ft_lstadd(&lst, ft_lstnew(str2, 0));
+	ft_lstadd(&lst, ft_lstnew(str3, 0));
 	ft_lstiter(lst, print_list);
+	ft_lstdel(&lst, NULL);
+	ft_lstadd(&lst, ft_lstnew(str3, 0));
+	ft_lstadd(&lst, ft_lstnew(str2, 0));
+	ft_lstadd(&lst, ft_lstnew(str1, 0));
+	ft_lstiter(lst, print_list);
+	ft_lstdel(&lst, NULL);
+	system("leaks -q a.out");
 	return 0;
 }
 

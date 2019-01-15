@@ -36,7 +36,7 @@ void		msh_line_parser(t_minishel *msh)
 
 	msh_lp_init(msh, &lp);
 	msh_lp_loop(msh, &lp);
-	msh_lp_free(msh, &lp);
+	msh_lp_free(&lp);
 	// char	**arr;
 	// size_t	i;
 	// t_list2	*start;
