@@ -19,16 +19,11 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <fcntl.h>
 # include <stdint.h>
-# include <stdio.h>
-# include "ft_printf.h"
 
 /*
 ************************************ Defines ***********************************
 */
-
-# define BUFF_SIZE 80
 
 # define MALLOC_ERR		"malloc failed"
 # define OPEN_ERR		"open failed"
@@ -48,14 +43,6 @@ enum			{ false, true };
 /*
 ************************************ Data **************************************
 */
-
-typedef	struct		s_gnl
-{
-	char			*s;
-	size_t			i;
-	int				fd;
-	struct s_gnl	*next;
-}					t_gnl;
 
 typedef	struct		s_list
 {
@@ -166,7 +153,6 @@ int					ft_str_is_upper(const char *str);
 int					ft_str_is_lower(const char *str);
 void				ft_str_to_lower(char **str);
 void				ft_str_to_upper(char **str);
-int					get_next_line(const int fd, char **line);
 char				*ft_itoa_base(unsigned long long int num,
 						int base, int letter);
 char				**ft_arrnew(size_t y, size_t x, int c);

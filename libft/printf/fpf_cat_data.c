@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
 void	fpf_cat_char_len(t_printf *fpf, int n, char c)
 {

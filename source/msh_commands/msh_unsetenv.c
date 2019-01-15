@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "ft_printf.h"
 
 void	msh_unsetenv_one_value(t_minishel *msh, const char *value)
 {

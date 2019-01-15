@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdlib.h>
 
 static int		fpf_wcharlen(wchar_t wc)
 {

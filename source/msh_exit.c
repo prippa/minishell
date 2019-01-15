@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "ft_printf.h"
 
 void		msh_error_exit(t_minishel *msh, const char *message)
 {

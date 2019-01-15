@@ -13,9 +13,9 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "libft.h"
 # include <stdarg.h>
 # include <wchar.h>
+# include <stdint.h>
 
 # define FPF_BUF_SIZE 1024
 

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
 void		fpf_before_processing_data(t_printf *fpf)
 {

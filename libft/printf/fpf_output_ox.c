@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
 static void		fpf_percision_tricks(t_printf *fpf, int *len)
 {

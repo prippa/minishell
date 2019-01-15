@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
 static void		fpf_print_d(t_printf *fpf, int len, int len2)
 {

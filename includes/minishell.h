@@ -15,8 +15,6 @@
 
 # include "libft.h"
 # include "messages.h"
-# include <readline/readline.h>
-# include <readline/history.h>
 
 # define PATH_MAX		4096
 # define PROMPT_SIZE	PATH_MAX + 256
@@ -29,7 +27,7 @@ typedef struct		s_command
 typedef struct		s_env
 {
 	char			*value;
-	uint32_t		index;
+	size_t			index;
 }					t_env;
 
 typedef struct		s_minishel

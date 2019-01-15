@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "get_next_line.h"
 
 static int		gnl_sub_line(t_gnl *file, char **line)
 {

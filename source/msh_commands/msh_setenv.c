@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "ft_printf.h"
 
 static void		msh_edit_or_set_new_env(t_minishel *msh, const char *value)
 {

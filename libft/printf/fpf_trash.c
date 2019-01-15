@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 void	fpf_init_random_char(t_printf *fpf)
 {
