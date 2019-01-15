@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
+char	*ft_strsub(char const *s, uint32_t start, size_t len)
 {
 	char	*new_obj;
 

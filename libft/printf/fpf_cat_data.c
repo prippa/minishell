@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-void	fpf_cat_char_len(t_printf *fpf, int n, char c)
+void	fpf_cat_char_len(t_printf *fpf, int32_t n, char c)
 {
 	if (n < 1)
 		return ;
@@ -32,7 +32,7 @@ void	fpf_cat_char(t_printf *fpf, char c)
 	++fpf->buflen;
 }
 
-void	fpf_cat_str_len(t_printf *fpf, const char *src, int n)
+void	fpf_cat_str_len(t_printf *fpf, const char *src, int32_t n)
 {
 	if (n > FPF_BUF_SIZE)
 	{
@@ -52,7 +52,7 @@ void	fpf_cat_str_len(t_printf *fpf, const char *src, int n)
 
 void	fpf_cat_str(t_printf *fpf, const char *src)
 {
-	int srclen;
+	int32_t srclen;
 
 	srclen = ft_strlen(src);
 	if (srclen > FPF_BUF_SIZE)

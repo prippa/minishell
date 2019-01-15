@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	**ft_arrnew(size_t y, size_t x, int c)
+char	**ft_arrnew(size_t y, size_t x, int32_t c)
 {
 	char **arr;
 	char ch;

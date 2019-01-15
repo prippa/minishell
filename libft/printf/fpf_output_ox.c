@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static void		fpf_percision_tricks(t_printf *fpf, int *len)
+static void		fpf_percision_tricks(t_printf *fpf, int32_t *len)
 {
 	if (fpf->f[F_DOT] && !fpf->precision && fpf->str[0] == '0'
 		&& !fpf->f[F_SHARP])
@@ -26,7 +26,7 @@ static void		fpf_percision_tricks(t_printf *fpf, int *len)
 		fpf->f[F_SHARP] = 0;
 }
 
-static int		fpf_write_sharp(t_printf *fpf)
+static int32_t		fpf_write_sharp(t_printf *fpf)
 {
 	if (fpf->type == 'x')
 	{
@@ -46,7 +46,7 @@ static int		fpf_write_sharp(t_printf *fpf)
 	return (0);
 }
 
-static void		fpf_base_ox_logic(t_printf *fpf, int len)
+static void		fpf_base_ox_logic(t_printf *fpf, int32_t len)
 {
 	if (fpf->width && fpf->f[F_SHARP] && fpf->type != 'o'
 		&& fpf->type != 'O')
@@ -75,8 +75,8 @@ static void		fpf_base_ox_logic(t_printf *fpf, int len)
 
 void			fpf_output_ox(t_printf *fpf)
 {
-	int	len;
-	int	size;
+	int32_t	len;
+	int32_t	size;
 
 	len = ft_strlen(fpf->str);
 	fpf_percision_tricks(fpf, &len);

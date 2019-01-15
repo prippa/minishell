@@ -13,9 +13,9 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static void		fpf_base_p_logic(t_printf *fpf, int len)
+static void		fpf_base_p_logic(t_printf *fpf, int32_t len)
 {
-	int	flag;
+	int32_t	flag;
 
 	fpf->width -= 2;
 	flag = 1;
@@ -39,7 +39,7 @@ static void		fpf_base_p_logic(t_printf *fpf, int len)
 
 void			fpf_output_p(t_printf *fpf)
 {
-	int	len;
+	int32_t	len;
 
 	len = ft_strlen(fpf->str);
 	if (fpf->f[F_DOT] && !fpf->precision && fpf->str[0] == '0')

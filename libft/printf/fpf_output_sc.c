@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static void	fpf_rules(t_printf *fpf, int len)
+static void	fpf_rules(t_printf *fpf, int32_t len)
 {
 	if (fpf->f[F_MINUS])
 	{
@@ -36,7 +36,7 @@ static void	fpf_rules(t_printf *fpf, int len)
 
 void		fpf_output_s(t_printf *fpf)
 {
-	int	len;
+	int32_t	len;
 
 	len = ft_strlen(fpf->str);
 	if (fpf->precision < 0)
@@ -58,7 +58,7 @@ void		fpf_output_s(t_printf *fpf)
 
 void		fpf_output_c(t_printf *fpf)
 {
-	int len;
+	int32_t len;
 
 	if (!(len = ft_strlen(fpf->str)))
 		++len;

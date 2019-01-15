@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static void		fpf_print_d(t_printf *fpf, int len, int len2)
+static void		fpf_print_d(t_printf *fpf, int32_t len, int32_t len2)
 {
 	if (len < len2)
 		fpf_cat_str(fpf, fpf->str + 1);
@@ -21,7 +21,7 @@ static void		fpf_print_d(t_printf *fpf, int len, int len2)
 		fpf_cat_str(fpf, fpf->str);
 }
 
-static void		fpf_print_if_psm(t_printf *fpf, int *len, int *flag)
+static void		fpf_print_if_psm(t_printf *fpf, int32_t *len, int32_t *flag)
 {
 	if (*flag)
 	{
@@ -37,9 +37,9 @@ static void		fpf_print_if_psm(t_printf *fpf, int *len, int *flag)
 	}
 }
 
-static void		fpf_base_d_logic(t_printf *fpf, int len, int flag)
+static void		fpf_base_d_logic(t_printf *fpf, int32_t len, int32_t flag)
 {
-	int tmp;
+	int32_t tmp;
 
 	if (fpf->width)
 	{
@@ -65,9 +65,9 @@ static void		fpf_base_d_logic(t_printf *fpf, int len, int flag)
 	}
 }
 
-static void		fpf_logic_d_with_minus(t_printf *fpf, int len)
+static void		fpf_logic_d_with_minus(t_printf *fpf, int32_t len)
 {
-	int	size;
+	int32_t	size;
 
 	size = 0;
 	if (fpf->f[F_PLUS] && fpf->str[0] != '-' && (size += 1))
@@ -89,7 +89,7 @@ static void		fpf_logic_d_with_minus(t_printf *fpf, int len)
 
 void			fpf_output_d(t_printf *fpf)
 {
-	int	len;
+	int32_t	len;
 
 	len = ft_strlen(fpf->str);
 	if (fpf->precision < 0 && (fpf->precision = fpf->width))

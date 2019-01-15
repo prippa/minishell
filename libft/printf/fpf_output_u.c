@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static void	fpf_base_u_logic(t_printf *fpf, int len)
+static void	fpf_base_u_logic(t_printf *fpf, int32_t len)
 {
 	if (fpf->width)
 	{
@@ -29,7 +29,7 @@ static void	fpf_base_u_logic(t_printf *fpf, int len)
 
 void		fpf_output_u(t_printf *fpf)
 {
-	int	len;
+	int32_t	len;
 
 	len = ft_strlen(fpf->str);
 	if (fpf->f[F_DOT] && !fpf->precision && fpf->str[0] == '0')

@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include <stdlib.h>
 
-static int		fpf_wcharlen(wchar_t wc)
+static int32_t	fpf_wcharlen(wchar_t wc)
 {
 	if (wc <= 0x7f)
 		return (1);
@@ -46,9 +46,9 @@ static size_t	fpf_wbytelen(wchar_t *ws)
 	return (byte_len);
 }
 
-static int		fpf_pull_wchar(wchar_t wc, char *new_obj, int i)
+static int32_t	fpf_pull_wchar(wchar_t wc, char *new_obj, int32_t i)
 {
-	int		size;
+	int32_t		size;
 
 	size = fpf_wcharlen(wc);
 	if (size == 1)
@@ -77,7 +77,7 @@ static int		fpf_pull_wchar(wchar_t wc, char *new_obj, int i)
 char			*fpf_wstr_to_str(wchar_t *ws)
 {
 	char	*new_obj;
-	int		len;
+	int32_t		len;
 
 	len = fpf_wbytelen(ws);
 	if (!(new_obj = (char *)malloc(sizeof(char) * len + 1)))
