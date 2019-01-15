@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_str_is_lower(const char *str)
+int32_t	ft_str_is_lower(const char *str)
 {
 	while (*str)
 	{

@@ -11,16 +11,17 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdint.h>
 
 void	*ft_memrev(void *dst, size_t n)
 {
-	unsigned char	tmp;
-	unsigned char	*ptr;
-	size_t			i;
+	uint8_t	tmp;
+	uint8_t	*ptr;
+	size_t	i;
 
 	if (!n)
 		return (dst);
-	ptr = (unsigned char *)dst;
+	ptr = (uint8_t *)dst;
 	i = -1;
 	while (--n > ++i)
 	{

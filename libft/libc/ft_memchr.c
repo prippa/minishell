@@ -11,14 +11,15 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdint.h>
 
-void	*ft_memchr(const void *s, int c, size_t n)
+void	*ft_memchr(const void *s, int32_t c, size_t n)
 {
-	unsigned char	*ptr;
-	unsigned char	ch;
+	uint8_t	*ptr;
+	uint8_t	ch;
 
-	ptr = (unsigned char *)s;
-	ch = (unsigned char)c;
+	ptr = (uint8_t *)s;
+	ch = (uint8_t)c;
 	while (n--)
 		if (*ptr++ == ch)
 			return (ptr - 1);

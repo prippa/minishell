@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_putarr_fd(char **arr, int fd)
+void	ft_putarr_fd(char **arr, int32_t fd)
 {
 	while (*arr)
 		ft_putendl_fd(*arr++, fd);

@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-short	ft_nbrlen(long long int nb)
+#include <stdint.h>
+
+uint16_t	ft_nbrlen(intmax_t nb)
 {
-	short i;
+	uint16_t i;
 
 	i = 1;
 	while ((nb /= 10))

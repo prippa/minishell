@@ -12,10 +12,10 @@
 
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+char	*ft_strmapi(char const *s, char (*f)(uint32_t, char))
 {
-	unsigned int	i;
-	char			*new_obj;
+	uint32_t	i;
+	char		*new_obj;
 
 	if (!s || !f)
 		return (NULL);

@@ -13,16 +13,16 @@
 #include "libft.h"
 #include "get_next_line.h"
 
-static int		gnl_sub_line(t_gnl *file, char **line)
+static int32_t	gnl_sub_line(t_gnl *file, char **line)
 {
-	unsigned int start;
+	uint32_t start;
 
 	if (!file->s[file->i])
 	{
 		ft_strdel(&file->s);
 		return (0);
 	}
-	start = (unsigned int)file->i;
+	start = (uint32_t)file->i;
 	while (file->s[file->i] && file->s[file->i] != '\n')
 		++file->i;
 	if (!(*line = ft_strsub(file->s, start, file->i - start)))
@@ -32,7 +32,7 @@ static int		gnl_sub_line(t_gnl *file, char **line)
 	return (1);
 }
 
-static int		gnl_remainder(t_gnl *file)
+static int32_t	gnl_remainder(t_gnl *file)
 {
 	char *tmp;
 
@@ -50,7 +50,7 @@ static int		gnl_remainder(t_gnl *file)
 	return (1);
 }
 
-static int		gnl_read_file(t_gnl *file, char **line)
+static int32_t	gnl_read_file(t_gnl *file, char **line)
 {
 	ssize_t	ret;
 	char	buf[BUFF_SIZE + 1];
@@ -68,7 +68,7 @@ static int		gnl_read_file(t_gnl *file, char **line)
 	return (gnl_sub_line(file, line));
 }
 
-static t_gnl	*gnl_add_or_get_file(t_gnl **g, int fd)
+static t_gnl	*gnl_add_or_get_file(t_gnl **g, int32_t fd)
 {
 	t_gnl *file;
 
@@ -89,7 +89,7 @@ static t_gnl	*gnl_add_or_get_file(t_gnl **g, int fd)
 	return (file);
 }
 
-int				get_next_line(int const fd, char **line)
+int32_t			get_next_line(int32_t const fd, char **line)
 {
 	static t_gnl	*g;
 	t_gnl			*curent;

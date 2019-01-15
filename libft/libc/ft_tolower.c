@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_tolower(int c)
+#include <stdint.h>
+
+int32_t	ft_tolower(int32_t c)
 {
 	if (c >= 'A' && c <= 'Z')
 		return (c + 32);

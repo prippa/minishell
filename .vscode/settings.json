@@ -6,6 +6,9 @@
 		"unistd.h": "c",
 		"line_parser.h": "c",
 		"stdint.h": "c",
-		"cstdint": "c"
+		"cstdint": "c",
+		"get_next_line.h": "c",
+		"fcntl.h": "c",
+		"types.h": "c"
 	}
 }

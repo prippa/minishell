@@ -11,16 +11,17 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdint.h>
 
-void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+void	*ft_memccpy(void *dst, const void *src, int32_t c, size_t n)
 {
-	unsigned char	*ptr1;
-	unsigned char	*ptr2;
-	unsigned char	ch;
+	uint8_t	*ptr1;
+	uint8_t	*ptr2;
+	uint8_t	ch;
 
-	ptr1 = (unsigned char *)dst;
-	ptr2 = (unsigned char *)src;
-	ch = (unsigned char)c;
+	ptr1 = (uint8_t *)dst;
+	ptr2 = (uint8_t *)src;
+	ch = (uint8_t)c;
 	while (n--)
 		if ((*ptr1++ = *ptr2++) == ch)
 			return (ptr1);

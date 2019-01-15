@@ -12,19 +12,19 @@
 
 #include "libft.h"
 
-int				ft_atoi(const char *str)
+int32_t		ft_atoi(const char *str)
 {
-	char	sign;
-	int		res;
+	t_bool	sign;
+	int32_t	res;
 
-	sign = 0;
+	sign = false;
 	res = 0;
 	while (ft_isspace(*str))
 		++str;
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
-			sign = 1;
+			sign = true;
 		++str;
 	}
 	while (ft_isdigit(*str))
@@ -32,19 +32,19 @@ int				ft_atoi(const char *str)
 	return (sign ? -res : res);
 }
 
-long long int	ft_atoi_max(char *str)
+intmax_t	ft_atoi_max(char *str)
 {
-	char			sign;
-	long long int	res;
+	t_bool		sign;
+	intmax_t	res;
 
-	sign = 0;
+	sign = false;
 	res = 0;
 	while (ft_isspace(*str))
 		++str;
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
-			sign = 1;
+			sign = true;
 		++str;
 	}
 	while (ft_isdigit(*str))
@@ -52,7 +52,7 @@ long long int	ft_atoi_max(char *str)
 	return (sign ? -res : res);
 }
 
-int				ft_base(const char c)
+int32_t		ft_base(const char c)
 {
 	if (c >= '0' && c <= '9')
 		return (c - '0');
@@ -63,11 +63,11 @@ int				ft_base(const char c)
 	return (-1);
 }
 
-long long int	ft_atoi_base(const char *str, int base)
+intmax_t	ft_atoi_base(const char *str, int32_t base)
 {
-	char			sign;
-	long long int	res;
-	int				current;
+	char		sign;
+	intmax_t	res;
+	int32_t		current;
 
 	res = 0;
 	sign = 0;

@@ -10,10 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strcmp(const char *s1, const char *s2)
+#include <stdint.h>
+
+int32_t	ft_strcmp(const char *s1, const char *s2)
 {
 	while (*s1 || *s2)
 		if (*s1++ != *s2++)
-			return ((unsigned char)*(s1 - 1) - (unsigned char)*(s2 - 1));
+			return ((uint8_t)*(s1 - 1) - (uint8_t)*(s2 - 1));
 	return (0);
 }

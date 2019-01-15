@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_str_is_digit(const char *str)
+int32_t	ft_str_is_digit(const char *str)
 {
 	while (*str)
 		if (!ft_isdigit(*str++))

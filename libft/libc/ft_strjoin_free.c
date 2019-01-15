@@ -22,7 +22,7 @@ char	*ft_strjoin_free(char **dst, const char *src,
 		return (NULL);
 	ft_strncpy(*dst, tmp, dstsize);
 	ft_strncpy(*dst + dstsize, src, srcsize);
-	*(*dst + dstsize + srcsize) = 0;
+	(*dst)[dstsize + srcsize] = 0;
 	free(tmp);
 	return (*dst);
 }

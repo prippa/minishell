@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_islower(int c)
+# include <stdint.h>
+
+int32_t	ft_islower(int32_t c)
 {
 	if (c >= 'a' && c <= 'z')
 		return (1);

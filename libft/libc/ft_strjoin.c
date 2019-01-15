@@ -21,6 +21,6 @@ char	*ft_strjoin(char const *s1, char const *s2,
 		return (NULL);
 	ft_strncpy(new_obj, s1, s1len);
 	ft_strncpy(new_obj + s1len, s2, s2len);
-	*(new_obj + s1len + s2len) = 0;
+	new_obj[s1len + s2len] = 0;
 	return (new_obj);
 }

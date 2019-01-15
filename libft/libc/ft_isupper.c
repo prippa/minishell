@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isupper(int c)
+# include <stdint.h>
+
+int32_t	ft_isupper(int32_t c)
 {
 	if (c >= 'A' && c <= 'Z')
 		return (1);

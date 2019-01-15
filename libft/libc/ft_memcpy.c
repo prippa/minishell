@@ -11,14 +11,15 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdint.h>
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	unsigned char	*ptr1;
-	unsigned char	*ptr2;
+	uint8_t	*ptr1;
+	uint8_t	*ptr2;
 
-	ptr1 = (unsigned char *)dst;
-	ptr2 = (unsigned char *)src;
+	ptr1 = (uint8_t *)dst;
+	ptr2 = (uint8_t *)src;
 	while (n--)
 		ptr1[n] = ptr2[n];
 	return (dst);

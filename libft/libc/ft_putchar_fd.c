@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdint.h>
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(char c, int32_t fd)
 {
 	write(fd, &c, 1);
 }

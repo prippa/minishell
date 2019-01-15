@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_toupper(int c)
+#include <stdint.h>
+
+int32_t	ft_toupper(int32_t c)
 {
 	if (c >= 'a' && c <= 'z')
 		return (c - 32);

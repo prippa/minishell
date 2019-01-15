@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isprint(int c)
+# include <stdint.h>
+
+int32_t	ft_isprint(int32_t c)
 {
 	if (c >= 32 && c <= 126)
 		return (1);

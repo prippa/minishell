@@ -12,10 +12,10 @@
 
 #include "libft.h"
 
-char	*ft_itoa(int n)
+char	*ft_itoa(int32_t n)
 {
-	char	*new_obj;
-	short	size;
+	char		*new_obj;
+	uint16_t	size;
 
 	size = ft_nbrlen(n);
 	size += (n < 0 ? 1 : 0);
@@ -31,10 +31,10 @@ char	*ft_itoa(int n)
 	return (new_obj);
 }
 
-char	*ft_itoa_max(long long int n)
+char	*ft_itoa_max(intmax_t n)
 {
-	char	*new_obj;
-	short	size;
+	char		*new_obj;
+	uint16_t	size;
 
 	size = ft_nbrlen(n);
 	size += (n < 0 ? 1 : 0);
@@ -50,16 +50,16 @@ char	*ft_itoa_max(long long int n)
 	return (new_obj);
 }
 
-char	*ft_itoa_base(unsigned long long int num, int base, int letter)
+char	*ft_itoa_base(uintmax_t num, int32_t base, int32_t letter)
 {
-	int						i;
-	unsigned long long int	tmp;
-	unsigned long long int	op;
-	char					buf[65];
+	int32_t		i;
+	uintmax_t	tmp;
+	uintmax_t	op;
+	char		buf[65];
 
 	if (base < 2 && base > 16)
 		return (NULL);
-	buf[64] = '\0';
+	buf[64] = 0;
 	if (num == 0)
 		return (ft_strdup("0"));
 	tmp = num;

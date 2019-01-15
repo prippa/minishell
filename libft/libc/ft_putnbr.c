@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_putnbr(int n)
+void	ft_putnbr(int32_t n)
 {
 	if (n == INT32_MIN)
 	{

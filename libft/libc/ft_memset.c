@@ -11,14 +11,15 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdint.h>
 
-void	*ft_memset(void *b, int c, size_t len)
+void	*ft_memset(void *b, int32_t c, size_t len)
 {
-	unsigned char *ptr;
-	unsigned char ch;
+	uint8_t *ptr;
+	uint8_t ch;
 
-	ptr = (unsigned char *)b;
-	ch = (unsigned char)c;
+	ptr = (uint8_t *)b;
+	ch = (uint8_t)c;
 	while (len--)
 		ptr[len] = ch;
 	return (b);
