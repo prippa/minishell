@@ -16,6 +16,7 @@
 # include "minishell.h"
 
 # define ARG_BUF_SIZE	4096
+# define ARG_SEPARATOR ' '
 
 typedef struct		s_line_parser
 {

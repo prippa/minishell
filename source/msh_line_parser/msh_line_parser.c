@@ -47,7 +47,8 @@ static void	msh_lp_loop(t_minishel *msh, t_line_parser *lp)
 	line = msh->line;
 	while (*line)
 	{
-		
+		// if (*line++ != ARG_SEPARATOR)
+		// 	msh_lp_;
 	}
 }
 
