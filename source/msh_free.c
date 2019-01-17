@@ -14,7 +14,7 @@
 
 void		msh_del_env_body(t_env *e)
 {
-	ft_strdel(&e->value);
+	ft_strdel(&e->env);
 }
 
 void		msh_del_env_list(void *content, size_t content_size)

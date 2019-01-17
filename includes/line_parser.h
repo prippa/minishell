@@ -16,25 +16,36 @@
 # include "minishell.h"
 
 # define ARG_BUF_SIZE	4096
-# define ARG_SEPARATOR ' '
 
-typedef struct		s_line_parser
+typedef struct	s_lp_flags
 {
-	t_list			*args;
-	size_t			args_size;
-	char			arg_buf[ARG_BUF_SIZE + 1];
-	size_t			arg_buf_len;
-	char			*arg;
-	size_t			arg_len;
-}					t_line_parser;
+	char		prev_char;
+	char		prev_cmd;
+}				t_lp_flags;
 
-void				msh_lp_error_exit(t_minishel *msh, t_line_parser *lp,
-						const char *message);
-void				msh_lp_free(t_line_parser *lp);
+typedef struct	s_line_parser
+{
+	t_list		*args;
+	size_t		args_size;
+	char		arg_buf[ARG_BUF_SIZE + 1];
+	size_t		arg_buf_len;
+	char		*arg;
+	size_t		arg_len;
+	t_lp_flags	f;
+}				t_line_parser;
 
-void				msh_write_to_arg_buf_str(t_minishel *msh, t_line_parser *lp,
-						const char *s, size_t len);
-void				msh_write_to_arg_buf_char(t_minishel *msh, t_line_parser *lp,
-						char c);
+void			lp_error_exit(t_minishel *msh, t_line_parser *lp,
+					const char *message);
+void			lp_free(t_line_parser *lp);
+
+void			lp_join_to_arg(t_minishel *msh, t_line_parser *lp,
+					const char *src, size_t len);
+void			lp_write_to_arg_buf_str(t_minishel *msh, t_line_parser *lp,
+					const char *src, size_t len);
+void			lp_write_to_arg_buf_char(t_minishel *msh, t_line_parser *lp,
+					char c);
+
+void			lp_push_command(t_minishel *msh, t_line_parser *lp);
+void			lp_push_arg(t_minishel *msh, t_line_parser *lp);
 
 #endif

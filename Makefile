@@ -18,15 +18,16 @@ CC				=	gcc -g
 DIR_INC		=	./includes/
 DIR_SRC		=	./source/
 DIR_CMDS	=	$(DIR_SRC)msh_commands/
-DIR_MLP		=	$(DIR_SRC)msh_line_parser/
+DIR_LP		=	$(DIR_SRC)line_parser/
+DIR_LP_CMD	=	$(DIR_LP)lp_commands/
 DIR_OBJ		= 	./obj/
 DIR_LIB		=	./libft/
 DIR_LIB_INC	=	$(DIR_LIB)includes/
 LIBFT		=	$(DIR_LIB)libft.a
 
 #-------------------------- Header files ---------------------------------------
-HEAD_BASE		=	minishell.h messages.h commands.h
-HEAD_LINE_lp	=	line_parser.h
+HEAD_BASE		=	minishell.h msh_commands.h
+HEAD_LINE_PRS	=	line_parser.h lp_commands.h
 
 #-------------------------- Source files ---------------------------------------
 C_MSH		= 	main.c msh_exit.c msh_free.c msh_execute_cmd.c\
@@ -34,15 +35,18 @@ C_MSH		= 	main.c msh_exit.c msh_free.c msh_execute_cmd.c\
 
 C_CMDS		=	msh_cd.c msh_echo.c msh_env.c msh_setenv.c msh_unsetenv.c
 
-C_MLP		=	msh_line_parser.c msh_lp_arg_buf_control.c msh_lp_free.c\
-				msh_lp_utility.c
+C_LP		=	line_parser.c lp_arg_buf_control.c lp_free.c lp_utility.c\
+				lp_push_to_list.c
+
+C_LP_CMD	=	lp_dollar.c lp_backslash.c lp_single_quotes.c lp_double_quotes.c\
+				lp_space.c lp_semicolon.c
 
 OBJ 		= 	$(addprefix $(DIR_OBJ), $(C_MSH:.c=.o) $(C_CMDS:.c=.o) \
-				$(C_MLP:.c=.o))
+				$(C_LP:.c=.o) $(C_LP_CMD:.c=.o))
 
 INC 			= 	$(addprefix -I, $(DIR_INC) $(DIR_LIB_INC))
 INC_BASE 		= 	$(addprefix $(DIR_INC), $(HEAD_BASE))
-INC_LINE_lp	= 	$(addprefix $(DIR_INC), $(HEAD_BASE) $(HEAD_LINE_lp))
+INC_LINE_PRS	= 	$(addprefix $(DIR_INC), $(HEAD_BASE) $(HEAD_LINE_PRS))
 
 
 all: lib $(NAME)
@@ -68,8 +72,14 @@ $(DIR_OBJ)%.o: $(DIR_CMDS)%.c $(INC_BASE)
 	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
 	@echo "Linking" [ $< ]
 
-#msh_line_parser
-$(DIR_OBJ)%.o: $(DIR_MLP)%.c $(INC_LINE_lp)
+#line_parser
+$(DIR_OBJ)%.o: $(DIR_LP)%.c $(INC_LINE_PRS)
+	@mkdir -p $(DIR_OBJ)
+	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
+	@echo "Linking" [ $< ]
+
+#lp_commands
+$(DIR_OBJ)%.o: $(DIR_LP_CMD)%.c $(INC_LINE_PRS)
 	@mkdir -p $(DIR_OBJ)
 	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
 	@echo "Linking" [ $< ]

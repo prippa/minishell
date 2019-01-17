@@ -14,7 +14,7 @@
 
 static void	msh_print_env_elem(t_list2 *elem)
 {
-	ft_putendl(((t_env *)elem->content)->value);
+	ft_putendl(((t_env *)elem->content)->env);
 }
 
 void		msh_env(t_minishel *msh, char **args)

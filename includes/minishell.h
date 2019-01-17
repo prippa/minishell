@@ -14,10 +14,10 @@
 # define MINISHELL_H
 
 # include "libft.h"
-# include "messages.h"
 
-# define PATH_MAX		4096
-# define PROMPT_SIZE	PATH_MAX + 256
+# define PATH_MAX				4096
+# define PROMPT_SIZE			PATH_MAX + 256
+# define KEY_VALUE_SEPARATOR	'='
 
 typedef struct		s_command
 {
@@ -26,7 +26,7 @@ typedef struct		s_command
 
 typedef struct		s_env
 {
-	char			*value;
+	char			*env;
 	size_t			index;
 }					t_env;
 
@@ -38,6 +38,7 @@ typedef struct		s_minishel
 	t_list2			*env_end;
 	size_t			env_size;
 	char			*line;
+	size_t			i;
 	t_list			*commands;
 	t_bool			execute_flag;
 }					t_minishel;
@@ -49,11 +50,11 @@ void				msh_error_exit(t_minishel *msh, const char *message);
 void				msh_execute_command(t_minishel *msh);
 void				msh_print_error(t_minishel *msh, const char *message);
 char				*msh_env_get_arg_by_name(t_list2 *start,
-						const char *value, size_t len);
+						const char *env, size_t len);
 t_list2				*msh_env_get_obj_by_name(t_list2 *start,
-						const char *value, size_t len);
-void				msh_setenv_one_value(t_minishel *msh, const char *value);
-void				msh_unsetenv_one_value(t_minishel *msh, const char *value);
+						const char *env, size_t len);
+void				msh_setenv_one_env(t_minishel *msh, const char *env);
+void				msh_unsetenv_one_env(t_minishel *msh, const char *env);
 
 void				msh_line_parser(t_minishel *msh);
 

@@ -10,19 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commands.h"
+#include "msh_commands.h"
 
 void		msh_execute_command(t_minishel *msh)
 {
-	// msh_line_parser(msh);
-	char		**args;
-	uint32_t	i;
+	msh_line_parser(msh);
+	// char		**args;
+	// uint32_t	i;
 
-	if (!(args = ft_strsplit(msh->line, ' ')))
-		msh_error_exit(msh, MALLOC_ERR);
-	i = -1;
-	while (++i < MSH_CMD_SIZE)
-		if (!ft_strcmp(args[0], g_cmd_string[i]))
-			g_cmd_func[i](msh, &args[1]);
-	ft_arrdel(&args);
+	// if (!(args = ft_strsplit(msh->line, ' ')))
+	// 	msh_error_exit(msh, MALLOC_ERR);
+	// i = -1;
+	// while (++i < MSH_CMD_SIZE)
+	// 	if (!ft_strcmp(args[0], g_cmd_string[i]))
+	// 		g_cmd_func[i](msh, &args[1]);
+	// ft_arrdel(&args);
 }

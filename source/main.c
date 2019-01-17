@@ -14,6 +14,9 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#define MSH_OK_ICON		"✓"
+#define MSH_ERROR_ICON	"✕"
+
 void		msh_update_curent_dir_name(t_minishel *msh)
 {
 	char *path;

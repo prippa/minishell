@@ -13,6 +13,8 @@
 #include "minishell.h"
 #include "ft_printf.h"
 
+#define MSH_ERR	"ERROR: minishell : %s\n"
+
 void		msh_error_exit(t_minishel *msh, const char *message)
 {
 	ft_dprintf(2, MSH_ERR, message);

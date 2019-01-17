@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_line_parser.c                                  :+:      :+:    :+:   */
+/*   line_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,62 +10,55 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line_parser.h"
+#include "lp_commands.h"
 
-static void	msh_lp_build_command(t_minishel *msh, t_line_parser *lp,
-				t_command *cmd)
+static void	lp_loop(t_minishel *msh, t_line_parser *lp)
 {
-	t_list		*args;
-	uint32_t	i;
+	size_t i;
 
-	if (!(cmd->args = (char **)ft_memalloc(sizeof(char *) * lp->args_size + 1)))
-		msh_lp_error_exit(msh, lp, MALLOC_ERR);
-	args = lp->args;
-	i = -1;
-	while (args)
+	msh->i = -1;
+	while (msh->line[++msh->i])
 	{
-		cmd->args[++i] = (char *)args->content;
-		args = args->next;
+		i = -1;
+		while (++i < LP_BASE_SIZE)
+			if (msh->line[msh->i] == g_base_cs[i])
+				g_base_fs[i](msh, lp);
+		if (i == LP_BASE_SIZE)
+		{
+			lp_write_to_arg_buf_char(msh, lp, msh->line[msh->i]);
+			lp->f.prev_cmd = BASE_C;
+		}
+		lp->f.prev_char = msh->line[msh->i];
 	}
+	lp_push_command(msh, lp);
 }
 
-static void	msh_lp_push_command(t_minishel *msh, t_line_parser *lp)
-{
-	t_command	cmd;
-	t_list		*l;
-
-	msh_lp_build_command(msh, lp, &cmd);
-	if (!(l = ft_lstnew(&cmd, 0)))
-		msh_lp_error_exit(msh, lp, MALLOC_ERR);
-	ft_lstadd(&msh->commands, l);
-}
-
-static void	msh_lp_loop(t_minishel *msh, t_line_parser *lp)
-{
-	const char *line;
-
-	line = msh->line;
-	while (*line)
-	{
-		// if (*line++ != ARG_SEPARATOR)
-		// 	msh_lp_;
-	}
-}
-
-static void	msh_lp_init(t_minishel *msh, t_line_parser *lp)
+static void	lp_init(t_minishel *msh, t_line_parser *lp)
 {
 	ft_bzero(lp, sizeof(t_line_parser));
-	if (!(lp->arg = ft_strdup("")))
-		msh_error_exit(msh, MALLOC_ERR);
 }
 
+void print_args(t_list *elem)
+{
+	t_command *cmd;
+
+	cmd = (t_command *)elem->content;
+	ft_putchar('\n');
+	printf("LLLL\n");
+	if (cmd->args)
+		printf("YEA!\n");
+
+	// ft_putarr(cmd->args);
+	ft_putchar('\n');
+}
 void		msh_line_parser(t_minishel *msh)
 {
 	t_line_parser lp;
 
-	msh_lp_init(msh, &lp);
-	msh_lp_loop(msh, &lp);
-	msh_lp_free(&lp);
+	lp_init(msh, &lp);
+	lp_loop(msh, &lp);
+	// ft_lstiter(msh->commands, print_args);
+	lp_free(&lp);
 	// char	**arr;
 	// size_t	i;
 	// t_list2	*start;
@@ -75,7 +68,7 @@ void		msh_line_parser(t_minishel *msh)
 	// start = msh->env_start;
 	// while (++i < msh->env_size)
 	// {
-	// 	arr[i] = ((t_env *)start->content)->value;
+	// 	arr[i] = ((t_env *)start->content)->env;
 	// 	start = start->next;
 	// }
 	// arr[i] = NULL;

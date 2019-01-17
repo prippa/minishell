@@ -9,6 +9,8 @@
 		"cstdint": "c",
 		"get_next_line.h": "c",
 		"fcntl.h": "c",
-		"types.h": "c"
+		"types.h": "c",
+		"libft.h": "c",
+		"lp_commands.h": "c"
 	}
 }

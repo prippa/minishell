@@ -13,16 +13,19 @@
 #include "minishell.h"
 #include "ft_printf.h"
 
-static void		msh_edit_or_set_new_env(t_minishel *msh, const char *value)
+#define MSH_SETENV_USG			"Usage: setenv [name=arg] ...\n"
+#define MSH_SETENV_INVALID_ARG	"setenv: '%s' is invalid\n"
+
+static void		msh_edit_or_set_new_env(t_minishel *msh, const char *env)
 {
 	t_env	new_env;
 	t_env	*edit_env;
 	t_list2	*obj;
 
-	new_env.index = ft_strchr(value, '=') - value;
-	if (!(new_env.value = ft_strdup(value)))
+	new_env.index = ft_strchr(env, KEY_VALUE_SEPARATOR) - env;
+	if (!(new_env.env = ft_strdup(env)))
 		msh_error_exit(msh, MALLOC_ERR);
-	if ((obj = msh_env_get_obj_by_name(msh->env_start, value, new_env.index)))
+	if ((obj = msh_env_get_obj_by_name(msh->env_start, env, new_env.index)))
 	{
 		edit_env = (t_env *)obj->content;
 		msh_del_env_body(edit_env);
@@ -35,13 +38,13 @@ static void		msh_edit_or_set_new_env(t_minishel *msh, const char *value)
 	++msh->env_size;
 }
 
-void			msh_setenv_one_value(t_minishel *msh, const char *value)
+void			msh_setenv_one_env(t_minishel *msh, const char *env)
 {
-	if (*value != '=' && ft_strchr(value, '='))
-		msh_edit_or_set_new_env(msh, value);
+	if (*env != KEY_VALUE_SEPARATOR && ft_strchr(env, KEY_VALUE_SEPARATOR))
+		msh_edit_or_set_new_env(msh, env);
 	else
 	{
-		ft_dprintf(2, MSH_SETENV_INVALID_ARG, value);
+		ft_dprintf(2, MSH_SETENV_INVALID_ARG, env);
 		msh->execute_flag = false;
 	}
 }
@@ -54,5 +57,5 @@ void			msh_setenv(t_minishel *msh, char **args)
 		return ;
 	}
 	while (*args)
-		msh_setenv_one_value(msh, *args++);
+		msh_setenv_one_env(msh, *args++);
 }

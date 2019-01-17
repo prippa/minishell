@@ -13,13 +13,16 @@
 #include "minishell.h"
 #include "ft_printf.h"
 
-void	msh_unsetenv_one_value(t_minishel *msh, const char *value)
+#define MSH_UNSETENV_USG		"Usage: unsetenv [name] ...\n"
+#define MSH_UNSETENV_NO_NAME	"unsetenv: '%s' not found\n"
+
+void	msh_unsetenv_one_env(t_minishel *msh, const char *env)
 {
 	t_list2		*t;
 
-	if (!(t = msh_env_get_obj_by_name(msh->env_start, value, ft_strlen(value))))
+	if (!(t = msh_env_get_obj_by_name(msh->env_start, env, ft_strlen(env))))
 	{
-		ft_dprintf(2, MSH_UNSETENV_NO_NAME, value);
+		ft_dprintf(2, MSH_UNSETENV_NO_NAME, env);
 		msh->execute_flag = false;
 		return ;
 	}
@@ -35,5 +38,5 @@ void	msh_unsetenv(t_minishel *msh, char **args)
 		return ;
 	}
 	while (*args)
-		msh_unsetenv_one_value(msh, *args++);
+		msh_unsetenv_one_env(msh, *args++);
 }
