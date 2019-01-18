@@ -11,18 +11,48 @@
 /* ************************************************************************** */
 
 #include "msh_commands.h"
+#include "ft_printf.h"
+void print_commands(t_list *commands)
+{
+	size_t i;
+
+	i = 1;
+	while (commands)
+	{
+		char **command = ((t_command *)commands->content)->args;
+		ft_printf("Command - %d [%s] {", i, *command);
+		while (*(++command))
+			ft_printf("%s, ", *command);
+		ft_printf("}\n");
+		++i;
+		commands = commands->next;
+	}
+}
+static void	msh_execute_command_loop(t_minishel *msh)
+{
+	t_list	*cmds;
+	size_t	i;
+	char	**args;
+
+	cmds = msh->commands;
+	while (cmds)
+	{
+		args = ((t_command *)cmds->content)->args;
+		i = -1;
+		while (++i < MSH_CMD_SIZE)
+			if (!ft_strcmp(*args, g_cmd_string[i]))
+			{
+				g_cmd_func[i](msh, args + 1);
+				break ;
+			}
+		cmds = cmds->next;
+	}
+}
 
 void		msh_execute_command(t_minishel *msh)
 {
 	msh_line_parser(msh);
-	// char		**args;
-	// uint32_t	i;
-
-	// if (!(args = ft_strsplit(msh->line, ' ')))
-	// 	msh_error_exit(msh, MALLOC_ERR);
-	// i = -1;
-	// while (++i < MSH_CMD_SIZE)
-	// 	if (!ft_strcmp(args[0], g_cmd_string[i]))
-	// 		g_cmd_func[i](msh, &args[1]);
-	// ft_arrdel(&args);
+	// print_commands(msh->commands);
+	msh_execute_command_loop(msh);
+	ft_lstdel(&msh->commands, msh_del_commands_list);
 }

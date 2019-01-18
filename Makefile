@@ -35,7 +35,7 @@ C_MSH		= 	main.c msh_exit.c msh_free.c msh_execute_cmd.c\
 
 C_CMDS		=	msh_cd.c msh_echo.c msh_env.c msh_setenv.c msh_unsetenv.c
 
-C_LP		=	line_parser.c lp_arg_buf_control.c lp_free.c lp_utility.c\
+C_LP		=	line_parser.c lp_arg_buf_control.c lp_utility.c\
 				lp_push_to_list.c
 
 C_LP_CMD	=	lp_dollar.c lp_backslash.c lp_single_quotes.c lp_double_quotes.c\

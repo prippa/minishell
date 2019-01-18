@@ -46,6 +46,7 @@ typedef struct		s_minishel
 void				msh_free(t_minishel *msh);
 void				msh_del_env_list(void *content, size_t content_size);
 void				msh_del_env_body(t_env *e);
+void				msh_del_commands_list(void *content, size_t content_size);
 void				msh_error_exit(t_minishel *msh, const char *message);
 void				msh_execute_command(t_minishel *msh);
 void				msh_print_error(t_minishel *msh, const char *message);

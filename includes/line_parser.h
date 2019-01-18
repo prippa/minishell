@@ -36,7 +36,6 @@ typedef struct	s_line_parser
 
 void			lp_error_exit(t_minishel *msh, t_line_parser *lp,
 					const char *message);
-void			lp_free(t_line_parser *lp);
 
 void			lp_join_to_arg(t_minishel *msh, t_line_parser *lp,
 					const char *src, size_t len);
