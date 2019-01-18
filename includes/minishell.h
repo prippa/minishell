@@ -40,7 +40,7 @@ typedef struct		s_minishel
 	char			*line;
 	size_t			i;
 	t_list			*commands;
-	t_bool			execute_flag;
+	t_bool			success_exec;
 }					t_minishel;
 
 void				msh_free(t_minishel *msh);
@@ -48,6 +48,7 @@ void				msh_del_env_list(void *content, size_t content_size);
 void				msh_del_env_body(t_env *e);
 void				msh_del_commands_list(void *content, size_t content_size);
 void				msh_error_exit(t_minishel *msh, const char *message);
+void				msh_error_exit_no_message(t_minishel *msh);
 void				msh_execute_command(t_minishel *msh);
 void				msh_print_error(t_minishel *msh, const char *message);
 char				*msh_env_get_arg_by_name(t_list2 *start,
@@ -57,7 +58,7 @@ t_list2				*msh_env_get_obj_by_name(t_list2 *start,
 void				msh_setenv_one_env(t_minishel *msh, const char *env);
 void				msh_unsetenv_one_env(t_minishel *msh, const char *env);
 
-void				msh_line_parser(t_minishel *msh);
+void				line_parser(t_minishel *msh);
 
 void				msh_cd(t_minishel *msh, char **args);
 void				msh_echo(t_minishel *msh, char **args);

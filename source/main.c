@@ -27,7 +27,7 @@ void		msh_update_curent_dir_name(t_minishel *msh)
 
 static void	msh_update_prompt(t_minishel *msh)
 {
-	ft_strcpy(msh->prompt, (msh->execute_flag ? MSH_OK_ICON : MSH_ERROR_ICON));
+	ft_strcpy(msh->prompt, (msh->success_exec ? MSH_OK_ICON : MSH_ERROR_ICON));
 	ft_strcat(msh->prompt, " (");
 	ft_strcat(msh->prompt, msh->curent_path);
 	ft_strcat(msh->prompt, ") $> ");
@@ -44,7 +44,7 @@ static void	msh_loop(t_minishel *msh)
 			msh_execute_command(msh);
 			msh_update_prompt(msh);
 			add_history(msh->line);
-			msh->execute_flag = true;
+			msh->success_exec = true;
 		}
 		ft_strdel(&msh->line);
 	}
@@ -56,7 +56,7 @@ static void	msh_init(t_minishel *msh)
 
 	ft_bzero(msh, sizeof(t_minishel));
 	msh_setenv(msh, environ);
-	msh->execute_flag = true;
+	msh->success_exec = true;
 }
 
 int			main(void)
@@ -67,5 +67,5 @@ int			main(void)
 	msh_loop(&msh);
 	msh_free(&msh);
 	system("leaks -q minishell");
-	return (0);
+	return (EXIT_SUCCESS);
 }

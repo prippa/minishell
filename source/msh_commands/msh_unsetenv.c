@@ -22,8 +22,8 @@ void	msh_unsetenv_one_env(t_minishel *msh, const char *env)
 
 	if (!(t = msh_env_get_obj_by_name(msh->env_start, env, ft_strlen(env))))
 	{
-		ft_dprintf(2, MSH_UNSETENV_NO_NAME, env);
-		msh->execute_flag = false;
+		ft_dprintf(STDERR_FILENO, MSH_UNSETENV_NO_NAME, env);
+		msh->success_exec = false;
 		return ;
 	}
 	ft_lst2del_by_obj(&msh->env_start, &msh->env_end, t, msh_del_env_list);

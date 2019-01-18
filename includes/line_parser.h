@@ -16,6 +16,12 @@
 # include "minishell.h"
 
 # define ARG_BUF_SIZE	4096
+# define LP_ERR			-1
+
+enum
+{
+	SEMI_SYNTAX_KEY = 1
+};
 
 typedef struct	s_lp_flags
 {
@@ -36,6 +42,7 @@ typedef struct	s_line_parser
 
 void			lp_error_exit(t_minishel *msh, t_line_parser *lp,
 					const char *message);
+void			lp_print_error(t_line_parser *lp, uint16_t key);
 
 void			lp_join_to_arg(t_minishel *msh, t_line_parser *lp,
 					const char *src, size_t len);

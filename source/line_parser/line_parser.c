@@ -12,7 +12,7 @@
 
 #include "lp_commands.h"
 
-static void	lp_loop(t_minishel *msh, t_line_parser *lp)
+static t_bool	lp_loop(t_minishel *msh, t_line_parser *lp)
 {
 	size_t i;
 
@@ -23,7 +23,8 @@ static void	lp_loop(t_minishel *msh, t_line_parser *lp)
 		while (++i < LP_BASE_SIZE)
 			if (msh->line[msh->i] == g_base_cs[i])
 			{
-				g_base_fs[i](msh, lp);
+				if (!g_base_fs[i](msh, lp))
+					return (false);
 				break ;
 			}
 		if (i == LP_BASE_SIZE)
@@ -34,13 +35,33 @@ static void	lp_loop(t_minishel *msh, t_line_parser *lp)
 		lp->f.prev_char = msh->line[msh->i];
 	}
 	lp_push_command(msh, lp);
+	return (true);
 }
 
-void		msh_line_parser(t_minishel *msh)
+void			line_parser(t_minishel *msh)
 {
 	t_line_parser lp;
-
 	ft_bzero(&lp, sizeof(t_line_parser));
-	lp_loop(msh, &lp);
+	msh->success_exec = lp_loop(msh, &lp);
 	ft_lstrev(&msh->commands);
+	// pid_t	father;
+	// int		wstatus;
+
+	// if ((father = fork()) == -1)
+	// 	msh_error_exit(msh, FORK_ERR);
+	// if (father > 0)
+	// {
+	// 	if (wait(&wstatus) == -1)
+	// 		msh_error_exit(msh, WAIT_ERR);
+	// 	ft_printf("%d\n", wstatus);
+	// 	ft_printf("%s\n", "I M YOOR FATHER");
+	// 	if (wstatus > 0)
+	// 	{
+	// 		if ((wstatus / UINT8_MAX + 1) == CRITICAL_ERR_STATUS)
+	// 			msh_error_exit_no_message(msh);
+	// 		msh->success_exec = false;
+	// 	}
+	// }
+	// if (!father)
+		// lp_main(msh);
 }

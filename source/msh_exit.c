@@ -17,10 +17,17 @@
 
 void		msh_error_exit(t_minishel *msh, const char *message)
 {
-	ft_dprintf(2, MSH_ERR, message);
+	ft_dprintf(STDERR_FILENO, MSH_ERR, message);
 	msh_free(msh);
 	system("leaks -q minishell");
-	exit(-1);
+	exit(EXIT_FAILURE);
+}
+
+void		msh_error_exit_no_message(t_minishel *msh)
+{
+	msh_free(msh);
+	system("leaks -q minishell");
+	exit(EXIT_FAILURE);
 }
 
 void		msh_exit(t_minishel *msh, char **args)
@@ -28,5 +35,5 @@ void		msh_exit(t_minishel *msh, char **args)
 	(void)args;
 	msh_free(msh);
 	system("leaks -q minishell");
-	exit(0);
+	exit(EXIT_SUCCESS);
 }

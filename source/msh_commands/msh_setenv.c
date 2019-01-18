@@ -44,8 +44,8 @@ void			msh_setenv_one_env(t_minishel *msh, const char *env)
 		msh_edit_or_set_new_env(msh, env);
 	else
 	{
-		ft_dprintf(2, MSH_SETENV_INVALID_ARG, env);
-		msh->execute_flag = false;
+		ft_dprintf(STDERR_FILENO, MSH_SETENV_INVALID_ARG, env);
+		msh->success_exec = false;
 	}
 }
 

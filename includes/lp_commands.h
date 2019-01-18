@@ -15,12 +15,12 @@
 
 # define BASE_C				'c'
 
-void				lp_dollar(t_minishel *msh, t_line_parser *lp);
-void				lp_backslash(t_minishel *msh, t_line_parser *lp);
-void				lp_single_quotes(t_minishel *msh, t_line_parser *lp);
-void				lp_double_quotes(t_minishel *msh, t_line_parser *lp);
-void				lp_space(t_minishel *msh, t_line_parser *lp);
-void				lp_semicolon(t_minishel *msh, t_line_parser *lp);
+t_bool				lp_dollar(t_minishel *msh, t_line_parser *lp);
+t_bool				lp_backslash(t_minishel *msh, t_line_parser *lp);
+t_bool				lp_single_quotes(t_minishel *msh, t_line_parser *lp);
+t_bool				lp_double_quotes(t_minishel *msh, t_line_parser *lp);
+t_bool				lp_space(t_minishel *msh, t_line_parser *lp);
+t_bool				lp_semicolon(t_minishel *msh, t_line_parser *lp);
 
 static const char	g_base_cs[LP_BASE_SIZE] =
 {
@@ -33,7 +33,7 @@ static const char	g_double_quotes_cs[LP_DOUBLE_QUOTES_SIZE] =
 	DOLLAR_C, BACKSLASH_C
 };
 
-typedef void		(*t_func_cmd)(t_minishel *msh, t_line_parser *lp);
+typedef t_bool		(*t_func_cmd)(t_minishel *msh, t_line_parser *lp);
 
 static const		t_func_cmd	g_base_fs[LP_BASE_SIZE] =
 {
