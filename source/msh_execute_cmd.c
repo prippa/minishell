@@ -12,6 +12,7 @@
 
 #include "msh_commands.h"
 #include "ft_printf.h"
+#define MSH_CMD_NOT_FOUND "%s: command not found\n"
 void print_commands(t_list *commands)
 {
 	size_t i;
@@ -28,31 +29,32 @@ void print_commands(t_list *commands)
 		commands = commands->next;
 	}
 }
-static void	msh_execute_command_loop(t_minishel *msh)
+
+static void		msh_execute_command_loop(t_minishel *msh)
 {
 	t_list	*cmds;
-	size_t	i;
 	char	**args;
 
 	cmds = msh->commands;
 	while (cmds)
 	{
 		args = ((t_command *)cmds->content)->args;
-		i = -1;
-		while (++i < MSH_CMD_SIZE)
-			if (!ft_strcmp(*args, g_cmd_string[i]))
-			{
-				g_cmd_func[i](msh, args + 1);
-				break ;
-			}
+		if (!msh_base_cmd_search(msh, args)
+			&& !msh_full_path_cmd_search(msh, args)
+			&& !msh_env_path_cmd_search(msh, args))
+		{
+			ft_dprintf(STDERR_FILENO, MSH_CMD_NOT_FOUND, *args);
+			msh->success_exec = false;
+		}
 		cmds = cmds->next;
 	}
 }
 
-void		msh_execute_command(t_minishel *msh)
+void			msh_execute_command(t_minishel *msh)
 {
 	line_parser(msh);
 	// print_commands(msh->commands);
-	msh_execute_command_loop(msh);
+	if (msh->success_exec)
+		msh_execute_command_loop(msh);
 	ft_lstdel(&msh->commands, msh_del_commands_list);
 }

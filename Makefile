@@ -30,8 +30,8 @@ HEAD_BASE		=	minishell.h msh_commands.h
 HEAD_LINE_PRS	=	line_parser.h lp_commands.h
 
 #-------------------------- Source files ---------------------------------------
-C_MSH		= 	main.c msh_exit.c msh_free.c msh_execute_cmd.c\
-				msh_utility.c msh_env_get.c
+C_MSH		= 	main.c msh_exit.c msh_free.c msh_execute_cmd.c msh_utility.c\
+				msh_env_get.c msh_search_command.c msh_fork_and_exec.c
 
 C_CMDS		=	msh_cd.c msh_echo.c msh_env.c msh_setenv.c msh_unsetenv.c
 

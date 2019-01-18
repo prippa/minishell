@@ -14,6 +14,6 @@
 
 void		msh_print_error(t_minishel *msh, const char *message)
 {
-	ft_putstr_fd(message, 2);
+	ft_putstr_fd(message, STDERR_FILENO);
 	msh->success_exec = false;
 }

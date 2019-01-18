@@ -13,7 +13,7 @@
 #include "minishell.h"
 #include "ft_printf.h"
 
-#define MSH_SETENV_USG			"Usage: setenv [name=arg] ...\n"
+#define MSH_SETENV_USG			"setenv: usage: setenv [key=value] ...\n"
 #define MSH_SETENV_INVALID_ARG	"setenv: '%s' is invalid\n"
 
 static void		msh_edit_or_set_new_env(t_minishel *msh, const char *env)

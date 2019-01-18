@@ -30,7 +30,7 @@ static void	msh_update_prompt(t_minishel *msh)
 	ft_strcpy(msh->prompt, (msh->success_exec ? MSH_OK_ICON : MSH_ERROR_ICON));
 	ft_strcat(msh->prompt, " (");
 	ft_strcat(msh->prompt, msh->curent_path);
-	ft_strcat(msh->prompt, ") $> ");
+	ft_strcat(msh->prompt, ") ");
 }
 
 static void	msh_loop(t_minishel *msh)

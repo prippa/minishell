@@ -16,7 +16,6 @@
 # include "minishell.h"
 
 # define ARG_BUF_SIZE	4096
-# define LP_ERR			-1
 
 enum
 {

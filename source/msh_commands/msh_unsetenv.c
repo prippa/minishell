@@ -13,7 +13,7 @@
 #include "minishell.h"
 #include "ft_printf.h"
 
-#define MSH_UNSETENV_USG		"Usage: unsetenv [name] ...\n"
+#define MSH_UNSETENV_USG		"unsetenv: usage: unsetenv [key] ...\n"
 #define MSH_UNSETENV_NO_NAME	"unsetenv: '%s' not found\n"
 
 void	msh_unsetenv_one_env(t_minishel *msh, const char *env)

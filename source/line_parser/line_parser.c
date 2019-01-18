@@ -44,24 +44,4 @@ void			line_parser(t_minishel *msh)
 	ft_bzero(&lp, sizeof(t_line_parser));
 	msh->success_exec = lp_loop(msh, &lp);
 	ft_lstrev(&msh->commands);
-	// pid_t	father;
-	// int		wstatus;
-
-	// if ((father = fork()) == -1)
-	// 	msh_error_exit(msh, FORK_ERR);
-	// if (father > 0)
-	// {
-	// 	if (wait(&wstatus) == -1)
-	// 		msh_error_exit(msh, WAIT_ERR);
-	// 	ft_printf("%d\n", wstatus);
-	// 	ft_printf("%s\n", "I M YOOR FATHER");
-	// 	if (wstatus > 0)
-	// 	{
-	// 		if ((wstatus / UINT8_MAX + 1) == CRITICAL_ERR_STATUS)
-	// 			msh_error_exit_no_message(msh);
-	// 		msh->success_exec = false;
-	// 	}
-	// }
-	// if (!father)
-		// lp_main(msh);
 }
