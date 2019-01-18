@@ -18,11 +18,17 @@ typedef struct	s_line_parser
 	size_t		arg_len;
 	t_lp_flags	f;
 }				t_line_parser;
+typedef struct	s_command
+{
+	char		**args;
+}				t_command;
 static const char	*g_cmd_string = " $;'\"\\";
 #define LP_SNTX_ERR "syntax error near unexpected token '" &';' &'\''
 int main(int argc, char const *argv[])
 {
-	ft_printf("%s\n", LP_SNTX_ERR);
+	t_command cmd;
+	cmd.args = ft_arrnew(2, 2, '.');
+	ft_printf("%d\n", sizeof(cmd));
 	return 0;
 }
 

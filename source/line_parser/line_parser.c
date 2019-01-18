@@ -22,7 +22,10 @@ static void	lp_loop(t_minishel *msh, t_line_parser *lp)
 		i = -1;
 		while (++i < LP_BASE_SIZE)
 			if (msh->line[msh->i] == g_base_cs[i])
+			{
 				g_base_fs[i](msh, lp);
+				break ;
+			}
 		if (i == LP_BASE_SIZE)
 		{
 			lp_write_to_arg_buf_char(msh, lp, msh->line[msh->i]);
@@ -44,12 +47,16 @@ void print_args(t_list *elem)
 
 	cmd = (t_command *)elem->content;
 	ft_putchar('\n');
-	printf("LLLL\n");
-	if (cmd->args)
-		printf("YEA!\n");
-
-	// ft_putarr(cmd->args);
+	ft_putarr(cmd->args);
 	ft_putchar('\n');
+}
+void test_print(t_minishel *msh)
+{
+	t_list *lst = msh->commands;
+	while(lst) {
+		ft_putarr(((t_command *)lst->content)->args);
+		lst = lst->next;
+	}
 }
 void		msh_line_parser(t_minishel *msh)
 {
@@ -57,7 +64,9 @@ void		msh_line_parser(t_minishel *msh)
 
 	lp_init(msh, &lp);
 	lp_loop(msh, &lp);
+	// ft_putarr(((t_command *)msh->commands->content)->args);
 	// ft_lstiter(msh->commands, print_args);
+	test_print(msh);
 	lp_free(&lp);
 	// char	**arr;
 	// size_t	i;

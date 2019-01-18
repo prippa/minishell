@@ -20,14 +20,9 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	data = NULL;
 	if (content)
 	{
-		if (content_size)
-		{
-			if (!(data = ft_memalloc(content_size)))
-				return (NULL);
-			ft_memcpy(data, content, content_size);
-		}
-		else
-			data = (void *)content;
+		if (!(data = ft_memalloc(content_size)))
+			return (NULL);
+		ft_memcpy(data, content, content_size);
 	}
 	else
 		content_size = 0;
@@ -47,14 +42,9 @@ t_list2	*ft_lst2new(void const *content, size_t content_size)
 	data = NULL;
 	if (content)
 	{
-		if (content_size)
-		{
-			if (!(data = ft_memalloc(content_size)))
-				return (NULL);
-			ft_memcpy(data, content, content_size);
-		}
-		else
-			data = (void *)content;
+		if (!(data = ft_memalloc(content_size)))
+			return (NULL);
+		ft_memcpy(data, content, content_size);
 	}
 	else
 		content_size = 0;
