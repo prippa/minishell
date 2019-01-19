@@ -6,7 +6,7 @@ static void	lp_build_command(t_minishel *msh, t_line_parser *lp,
 	t_list		*args;
 	uint32_t	i;
 
-	if (!(cmd->args = (char **)malloc(sizeof(char *) * lp->args_size + 1)))
+	if (!(cmd->args = (char **)malloc(sizeof(char *) * (lp->args_size + 1))))
 		lp_error_exit(msh, lp, MALLOC_ERR);
 	cmd->args[lp->args_size] = NULL;
 	args = lp->args;

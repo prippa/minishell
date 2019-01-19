@@ -80,7 +80,7 @@ char			*fpf_wstr_to_str(wchar_t *ws)
 	int32_t		len;
 
 	len = fpf_wbytelen(ws);
-	if (!(new_obj = (char *)malloc(sizeof(char) * len + 1)))
+	if (!(new_obj = (char *)malloc(sizeof(char) * (len + 1))))
 		fpf_malloc_error_exit();
 	new_obj[len] = 0;
 	len = 0;
