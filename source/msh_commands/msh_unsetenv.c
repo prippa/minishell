@@ -30,7 +30,7 @@ void	msh_unsetenv_one_env(t_minishel *msh, const char *env)
 	--msh->env_size;
 }
 
-void	msh_unsetenv(t_minishel *msh, char **args)
+void	msh_unsetenv(t_minishel *msh, const char **args)
 {
 	if (!*args)
 	{

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void		msh_echo(t_minishel *msh, char **args)
+void		msh_echo(t_minishel *msh, const char **args)
 {
 	ft_putstr("echo\n");
 }

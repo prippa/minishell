@@ -19,7 +19,7 @@
 
 void		msh_update_curent_dir_name(t_minishel *msh)
 {
-	char *path;
+	const char *path;
 
 	if ((path = msh_env_get_arg_by_name(msh->env_start, "PWD", ft_strlen("PWD"))))
 		ft_strcpy(msh->curent_path, path);
@@ -52,7 +52,7 @@ static void	msh_loop(t_minishel *msh)
 
 static void	msh_init(t_minishel *msh)
 {
-	extern char	**environ;
+	extern const char	**environ;
 
 	ft_bzero(msh, sizeof(t_minishel));
 	msh_setenv(msh, environ);

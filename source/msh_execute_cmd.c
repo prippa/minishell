@@ -32,15 +32,15 @@ void print_commands(t_list *commands)
 
 static void		msh_execute_command_loop(t_minishel *msh)
 {
-	t_list	*cmds;
-	char	**args;
+	t_list		*cmds;
+	const char	**args;
 
 	cmds = msh->commands;
 	while (cmds)
 	{
-		args = ((t_command *)cmds->content)->args;
+		args = (const char **)((t_command *)cmds->content)->args;
 		if (!msh_base_cmd_search(msh, args)
-			&& !msh_full_path_cmd_search(msh, args)
+			&& !msh_full_path_cmd_search(msh, *args, args)
 			&& !msh_env_path_cmd_search(msh, args))
 		{
 			ft_dprintf(STDERR_FILENO, MSH_CMD_NOT_FOUND, *args);
