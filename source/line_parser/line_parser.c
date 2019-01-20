@@ -46,4 +46,5 @@ void			line_parser(t_minishel *msh)
 	if (!(msh->success_exec = lp_loop(msh, &lp)))
 		lp_print_error(lp.f.key);
 	ft_lstrev(&msh->commands);
+	lp_free(&lp);
 }

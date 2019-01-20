@@ -2,7 +2,7 @@
 #include "ft_printf.h"
 #include "get_next_line.h"
 
-static void	lp_free(t_line_parser *lp)
+void		lp_free(t_line_parser *lp)
 {
 	ft_strdel(&lp->arg);
 	ft_lstdel(&lp->args, ft_lstdel_content);
@@ -20,7 +20,7 @@ void		lp_print_error(uint16_t key)
 	if (key == SEMI_SYNTAX_KEY)
 		ft_dprintf(STDERR_FILENO,
 			"syntax error near unexpected token '%c'\n", SEMICOLON_C);
-	else if (key = UNEXPECTED_EOF)
+	else if (key == UNEXPECTED_EOF)
 		ft_dprintf(STDERR_FILENO,
 			"\nunexpected EOF while looking for matching quotes\n");
 }
