@@ -29,7 +29,7 @@
 # define MALLOC_ERR		"malloc failed"
 # define OPEN_ERR		"open failed"
 # define READ_ERR		"read failed"
-# define OTHER_ERR		"some error hapend"
+# define OTHER_ERR		"some system critical error happened"
 
 typedef char	t_bool;
 enum			{ false, true };

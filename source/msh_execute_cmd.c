@@ -12,23 +12,8 @@
 
 #include "msh_commands.h"
 #include "ft_printf.h"
-#define MSH_CMD_NOT_FOUND "%s: command not found\n"
-void print_commands(t_list *commands)
-{
-	size_t i;
 
-	i = 1;
-	while (commands)
-	{
-		char **command = ((t_command *)commands->content)->args;
-		ft_printf("Command - %d [%s] {", i, *command);
-		while (*(++command))
-			ft_printf("%s, ", *command);
-		ft_printf("}\n");
-		++i;
-		commands = commands->next;
-	}
-}
+#define MSH_CMD_NOT_FOUND "%s: command not found\n"
 
 static void		msh_execute_command_loop(t_minishel *msh)
 {
@@ -53,7 +38,6 @@ static void		msh_execute_command_loop(t_minishel *msh)
 void			msh_execute_command(t_minishel *msh)
 {
 	line_parser(msh);
-	// print_commands(msh->commands);
 	if (msh->success_exec)
 		msh_execute_command_loop(msh);
 	ft_lstdel(&msh->commands, msh_del_commands_list);

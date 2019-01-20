@@ -12,7 +12,37 @@
 
 #include "minishell.h"
 
+#define ECHO_NEW_LINE_F	"-n"
+
+typedef struct	s_echo_flags
+{
+	t_bool		new_line;
+}				t_echo_flags;
+
+static void	msh_echo_flags(t_echo_flags *f, char ***args)
+{
+	while (**args)
+	{
+		if (!ft_strcmp(**args, ECHO_NEW_LINE_F))
+			f->new_line = true;
+		else
+			break ;
+		++(*args);
+	}
+}
+
 void		msh_echo(t_minishel *msh, char **args)
 {
-	ft_putstr("echo\n");
+	t_echo_flags f;
+
+	ft_bzero(&f, sizeof(t_echo_flags));
+	msh_echo_flags(&f, &args);
+	while (*args)
+	{
+		ft_putstr(*args++);
+		if (*args)
+			ft_putchar(' ');
+	}
+	if (!f.new_line)
+		ft_putchar('\n');
 }

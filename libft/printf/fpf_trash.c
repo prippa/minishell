@@ -27,5 +27,5 @@ void	fpf_init_random_char(t_printf *fpf)
 void	fpf_malloc_error_exit(void)
 {
 	write(2, "ERROR: malloc failed", 20);
-	exit(-1);
+	exit(EXIT_FAILURE);
 }

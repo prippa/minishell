@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include "ft_printf.h"
 #include <sys/wait.h>
 
 #define	EXEC_PERM_DENIED	"%s: Permission denied\n"

@@ -11,6 +11,7 @@
 		"fcntl.h": "c",
 		"types.h": "c",
 		"libft.h": "c",
-		"lp_commands.h": "c"
+		"lp_commands.h": "c",
+		"msh_commands.h": "c"
 	}
 }

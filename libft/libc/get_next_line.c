@@ -26,7 +26,7 @@ static int32_t	gnl_sub_line(t_gnl *file, char **line)
 	while (file->s[file->i] && file->s[file->i] != '\n')
 		++file->i;
 	if (!(*line = ft_strsub(file->s, start, file->i - start)))
-		return (-1);
+		return (ERR);
 	if (file->s[file->i])
 		++file->i;
 	return (1);
@@ -39,12 +39,12 @@ static int32_t	gnl_remainder(t_gnl *file)
 	if (!file->s)
 	{
 		if (!(file->s = ft_strdup("")))
-			return (-1);
+			return (ERR);
 		return (1);
 	}
 	tmp = file->s;
 	if (!(file->s = ft_strdup(&file->s[file->i])))
-		return (-1);
+		return (ERR);
 	free(tmp);
 	file->i = 0;
 	return (1);
@@ -59,12 +59,12 @@ static int32_t	gnl_read_file(t_gnl *file, char **line)
 	{
 		buf[ret] = 0;
 		if (!(ft_strjoin_free(&file->s, buf, ft_strlen(file->s), ret)))
-			return (-1);
+			return (ERR);
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
-	if (ret == -1)
-		return (-1);
+	if (ret == ERR)
+		return (ERR);
 	return (gnl_sub_line(file, line));
 }
 
@@ -94,13 +94,13 @@ int32_t			get_next_line(int32_t const fd, char **line)
 	static t_gnl	*g;
 	t_gnl			*curent;
 
-	if (fd < 0 || !line || read(fd, NULL, 0) == -1)
-		return (-1);
+	if (fd < 0 || !line || read(fd, NULL, 0) == ERR)
+		return (ERR);
 	if (!(curent = gnl_add_or_get_file(&g, fd)))
-		return (-1);
+		return (ERR);
 	if (curent->s && ft_strchr(&curent->s[curent->i], '\n'))
 		return (gnl_sub_line(curent, line));
-	if ((gnl_remainder(curent)) == -1)
-		return (-1);
+	if ((gnl_remainder(curent)) == ERR)
+		return (ERR);
 	return (gnl_read_file(curent, line));
 }
