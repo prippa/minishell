@@ -25,6 +25,7 @@
 ************************************ Defines ***********************************
 */
 
+# define ERR			-1
 # define MALLOC_ERR		"malloc failed"
 # define OPEN_ERR		"open failed"
 # define READ_ERR		"read failed"

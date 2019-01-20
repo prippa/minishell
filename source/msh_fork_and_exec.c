@@ -1,4 +1,35 @@
 #include "minishell.h"
+#include "ft_printf.h"
+#include <sys/wait.h>
+
+#define	EXEC_PERM_DENIED	"%s: Permission denied\n"
+#define	FORK_FAILED			"fork failed"
+#define	WAIT_FAILED			"wait failed"
+#define	EXECVE_FAILED		"execve failed"
+
+static void	msh_do_magic(t_minishel *msh,
+				const char *path, const char **args, const char **env)
+{
+	pid_t	father;
+	int		wstatus;
+
+	father = fork();
+	if (father > 0)
+	{
+		if (wait(&wstatus) == ERR)
+			msh_error_exit(msh, WAIT_FAILED);
+		ft_printf("%d\n", wstatus);
+		ft_printf("%s\n", "I M YOOR FATHER");
+	}
+	if (father == 0)
+	{
+		// execve()
+		execve(path, (char * const *)args, (char * const *)env);
+		msh_error_exit(msh, EXECVE_FAILED);
+	}
+	if (father == ERR)
+		msh_error_exit(msh, FORK_FAILED);
+}
 
 static char	**msh_env_convert_from_list_char(t_minishel *msh)
 {
@@ -19,12 +50,19 @@ static char	**msh_env_convert_from_list_char(t_minishel *msh)
 	return (env);
 }
 
+
 void		msh_fork_exec(t_minishel *msh,
 				const char *path, const char **args)
 {
 	char	**env;
 
+	if (access(path, X_OK) == ERR)
+	{
+		ft_dprintf(STDERR_FILENO, EXEC_PERM_DENIED, path);
+		msh->success_exec = false;
+		return ;
+	}
 	env = msh_env_convert_from_list_char(msh);
-	
+	msh_do_magic(msh, path, args, env);
 	free(env);
 }
