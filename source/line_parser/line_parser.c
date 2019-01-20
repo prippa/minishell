@@ -41,7 +41,9 @@ static t_bool	lp_loop(t_minishel *msh, t_line_parser *lp)
 void			line_parser(t_minishel *msh)
 {
 	t_line_parser lp;
+
 	ft_bzero(&lp, sizeof(t_line_parser));
-	msh->success_exec = lp_loop(msh, &lp);
+	if (!(msh->success_exec = lp_loop(msh, &lp)))
+		lp_print_error(lp.f.key);
 	ft_lstrev(&msh->commands);
 }

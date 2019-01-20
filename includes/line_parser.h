@@ -18,13 +18,15 @@
 # define ARG_BUF_SIZE	4096
 enum
 {
-	SEMI_SYNTAX_KEY = 1
+	SEMI_SYNTAX_KEY = 1,
+	UNEXPECTED_EOF
 };
 
 typedef struct	s_lp_flags
 {
 	char		prev_char;
 	char		prev_cmd;
+	uint16_t	key;
 }				t_lp_flags;
 
 typedef struct	s_line_parser
@@ -40,7 +42,7 @@ typedef struct	s_line_parser
 
 void			lp_error_exit(t_minishel *msh, t_line_parser *lp,
 					const char *message);
-void			lp_print_error(t_line_parser *lp, uint16_t key);
+void			lp_print_error(uint16_t key);
 
 void			lp_join_to_arg(t_minishel *msh, t_line_parser *lp,
 					const char *src, size_t len);

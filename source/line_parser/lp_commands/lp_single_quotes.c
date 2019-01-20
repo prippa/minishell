@@ -1,9 +1,10 @@
 #include "lp_commands.h"
+#include "ft_printf.h"
 
-static size_t	lp_single_quotes_get_len(t_minishel *msh, t_line_parser *lp)
+static intmax_t	lp_single_quotes_get_len(t_minishel *msh, t_line_parser *lp)
 {
-	size_t	len;
-	size_t	i;
+	intmax_t	len;
+	size_t		i;
 
 	len = 0;
 	i = msh->i;
@@ -19,7 +20,11 @@ static size_t	lp_single_quotes_get_len(t_minishel *msh, t_line_parser *lp)
 			lp_write_to_arg_buf_str(msh, lp, &msh->line[msh->i], len);
 			msh->i += len;
 		}
-		lp_quote_read(msh, lp, &lp_single_quotes);
+		if (!lp_quote_read(msh, lp, &lp_single_quotes))
+		{
+			lp->f.key = UNEXPECTED_EOF;
+			return (ERR);
+		}
 		return (0);
 	}
 	return (len);
@@ -30,7 +35,9 @@ t_bool		lp_single_quotes(t_minishel *msh, t_line_parser *lp)
 	size_t len;
 
 	++msh->i;
-	if ((len = lp_single_quotes_get_len(msh, lp)))
+	if ((len = lp_single_quotes_get_len(msh, lp)) == ERR)
+		return (false);
+	if (len > 0)
 	{
 		lp_write_to_arg_buf_str(msh, lp, &msh->line[msh->i], len);
 		msh->i += len;

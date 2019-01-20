@@ -34,18 +34,14 @@ static int32_t	gnl_sub_line(t_gnl *file, char **line)
 
 static int32_t	gnl_remainder(t_gnl *file)
 {
-	char *tmp;
-
 	if (!file->s)
 	{
 		if (!(file->s = ft_strdup("")))
 			return (ERR);
 		return (1);
 	}
-	tmp = file->s;
-	if (!(file->s = ft_strdup(&file->s[file->i])))
+	if (!(file->s = ft_strdup_free(&file->s, &file->s[file->i])))
 		return (ERR);
-	free(tmp);
 	file->i = 0;
 	return (1);
 }

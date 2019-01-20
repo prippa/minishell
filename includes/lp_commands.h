@@ -46,7 +46,7 @@ static const		t_func_cmd	g_double_quotes_fs[LP_DOUBLE_QUOTES_SIZE] =
 	lp_dollar, lp_backslash
 };
 
-void				lp_quote_read(t_minishel *msh, t_line_parser *lp,
+t_bool				lp_quote_read(t_minishel *msh, t_line_parser *lp,
 						t_func_cmd func);
 
 #endif
