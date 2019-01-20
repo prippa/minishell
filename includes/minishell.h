@@ -59,19 +59,19 @@ void				msh_unsetenv_one_env(t_minishel *msh, const char *env);
 
 void				line_parser(t_minishel *msh);
 
-void				msh_cd(t_minishel *msh, const char **args);
-void				msh_echo(t_minishel *msh, const char **args);
-void				msh_env(t_minishel *msh, const char **args);
-void				msh_setenv(t_minishel *msh, const char **args);
-void				msh_unsetenv(t_minishel *msh, const char **args);
-void				msh_exit(t_minishel *msh, const char **args);
+void				msh_cd(t_minishel *msh, char **args);
+void				msh_echo(t_minishel *msh, char **args);
+void				msh_env(t_minishel *msh, char **args);
+void				msh_setenv(t_minishel *msh, char **args);
+void				msh_unsetenv(t_minishel *msh, char **args);
+void				msh_exit(t_minishel *msh, char **args);
 
-t_bool				msh_base_cmd_search(t_minishel *msh, const char **args);
+t_bool				msh_base_cmd_search(t_minishel *msh, char **args);
 t_bool				msh_full_path_cmd_search(t_minishel *msh,
-						const char *full_path, const char **args);
-t_bool				msh_env_path_cmd_search(t_minishel *msh, const char **args);
+						const char *full_path, char **args);
+t_bool				msh_env_path_cmd_search(t_minishel *msh, char **args);
 
 void				msh_fork_exec(t_minishel *msh,
-						const char *path, const char **args);
+						const char *path, char **args);
 
 #endif

@@ -52,7 +52,7 @@ static void	msh_loop(t_minishel *msh)
 
 static void	msh_init(t_minishel *msh)
 {
-	extern const char	**environ;
+	extern char	**environ;
 
 	ft_bzero(msh, sizeof(t_minishel));
 	msh_setenv(msh, environ);

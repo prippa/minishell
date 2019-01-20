@@ -49,7 +49,7 @@ void			msh_setenv_one_env(t_minishel *msh, const char *env)
 	}
 }
 
-void			msh_setenv(t_minishel *msh, const char **args)
+void			msh_setenv(t_minishel *msh, char **args)
 {
 	if (!*args)
 	{

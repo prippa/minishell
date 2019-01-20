@@ -30,7 +30,7 @@ void		msh_error_exit_no_message(t_minishel *msh)
 	exit(EXIT_FAILURE);
 }
 
-void		msh_exit(t_minishel *msh, const char **args)
+void		msh_exit(t_minishel *msh, char **args)
 {
 	(void)args;
 	msh_free(msh);

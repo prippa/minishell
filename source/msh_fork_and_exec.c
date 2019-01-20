@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "ft_printf.h"
 #include <sys/wait.h>
 
 #define	EXEC_PERM_DENIED	"%s: Permission denied\n"
@@ -8,7 +7,7 @@
 #define	EXECVE_FAILED		"execve failed"
 
 static void	msh_do_magic(t_minishel *msh,
-				const char *path, const char **args, const char **env)
+				const char *path, char **args, char **env)
 {
 	pid_t	father;
 	int		wstatus;
@@ -18,14 +17,13 @@ static void	msh_do_magic(t_minishel *msh,
 	{
 		if (wait(&wstatus) == ERR)
 			msh_error_exit(msh, WAIT_FAILED);
-		ft_printf("%d\n", wstatus);
-		ft_printf("%s\n", "I M YOOR FATHER");
+		if (wstatus > 0)
+			msh->success_exec = false;
 	}
-	if (father == 0)
+	if (!father)
 	{
-		// execve()
-		execve(path, (char * const *)args, (char * const *)env);
-		msh_error_exit(msh, EXECVE_FAILED);
+		execve(path, args, env);
+		exit(EXIT_FAILURE);
 	}
 	if (father == ERR)
 		msh_error_exit(msh, FORK_FAILED);
@@ -52,7 +50,7 @@ static char	**msh_env_convert_from_list_char(t_minishel *msh)
 
 
 void		msh_fork_exec(t_minishel *msh,
-				const char *path, const char **args)
+				const char *path, char **args)
 {
 	char	**env;
 

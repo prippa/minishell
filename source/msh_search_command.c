@@ -4,7 +4,7 @@
 #define MSH_PATH_ENV_SEPARATOR ':'
 
 static t_bool	msh_make_full_path(t_minishel *msh,
-					const char *path, const char **args)
+					const char *path, char **args)
 {
 	char	*full_path;
 	t_bool	ny_cho_tam;
@@ -20,7 +20,7 @@ static t_bool	msh_make_full_path(t_minishel *msh,
 }
 
 t_bool			msh_env_path_cmd_search(t_minishel *msh,
-					const char **args)
+					char **args)
 {
 	const char	*path_value;
 	char		**paths;
@@ -44,7 +44,7 @@ t_bool			msh_env_path_cmd_search(t_minishel *msh,
 }
 
 t_bool			msh_full_path_cmd_search(t_minishel *msh,
-					const char *full_path, const char **args)
+					const char *full_path, char **args)
 {
 	if (!access(full_path, F_OK))
 	{
@@ -54,7 +54,7 @@ t_bool			msh_full_path_cmd_search(t_minishel *msh,
 	return (false);
 }
 
-t_bool			msh_base_cmd_search(t_minishel *msh, const char **args)
+t_bool			msh_base_cmd_search(t_minishel *msh, char **args)
 {
 	size_t	i;
 	
