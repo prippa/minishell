@@ -14,5 +14,7 @@
 
 void		msh_cd(t_minishel *msh, char **args)
 {
+	(void)msh;
+	(void)args;
 	ft_putendl("cd");
 }

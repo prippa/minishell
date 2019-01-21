@@ -32,7 +32,7 @@ static intmax_t	lp_single_quotes_get_len(t_minishel *msh, t_line_parser *lp)
 
 t_bool		lp_single_quotes(t_minishel *msh, t_line_parser *lp)
 {
-	size_t len;
+	intmax_t	len;
 
 	++msh->i;
 	if ((len = lp_single_quotes_get_len(msh, lp)) == ERR)

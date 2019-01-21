@@ -35,6 +35,7 @@ void		msh_echo(t_minishel *msh, char **args)
 {
 	t_echo_flags f;
 
+	(void)msh;
 	ft_bzero(&f, sizeof(t_echo_flags));
 	msh_echo_flags(&f, &args);
 	while (*args)
