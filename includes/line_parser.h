@@ -16,18 +16,12 @@
 # include "minishell.h"
 
 # define ARG_BUF_SIZE	4096
+
 enum
 {
 	SEMI_SYNTAX_KEY = 1,
 	UNEXPECTED_EOF
 };
-
-typedef struct	s_lp_flags
-{
-	char		prev_char;
-	char		prev_cmd;
-	uint16_t	key;
-}				t_lp_flags;
 
 typedef struct	s_line_parser
 {
@@ -37,7 +31,7 @@ typedef struct	s_line_parser
 	size_t		arg_buf_len;
 	char		*arg;
 	size_t		arg_len;
-	t_lp_flags	f;
+	uint16_t	key;
 }				t_line_parser;
 
 void			lp_error_exit(t_minishel *msh, t_line_parser *lp,
@@ -54,5 +48,7 @@ void			lp_write_to_arg_buf_char(t_minishel *msh, t_line_parser *lp,
 
 void			lp_push_command(t_minishel *msh, t_line_parser *lp);
 void			lp_push_arg(t_minishel *msh, t_line_parser *lp);
+
+t_bool			lp_new_line(t_minishel *msh, t_line_parser *lp, t_bool nl_f);
 
 #endif

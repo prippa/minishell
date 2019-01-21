@@ -12,9 +12,23 @@
 
 #include "lp_commands.h"
 
-static t_bool	lp_loop(t_minishel *msh, t_line_parser *lp)
+#define LP_BASE_SIZE	6
+
+static const char	g_base_cs[LP_BASE_SIZE] =
 {
-	size_t i;
+	SPACE_C, DOLLAR_C, SEMICOLON_C, SINGLE_QUOTES_C, DOUBLE_QUOTES_C,
+	BACKSLASH_C
+};
+
+static const		t_func_cmd	g_base_fs[LP_BASE_SIZE] =
+{
+	lp_space, lp_dollar, lp_semicolon, lp_single_quotes, lp_double_quotes,
+	lp_backslash
+};
+
+static t_bool		lp_loop(t_minishel *msh, t_line_parser *lp)
+{
+	uint8_t i;
 
 	msh->i = -1;
 	while (msh->line[++msh->i])
@@ -28,23 +42,19 @@ static t_bool	lp_loop(t_minishel *msh, t_line_parser *lp)
 				break ;
 			}
 		if (i == LP_BASE_SIZE)
-		{
 			lp_write_to_arg_buf_char(msh, lp, msh->line[msh->i]);
-			lp->f.prev_cmd = BASE_C;
-		}
-		lp->f.prev_char = msh->line[msh->i];
 	}
 	lp_push_command(msh, lp);
 	return (true);
 }
 
-void			line_parser(t_minishel *msh)
+void				line_parser(t_minishel *msh)
 {
 	t_line_parser lp;
 
 	ft_bzero(&lp, sizeof(t_line_parser));
 	if (!(msh->success_exec = lp_loop(msh, &lp)))
-		lp_print_error(lp.f.key);
+		lp_print_error(lp.key);
 	ft_lstrev(&msh->commands);
 	lp_free(&lp);
 }

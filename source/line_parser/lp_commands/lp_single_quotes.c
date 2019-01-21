@@ -1,46 +1,34 @@
 #include "lp_commands.h"
-#include "ft_printf.h"
 
-static intmax_t	lp_single_quotes_get_len(t_minishel *msh, t_line_parser *lp)
+static t_bool	lp_sub_str_to_buf(t_minishel *msh, t_line_parser *lp)
 {
-	intmax_t	len;
-	size_t		i;
+	char	*start;
+	size_t	len;
 
 	len = 0;
-	i = msh->i;
-	while (msh->line[i] && msh->line[i] != SINGLE_QUOTES_C)
+	start = &msh->line[msh->i];
+	while (msh->line[msh->i] && msh->line[msh->i] != SINGLE_QUOTES_C)
 	{
-		++i;
 		++len;
+		++msh->i;
 	}
-	if (!msh->line[i])
-	{
-		if (len)
-		{
-			lp_write_to_arg_buf_str(msh, lp, &msh->line[msh->i], len);
-			msh->i += len;
-		}
-		if (!lp_quote_read(msh, lp, &lp_single_quotes))
-		{
-			lp->f.key = UNEXPECTED_EOF;
-			return (ERR);
-		}
-		return (0);
-	}
-	return (len);
+	if (len)
+		lp_write_to_arg_buf_str(msh, lp, start, len);
+	if (!msh->line[msh->i])
+		return (false);
+	return (true);
 }
 
-t_bool		lp_single_quotes(t_minishel *msh, t_line_parser *lp)
+t_bool			lp_single_quotes(t_minishel *msh, t_line_parser *lp)
 {
-	intmax_t	len;
-
 	++msh->i;
-	if ((len = lp_single_quotes_get_len(msh, lp)) == ERR)
-		return (false);
-	if (len > 0)
+	while (!lp_sub_str_to_buf(msh, lp))
 	{
-		lp_write_to_arg_buf_str(msh, lp, &msh->line[msh->i], len);
-		msh->i += len;
+		if (!lp_new_line(msh, lp, true))
+		{
+			lp->key = UNEXPECTED_EOF;
+			return (false);
+		}
 	}
 	return (true);
 }
