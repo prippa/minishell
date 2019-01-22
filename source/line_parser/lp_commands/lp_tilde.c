@@ -2,7 +2,7 @@
 
 static t_bool	lp_tilde_valid_prev(const char *line, size_t i)
 {
-	if (i < 0 || line[i] == SPACE_C)
+	if (!(i + 1) || line[i] == SPACE_C)
 		return (true);
 	return (false);
 }

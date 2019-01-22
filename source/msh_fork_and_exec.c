@@ -1,14 +1,17 @@
 #include "minishell.h"
 #include "ft_printf.h"
 #include <sys/wait.h>
+#include <sys/stat.h>
 
+#define EXEC_IS_FOLDER		"%s: Is a directory\n"
 #define	EXEC_PERM_DENIED	"%s: Permission denied\n"
 #define	FORK_FAILED			"fork failed"
 #define	WAIT_FAILED			"wait failed"
 #define	EXECVE_FAILED		"execve failed"
+#define STAT_FAILED			"stat failed"
 
-static void	msh_do_magic(t_minishel *msh,
-				const char *path, char **args, char **env)
+static void		msh_do_magic(t_minishel *msh,
+					const char *path, char **args, char **env)
 {
 	pid_t	father;
 	int		wstatus;
@@ -30,7 +33,7 @@ static void	msh_do_magic(t_minishel *msh,
 		msh_error_exit(msh, FORK_FAILED);
 }
 
-static char	**msh_env_convert_from_list_char(t_minishel *msh)
+static char		**msh_env_convert_from_list_char(t_minishel *msh)
 {
 	char		**env;
 	t_list2		*env_start;
@@ -49,18 +52,29 @@ static char	**msh_env_convert_from_list_char(t_minishel *msh)
 	return (env);
 }
 
-
-void		msh_fork_exec(t_minishel *msh,
-				const char *path, char **args)
+static t_bool	msh_fork_exec_vild_path(t_minishel *msh,
+					const char *path)
 {
-	char	**env;
+	struct stat	sb;
 
-	if (access(path, X_OK) == ERR)
-	{
+	if ((stat(path, &sb)) == ERR)
+		msh_error_exit(msh, STAT_FAILED);
+	if (S_ISDIR(sb.st_mode))
+		ft_dprintf(STDERR_FILENO, EXEC_IS_FOLDER, path);
+	else if (access(path, X_OK) == ERR)
 		ft_dprintf(STDERR_FILENO, EXEC_PERM_DENIED, path);
-		msh->success_exec = false;
+	else
+		return (true);
+	return (false);
+}
+
+void			msh_fork_exec(t_minishel *msh,
+					const char *path, char **args)
+{
+	char		**env;
+
+	if (!(msh->success_exec = msh_fork_exec_vild_path(msh, path)))
 		return ;
-	}
 	env = msh_env_convert_from_list_char(msh);
 	msh_do_magic(msh, path, args, env);
 	free(env);
