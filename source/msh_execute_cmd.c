@@ -37,7 +37,9 @@ static void		msh_execute_command_loop(t_minishel *msh)
 
 void			msh_execute_command(t_minishel *msh)
 {
-	line_parser(msh);
+	line_lexer(msh);
+	if (msh->success_exec)
+		line_parser(msh);
 	if (msh->success_exec)
 		msh_execute_command_loop(msh);
 	ft_lstdel(&msh->commands, msh_del_commands_list);

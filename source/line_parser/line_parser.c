@@ -10,20 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lp_commands.h"
+#include "line_parser.h"
 
-#define LP_BASE_SIZE	6
+#define LP_BASE_SIZE	7
 
-static const char	g_base_cs[LP_BASE_SIZE] =
+static const char	g_base_c[LP_BASE_SIZE] =
 {
 	SPACE_C, DOLLAR_C, SEMICOLON_C, SINGLE_QUOTES_C, DOUBLE_QUOTES_C,
-	BACKSLASH_C
+	BACKSLASH_C, TILDE_C
 };
 
-static const		t_func_cmd	g_base_fs[LP_BASE_SIZE] =
+static const		t_func_cmd	g_base_f[LP_BASE_SIZE] =
 {
 	lp_space, lp_dollar, lp_semicolon, lp_single_quotes, lp_double_quotes,
-	lp_backslash
+	lp_backslash, lp_tilde
 };
 
 static t_bool		lp_loop(t_minishel *msh, t_line_parser *lp)
@@ -35,9 +35,9 @@ static t_bool		lp_loop(t_minishel *msh, t_line_parser *lp)
 	{
 		i = -1;
 		while (++i < LP_BASE_SIZE)
-			if (msh->line[msh->i] == g_base_cs[i])
+			if (msh->line[msh->i] == g_base_c[i])
 			{
-				if (!g_base_fs[i](msh, lp))
+				if (!g_base_f[i](msh, lp))
 					return (false);
 				break ;
 			}

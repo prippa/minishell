@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_list2		*msh_env_get_obj_by_name(t_list2 *start, const char *env, size_t len)
+t_list2		*msh_env_get_obj_by_key(t_list2 *start, const char *env, size_t len)
 {
 	t_env *e;
 
@@ -26,7 +26,7 @@ t_list2		*msh_env_get_obj_by_name(t_list2 *start, const char *env, size_t len)
 	return (NULL);
 }
 
-const char	*msh_env_get_arg_by_name(t_list2 *start, const char *env, size_t len)
+const char	*msh_env_get_value_by_key(t_list2 *start, const char *env, size_t len)
 {
 	t_env *e;
 

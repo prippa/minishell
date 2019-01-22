@@ -18,6 +18,9 @@
 # define PATH_MAX				4096
 # define PROMPT_SIZE			PATH_MAX + 256
 # define KEY_VALUE_SEPARATOR	'='
+# define UNIX_PATH_SEPARATOR	'/'
+
+# define HOME_ENV				"HOME"
 
 typedef struct		s_command
 {
@@ -50,13 +53,14 @@ void				msh_del_commands_list(void *content, size_t content_size);
 void				msh_error_exit(t_minishel *msh, const char *message);
 void				msh_execute_command(t_minishel *msh);
 void				msh_print_error(t_minishel *msh, const char *message);
-const char			*msh_env_get_arg_by_name(t_list2 *start,
+const char			*msh_env_get_value_by_key(t_list2 *start,
 						const char *env, size_t len);
-t_list2				*msh_env_get_obj_by_name(t_list2 *start,
+t_list2				*msh_env_get_obj_by_key(t_list2 *start,
 						const char *env, size_t len);
 void				msh_setenv_one_env(t_minishel *msh, const char *env);
 void				msh_unsetenv_one_env(t_minishel *msh, const char *env);
 
+void				line_lexer(t_minishel *msh);
 void				line_parser(t_minishel *msh);
 
 void				msh_cd(t_minishel *msh, char **args);

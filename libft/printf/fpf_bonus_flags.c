@@ -18,7 +18,7 @@ void		fpf_before_processing_data(t_printf *fpf)
 	if (fpf->f[F_COLOR])
 		fpf_set_color(fpf);
 	if (fpf->f[F_UPERCASE])
-		ft_str_to_upper(&fpf->str);
+		ft_to_str_upper(&fpf->str);
 }
 
 void		fpf_after_processing_data(t_printf *fpf)

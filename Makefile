@@ -11,43 +11,47 @@
 # **************************************************************************** #
 
 NAME			=	minishell
-# FLAGS			= 	-Wall -Werror -Wextra
+# FLAGS			=	-Wall -Werror -Wextra
 READLINE_FLAG	=	-lreadline
 CC				=	gcc -g
 
 DIR_INC		=	./includes/
 DIR_SRC		=	./source/
 DIR_CMDS	=	$(DIR_SRC)msh_commands/
+DIR_LX		=	$(DIR_SRC)line_lexer/
 DIR_LP		=	$(DIR_SRC)line_parser/
 DIR_LP_CMD	=	$(DIR_LP)lp_commands/
-DIR_OBJ		= 	./obj/
+DIR_OBJ		=	./obj/
 DIR_LIB		=	./libft/
 DIR_LIB_INC	=	$(DIR_LIB)includes/
 LIBFT		=	$(DIR_LIB)libft.a
 
 #-------------------------- Header files ---------------------------------------
-HEAD_BASE		=	minishell.h msh_commands.h
-HEAD_LINE_PRS	=	line_parser.h lp_commands.h
+HEAD_BASE		=	minishell.h syntax_characters.h
+HEAD_LINE_PRS	=	line_parser.h
+HEAD_LINE_LXR	=	line_lexer.h
 
 #-------------------------- Source files ---------------------------------------
-C_MSH		= 	main.c msh_exit.c msh_free.c msh_execute_cmd.c msh_utility.c\
+C_MSH		=	main.c msh_exit.c msh_free.c msh_execute_cmd.c msh_utility.c\
 				msh_env_get.c msh_search_command.c msh_fork_and_exec.c
 
 C_CMDS		=	msh_cd.c msh_echo.c msh_env.c msh_setenv.c msh_unsetenv.c
+
+C_LX		=	line_lexer.c lx_read_new_line.c lx_commands.c
 
 C_LP		=	line_parser.c lp_arg_buf_control.c lp_utility.c\
 				lp_push_to_list.c
 
 C_LP_CMD	=	lp_dollar.c lp_backslash.c lp_single_quotes.c lp_double_quotes.c\
-				lp_space.c lp_semicolon.c
+				lp_space.c lp_semicolon.c lp_tilde.c
 
-OBJ 		= 	$(addprefix $(DIR_OBJ), $(C_MSH:.c=.o) $(C_CMDS:.c=.o) \
-				$(C_LP:.c=.o) $(C_LP_CMD:.c=.o))
+OBJ 		=	$(addprefix $(DIR_OBJ), $(C_MSH:.c=.o) $(C_CMDS:.c=.o) \
+				$(C_LX:.c=.o) $(C_LP:.c=.o) $(C_LP_CMD:.c=.o))
 
-INC 			= 	$(addprefix -I, $(DIR_INC) $(DIR_LIB_INC))
-INC_BASE 		= 	$(addprefix $(DIR_INC), $(HEAD_BASE))
-INC_LINE_PRS	= 	$(addprefix $(DIR_INC), $(HEAD_BASE) $(HEAD_LINE_PRS))
-
+INC			=	$(addprefix -I, $(DIR_INC) $(DIR_LIB_INC))
+INC_BASE		=	$(addprefix $(DIR_INC), $(HEAD_BASE))
+INC_LINE_PRS	=	$(addprefix $(DIR_INC), $(HEAD_BASE) $(HEAD_LINE_PRS))
+INC_LINE_LXR	=	$(addprefix $(DIR_INC), $(HEAD_BASE) $(HEAD_LINE_LXR))
 
 all: lib $(NAME)
 
@@ -68,6 +72,12 @@ $(DIR_OBJ)%.o: $(DIR_SRC)%.c $(INC_BASE)
 
 #msh_commands
 $(DIR_OBJ)%.o: $(DIR_CMDS)%.c $(INC_BASE)
+	@mkdir -p $(DIR_OBJ)
+	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
+	@echo "Linking" [ $< ]
+
+#line_lexer
+$(DIR_OBJ)%.o: $(DIR_LX)%.c $(INC_LINE_LXR)
 	@mkdir -p $(DIR_OBJ)
 	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
 	@echo "Linking" [ $< ]

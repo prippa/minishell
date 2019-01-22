@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isstralpha.c                                    :+:      :+:    :+:   */
+/*   ft_isstruppercase.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:23:47 by prippa            #+#    #+#             */
-/*   Updated: 2017/11/09 14:28:40 by prippa           ###   ########.fr       */
+/*   Created: 2017/11/09 14:58:26 by prippa            #+#    #+#             */
+/*   Updated: 2017/11/09 15:05:05 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int32_t	ft_str_is_alpha(const char *str)
+int32_t	ft_is_str_upper(const char *str)
 {
 	while (*str)
-		if (!ft_isalpha(*str++))
+	{
+		if (ft_isalpha(*str) && ft_islower(*str++))
 			return (0);
+		++str;
+	}
 	return (1);
 }

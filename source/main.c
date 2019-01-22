@@ -21,7 +21,7 @@ void		msh_update_curent_dir_name(t_minishel *msh)
 {
 	const char *path;
 
-	if ((path = msh_env_get_arg_by_name(msh->env_start, "PWD", ft_strlen("PWD"))))
+	if ((path = msh_env_get_value_by_key(msh->env_start, "PWD", ft_strlen("PWD"))))
 		ft_strcpy(msh->curent_path, path);
 }
 

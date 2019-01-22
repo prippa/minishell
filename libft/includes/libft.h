@@ -148,15 +148,17 @@ void				ft_lst2rev(t_list2 **start, t_list2 **end);
 
 void				ft_lstdel_content(void *content, size_t content_size);
 
+int32_t				ft_isalpha_in_case(int32_t c);
+int32_t				ft_isalnum_in_case(int32_t c);
 int32_t				ft_isspace(int32_t c);
 int32_t				ft_isupper(int32_t c);
 int32_t				ft_islower(int32_t c);
-int32_t				ft_str_is_digit(const char *str);
-int32_t				ft_str_is_alpha(const char *str);
-int32_t				ft_str_is_upper(const char *str);
-int32_t				ft_str_is_lower(const char *str);
-void				ft_str_to_lower(char **str);
-void				ft_str_to_upper(char **str);
+int32_t				ft_is_str_digit(const char *str);
+int32_t				ft_is_str_alpha(const char *str);
+int32_t				ft_is_str_upper(const char *str);
+int32_t				ft_is_str_lower(const char *str);
+void				ft_to_str_lower(char **str);
+void				ft_to_str_upper(char **str);
 char				*ft_itoa_base(uintmax_t num, int32_t base, int32_t letter);
 char				**ft_arrnew(size_t y, size_t x, int32_t c);
 size_t				ft_arrlen(char **arr);

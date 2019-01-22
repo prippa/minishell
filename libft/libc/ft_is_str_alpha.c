@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_commands.h                                     :+:      :+:    :+:   */
+/*   ft_isstralpha.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/06 19:02:07 by prippa            #+#    #+#             */
-/*   Updated: 2018/10/06 19:02:08 by prippa           ###   ########.fr       */
+/*   Created: 2017/11/09 14:23:47 by prippa            #+#    #+#             */
+/*   Updated: 2017/11/09 14:28:40 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSH_COMMANDS_H
-# define MSH_COMMANDS_H
+#include "libft.h"
 
-# include "minishell.h"
-
-# define MSH_CMD_SIZE	6
-
-typedef void		(*t_func_cmd)(t_minishel *msh, char **args);
-static const		t_func_cmd	g_cmd_func[MSH_CMD_SIZE] =
+int32_t	ft_is_str_alpha(const char *str)
 {
-	msh_cd, msh_echo, msh_env, msh_setenv,
-	msh_unsetenv, msh_exit
-};
-
-static const char	*g_cmd_string[MSH_CMD_SIZE] =
-{
-	"cd", "echo", "env", "setenv",
-	"unsetenv", "exit"
-};
-
-#endif
+	while (*str)
+		if (!ft_isalpha(*str++))
+			return (0);
+	return (1);
+}

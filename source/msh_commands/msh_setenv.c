@@ -13,8 +13,8 @@
 #include "minishell.h"
 #include "ft_printf.h"
 
-#define MSH_SETENV_USG			"usage: setenv [key=value] ...\n"
-#define MSH_SETENV_INVALID_ARG	"'%s' is invalid\n"
+#define MSH_SETENV_USG			"setenv: usage: setenv [key=value] ...\n"
+#define MSH_SETENV_INVALID_ARG	"setenv: '%s' not a valid identifier\n"
 
 static void		msh_edit_or_set_new_env(t_minishel *msh, const char *env)
 {
@@ -25,7 +25,7 @@ static void		msh_edit_or_set_new_env(t_minishel *msh, const char *env)
 	new_env.index = ft_strchr(env, KEY_VALUE_SEPARATOR) - env;
 	if (!(new_env.env = ft_strdup(env)))
 		msh_error_exit(msh, MALLOC_ERR);
-	if ((obj = msh_env_get_obj_by_name(msh->env_start, env, new_env.index)))
+	if ((obj = msh_env_get_obj_by_key(msh->env_start, env, new_env.index)))
 	{
 		edit_env = (t_env *)obj->content;
 		msh_del_env_body(edit_env);
@@ -38,9 +38,21 @@ static void		msh_edit_or_set_new_env(t_minishel *msh, const char *env)
 	++msh->env_size;
 }
 
+static t_bool	msh_setenv_valid(const char *env)
+{
+	if (ft_isalpha_in_case(*env) && ft_strchr(env, KEY_VALUE_SEPARATOR))
+	{
+		while (*(++env) != KEY_VALUE_SEPARATOR)
+			if (!ft_isalnum_in_case(*env))
+				return (false);
+		return (true);
+	}
+	return (false);
+}
+
 void			msh_setenv_one_env(t_minishel *msh, const char *env)
 {
-	if (*env != KEY_VALUE_SEPARATOR && ft_strchr(env, KEY_VALUE_SEPARATOR))
+	if (msh_setenv_valid(env))
 		msh_edit_or_set_new_env(msh, env);
 	else
 	{

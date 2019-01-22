@@ -1,7 +1,21 @@
-#include "msh_commands.h"
+#include "minishell.h"
 
 #define MSH_PATH_ENV "PATH"
 #define MSH_PATH_ENV_SEPARATOR ':'
+#define MSH_CMD_SIZE	6
+
+typedef void		(*t_func_cmd)(t_minishel *msh, char **args);
+static const		t_func_cmd	g_cmd_func[MSH_CMD_SIZE] =
+{
+	msh_cd, msh_echo, msh_env, msh_setenv,
+	msh_unsetenv, msh_exit
+};
+
+static const char	*g_cmd_string[MSH_CMD_SIZE] =
+{
+	"cd", "echo", "env", "setenv",
+	"unsetenv", "exit"
+};
 
 static t_bool	msh_make_full_path(t_minishel *msh,
 					const char *path, char **args)
@@ -26,7 +40,7 @@ t_bool			msh_env_path_cmd_search(t_minishel *msh,
 	char		**paths;
 	uint32_t	i;
 
-	if ((path_value = msh_env_get_arg_by_name(msh->env_start, MSH_PATH_ENV,
+	if ((path_value = msh_env_get_value_by_key(msh->env_start, MSH_PATH_ENV,
 		ft_strlen(MSH_PATH_ENV))))
 	{
 		if (!(paths = ft_strsplit(path_value, MSH_PATH_ENV_SEPARATOR)))

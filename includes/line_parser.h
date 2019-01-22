@@ -14,13 +14,13 @@
 # define LINE_PARSER_H
 
 # include "minishell.h"
+# include "syntax_characters.h"
 
 # define ARG_BUF_SIZE	4096
 
 enum
 {
-	SEMI_SYNTAX_KEY = 1,
-	UNEXPECTED_EOF
+	SEMI_SYNTAX_KEY = 1
 };
 
 typedef struct	s_line_parser
@@ -50,5 +50,14 @@ void			lp_push_command(t_minishel *msh, t_line_parser *lp);
 void			lp_push_arg(t_minishel *msh, t_line_parser *lp);
 
 t_bool			lp_new_line(t_minishel *msh, t_line_parser *lp, t_bool nl_f);
+
+typedef t_bool	(*t_func_cmd)(t_minishel *msh, t_line_parser *lp);
+t_bool			lp_dollar(t_minishel *msh, t_line_parser *lp);
+t_bool			lp_backslash(t_minishel *msh, t_line_parser *lp);
+t_bool			lp_single_quotes(t_minishel *msh, t_line_parser *lp);
+t_bool			lp_double_quotes(t_minishel *msh, t_line_parser *lp);
+t_bool			lp_space(t_minishel *msh, t_line_parser *lp);
+t_bool			lp_semicolon(t_minishel *msh, t_line_parser *lp);
+t_bool			lp_tilde(t_minishel *msh, t_line_parser *lp);
 
 #endif

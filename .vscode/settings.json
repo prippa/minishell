@@ -12,6 +12,7 @@
 		"types.h": "c",
 		"libft.h": "c",
 		"lp_commands.h": "c",
-		"msh_commands.h": "c"
+		"msh_commands.h": "c",
+		"line_lexer.h": "c"
 	}
 }
