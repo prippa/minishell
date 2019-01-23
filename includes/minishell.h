@@ -16,7 +16,9 @@
 # include "libft.h"
 
 # define PATH_MAX				4096
-# define PROMPT_SIZE			PATH_MAX + 256
+# define FILENAME_MAX			255
+
+# define PROMPT_SIZE			FILENAME_MAX + 20
 # define KEY_VALUE_SEPARATOR	'='
 # define UNIX_PATH_SEPARATOR	'/'
 
@@ -53,6 +55,8 @@ void				msh_del_commands_list(void *content, size_t content_size);
 void				msh_error_exit(t_minishel *msh, const char *message);
 void				msh_execute_command(t_minishel *msh);
 void				msh_print_error(t_minishel *msh, const char *message);
+t_bool				msh_is_dir(t_minishel *msh, const char *path);
+t_bool				msh_is_valid_path(const char *path);
 const char			*msh_env_get_value_by_key(t_list2 *start,
 						const char *env, size_t len);
 t_list2				*msh_env_get_obj_by_key(t_list2 *start,

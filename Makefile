@@ -17,7 +17,7 @@ CC				=	gcc -g
 
 DIR_INC		=	./includes/
 DIR_SRC		=	./source/
-DIR_CMDS	=	$(DIR_SRC)msh_commands/
+DIR_CMDS	=	$(DIR_SRC)builtin/
 DIR_LX		=	$(DIR_SRC)line_lexer/
 DIR_LP		=	$(DIR_SRC)line_parser/
 DIR_LP_CMD	=	$(DIR_LP)lp_commands/
