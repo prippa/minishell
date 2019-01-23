@@ -1,18 +1,5 @@
 {
 	"files.associations": {
-		"minishell.h": "c",
-		"stdlib.h": "c",
-		"string.h": "c",
-		"unistd.h": "c",
-		"line_parser.h": "c",
-		"stdint.h": "c",
-		"cstdint": "c",
-		"get_next_line.h": "c",
-		"fcntl.h": "c",
-		"types.h": "c",
-		"libft.h": "c",
-		"lp_commands.h": "c",
-		"msh_commands.h": "c",
-		"line_lexer.h": "c"
+		"syntax_characters.h": "c"
 	}
 }

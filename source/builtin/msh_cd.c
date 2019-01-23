@@ -13,11 +13,6 @@
 #include "minishell.h"
 #include "ft_printf.h"
 
-typedef struct	s_cd_flags
-{
-	t_bool		dash;
-}				t_cd_flags;
-
 #define CD_DASH_F			"-"
 
 #define CD					"cd: "
@@ -27,48 +22,65 @@ typedef struct	s_cd_flags
 #define CD_NONEXIST_PATH	CD "no such file or directory: %s\n"
 #define CD_FILENAME_TO_LONG	CD "file name too long: %s\n"
 
-static t_bool	msh_cd_valid(t_minishel *msh, char **args)
+#define CD_NO_ENV			CD "%s not set\n"
+
+#define	CHDIR_FAILED		"chdir failed\n"
+
+static t_bool	msh_cd_path_valid(t_minishel *msh, const char *path)
 {
-	if (!*args)
-		return (true);
-	if (ft_arrlen(args) > 1)
-		ft_dprintf(STDERR_FILENO, CD_TO_MANY_ARGS);
-	else if (!msh_is_valid_path(*args))
-		ft_dprintf(STDERR_FILENO, CD_FILENAME_TO_LONG, *args);
-	else if (access(*args, F_OK) == ERR)
-		ft_dprintf(STDERR_FILENO, CD_NONEXIST_PATH, *args);
-	else if (!msh_is_dir(msh, *args))
-		ft_dprintf(STDERR_FILENO, CD_NOT_DIR, *args);
-	else if (access(*args, X_OK) == ERR)
-		ft_dprintf(STDERR_FILENO, CD_PERM_DENIED, *args);
+	if (!msh_is_valid_path(path))
+		ft_dprintf(STDERR_FILENO, CD_FILENAME_TO_LONG, path);
+	else if (access(path, F_OK) == ERR)
+		ft_dprintf(STDERR_FILENO, CD_NONEXIST_PATH, path);
+	else if (!msh_is_dir(msh, path))
+		ft_dprintf(STDERR_FILENO, CD_NOT_DIR, path);
+	else if (access(path, X_OK) == ERR)
+		ft_dprintf(STDERR_FILENO, CD_PERM_DENIED, path);
 	else
 		return (true);
 	return (false);
 }
 
-static void	msh_cd_flags(t_cd_flags *f, char ***args)
+static void		msh_cd_make_move(t_minishel *msh, const char *path)
 {
-	while (**args)
+	msh_set_pwd(msh, OLDPWD_ENV);
+	if ((chdir(path)) == ERR)
+		msh_error_exit(msh, CHDIR_FAILED);
+	msh_set_pwd(msh, PWD_ENV);
+}
+
+static t_bool	msh_cd_by_env(t_minishel *msh, const char *env_key)
+{
+	const char *path;
+
+	if (!(path = msh_env_get_value_by_key(msh->env_start,
+		env_key, ft_strlen(env_key))))
 	{
-		if (!ft_strcmp(**args, CD_DASH_F))
-			f->dash = true;
-		else
-			break ;
-		++(*args);
+		ft_dprintf(STDERR_FILENO, CD_NO_ENV, env_key);
+		return (false);
 	}
+	if (!msh_cd_path_valid(msh, path))
+		return (false);
+	if (!(path = ft_strdup(path)))
+		msh_error_exit(msh, MALLOC_ERR);
+	msh_cd_make_move(msh, path);
+	ft_strdel((char **)&path);
+	return (true);
 }
 
 void			msh_cd(t_minishel *msh, char **args)
 {
-	t_cd_flags f;
-
-	ft_bzero(&f, sizeof(t_cd_flags));
-	msh_cd_flags(&f, &args);
-	if (!(msh->success_exec = msh_cd_valid(msh, args)))
-		return ;
-	(void)args;
-	char *pwd = getcwd(NULL, 0);
-	ft_printf("%s\n", msh->curent_path);
-	ft_putendl("cd");
-	free(pwd);
+	if (!*args)
+		msh->success_exec = msh_cd_by_env(msh, HOME_ENV);
+	else if (*(args + 1))
+	{
+		ft_dprintf(STDERR_FILENO, CD_TO_MANY_ARGS);
+		msh->success_exec = false;
+	}
+	else if (!ft_strcmp(*args, CD_DASH_F))
+		msh->success_exec = msh_cd_by_env(msh, OLDPWD_ENV);
+	else if ((msh->success_exec = msh_cd_path_valid(msh, *args)))
+		msh_cd_make_move(msh, *args);
+	if (msh->success_exec)
+		msh_update_curent_dir_name(msh);
 }

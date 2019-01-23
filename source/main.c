@@ -17,14 +17,6 @@
 #define MSH_OK_ICON		"✓"
 #define MSH_ERROR_ICON	"✕"
 
-void		msh_update_curent_dir_name(t_minishel *msh)
-{
-	const char *path;
-
-	if ((path = msh_env_get_value_by_key(msh->env_start, "PWD", ft_strlen("PWD"))))
-		ft_strcpy(msh->curent_path, path);
-}
-
 static void	msh_update_prompt(t_minishel *msh)
 {
 	ft_strcpy(msh->prompt, (msh->success_exec ? MSH_OK_ICON : MSH_ERROR_ICON));
@@ -35,8 +27,6 @@ static void	msh_update_prompt(t_minishel *msh)
 
 static void	msh_loop(t_minishel *msh)
 {
-	msh_update_curent_dir_name(msh);
-	msh_update_prompt(msh);
 	while ((msh->line = readline(msh->prompt)))
 	{
 		if (*msh->line)
@@ -57,6 +47,8 @@ static void	msh_init(t_minishel *msh)
 	ft_bzero(msh, sizeof(t_minishel));
 	msh_setenv(msh, environ);
 	msh->success_exec = true;
+	msh_update_curent_dir_name(msh);
+	msh_update_prompt(msh);
 }
 
 int			main(void)

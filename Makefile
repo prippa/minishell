@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME			=	minishell
-FLAGS			=	-Wall -Werror -Wextra
+# FLAGS			=	-Wall -Werror -Wextra
 READLINE_FLAG	=	-lreadline
 CC				=	gcc -g
 

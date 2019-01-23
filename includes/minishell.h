@@ -23,6 +23,8 @@
 # define UNIX_PATH_SEPARATOR	'/'
 
 # define HOME_ENV				"HOME"
+# define PWD_ENV				"PWD"
+# define OLDPWD_ENV				"OLDPWD"
 
 typedef struct		s_command
 {
@@ -57,6 +59,8 @@ void				msh_execute_command(t_minishel *msh);
 void				msh_print_error(t_minishel *msh, const char *message);
 t_bool				msh_is_dir(t_minishel *msh, const char *path);
 t_bool				msh_is_valid_path(const char *path);
+void				msh_set_pwd(t_minishel *msh, const char *pwd_name);
+void				msh_update_curent_dir_name(t_minishel *msh);
 const char			*msh_env_get_value_by_key(t_list2 *start,
 						const char *env, size_t len);
 t_list2				*msh_env_get_obj_by_key(t_list2 *start,
