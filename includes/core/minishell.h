@@ -13,8 +13,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/includes/libc/libft.h"
-# include "../libft/includes/printf/ft_printf.h"
+# include "../../libft/includes/libc/libft.h"
+# include "../../libft/includes/printf/ft_printf.h"
 
 # define PATH_MAX				4096
 # define FILE_NAME_MAX			255

@@ -10,98 +10,99 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME			=	minishell
-FLAGS			=	-Wall -Werror -Wextra
-READLINE_FLAG	=	-lreadline
-CC				=	gcc
+#-------------------------- Key Values -----------------------------------------
+NAME		:=	minishell
+CFLAGS		:=	-Wall -Werror -Wextra
+READLINE_F	:=	-lreadline
+CC			:=	gcc
 
-DIR_INC		=	./includes/
-DIR_SRC		=	./source/
-DIR_CMDS	=	$(DIR_SRC)builtin/
-DIR_LX		=	$(DIR_SRC)line_lexer/
-DIR_LP		=	$(DIR_SRC)line_parser/
-DIR_LP_CMD	=	$(DIR_LP)lp_commands/
-DIR_OBJ		=	./obj/
-DIR_LIB		=	./libft/
-LIBFT		=	$(DIR_LIB)libft.a
+DIR_LIB		:=	libft
+DIR_INC		:=	includes
+DIR_SRC		:=	source
+DIR_OBJ		:=	object
+CH_HEAD		:=	h
+CH_SRC		:=	c
+CH_OBJ		:=	o
 
-#-------------------------- Header files ---------------------------------------
-HEAD_BASE		=	minishell.h syntax_characters.h
-HEAD_LINE_PRS	=	line_parser.h
-HEAD_LINE_LXR	=	line_lexer.h
+COR			:=	core
+LNL			:=	line_lexer
+LNP			:=	line_parser
 
-#-------------------------- Source files ---------------------------------------
-C_MSH		=	main.c msh_exit.c msh_free.c msh_execute_cmd.c msh_utility.c\
-				msh_env_get.c msh_search_command.c msh_fork_and_exec.c
+LIBFT		:=	$(DIR_LIB)/libft.a
 
-C_CMDS		=	msh_cd.c msh_echo.c msh_env.c msh_setenv.c msh_unsetenv.c
+#-------------------------- inc srs Paths --------------------------------------
+DIR_COR_INC	:=	$(DIR_INC)/$(COR)
+DIR_LNL_INC	:=	$(DIR_INC)/$(LNL)
+DIR_LNP_INC	:=	$(DIR_INC)/$(LNP)
 
-C_LX		=	line_lexer.c lx_read_new_line.c lx_commands.c
+DIR_COR_SRC	:=	$(DIR_SRC)/$(COR)
+DIR_LNL_SRC	:=	$(DIR_SRC)/$(LNL)
+DIR_LNP_SRC	:=	$(DIR_SRC)/$(LNP)
 
-C_LP		=	line_parser.c lp_arg_buf_control.c lp_utility.c\
-				lp_push_to_list.c
+#-------------------------- Init of Values -------------------------------------
+COR_HEAD	:=	$(shell find $(DIR_COR_INC) -type f -name *.$(CH_HEAD))
+LNL_HEAD	:=	$(shell find $(DIR_LNL_INC) -type f -name *.$(CH_HEAD))
+LNP_HEAD	:=	$(shell find $(DIR_LNP_INC) -type f -name *.$(CH_HEAD))
 
-C_LP_CMD	=	lp_dollar.c lp_backslash.c lp_single_quotes.c lp_double_quotes.c\
-				lp_space.c lp_semicolon.c lp_tilde.c
+COR_SRC		:=	$(shell find $(DIR_COR_SRC) -type f -name *.$(CH_SRC))
+LNL_SRC		:=	$(shell find $(DIR_LNL_SRC) -type f -name *.$(CH_SRC))
+LNP_SRC		:=	$(shell find $(DIR_LNP_SRC) -type f -name *.$(CH_SRC))
 
-OBJ 		=	$(addprefix $(DIR_OBJ), $(C_MSH:.c=.o) $(C_CMDS:.c=.o) \
-				$(C_LX:.c=.o) $(C_LP:.c=.o) $(C_LP_CMD:.c=.o))
+OBJ			:=	$(patsubst $(DIR_COR_SRC)/%,$(DIR_OBJ)/%,\
+				$(COR_SRC:.$(CH_SRC)=.$(CH_OBJ)))
+OBJ			+=	$(patsubst $(DIR_LNL_SRC)/%,$(DIR_OBJ)/%,\
+				$(LNL_SRC:.$(CH_SRC)=.$(CH_OBJ)))
+OBJ			+=	$(patsubst $(DIR_LNP_SRC)/%,$(DIR_OBJ)/%,\
+				$(LNP_SRC:.$(CH_SRC)=.$(CH_OBJ)))
 
-INC				=	$(addprefix -I, $(DIR_INC))
-INC_BASE		=	$(addprefix $(DIR_INC), $(HEAD_BASE))
-INC_LINE_PRS	=	$(addprefix $(DIR_INC), $(HEAD_BASE) $(HEAD_LINE_PRS))
-INC_LINE_LXR	=	$(addprefix $(DIR_INC), $(HEAD_BASE) $(HEAD_LINE_LXR))
+INC			:=	$(addprefix -I, $(DIR_COR_INC) $(DIR_LNL_INC) $(DIR_LNP_INC))
 
-all: lib $(NAME)
+#-------------------------- Make -----------------------------------------------
+all: lib $(DIR_OBJ) $(NAME)
 
 lib:
 	@make -C $(DIR_LIB)
 
-#-------------------------- Compil Block ---------------------------------------
-$(NAME): $(OBJ) $(LIBFT)
-	@$(CC) -o $(NAME) $(OBJ) $(READLINE_FLAG) $(LIBFT) 
-	@echo "Compiling" [ $(NAME) ]
+$(DIR_OBJ):
+	@mkdir -p $(DIR_OBJ)
 
 #-------------------------- Link Block -----------------------------------------
-#source
-$(DIR_OBJ)%.o: $(DIR_SRC)%.c $(INC_BASE)
-	@mkdir -p $(DIR_OBJ)
-	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
-	@echo "Linking" [ $< ]
+$(NAME): $(OBJ) $(LIBFT)
+	@$(CC) -o $(NAME) $(OBJ) $(READLINE_F) $(LIBFT) 
+	@echo "Linking" [ $(NAME) ]
 
-#msh_commands
-$(DIR_OBJ)%.o: $(DIR_CMDS)%.c $(INC_BASE)
-	@mkdir -p $(DIR_OBJ)
-	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
-	@echo "Linking" [ $< ]
+#-------------------------- Compil Block ---------------------------------------
+#COR
+$(DIR_OBJ)/%.$(CH_OBJ): $(DIR_COR_SRC)/%.$(CH_SRC)\
+$(COR_HEAD)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+	@echo "Compiling" [ $< ]
 
-#line_lexer
-$(DIR_OBJ)%.o: $(DIR_LX)%.c $(INC_LINE_LXR)
-	@mkdir -p $(DIR_OBJ)
-	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
-	@echo "Linking" [ $< ]
+#LNL
+$(DIR_OBJ)/%.$(CH_OBJ): $(DIR_LNL_SRC)/%.$(CH_SRC)\
+$(COR_HEAD) $(LNL_HEAD)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+	@echo "Compiling" [ $< ]
 
-#line_parser
-$(DIR_OBJ)%.o: $(DIR_LP)%.c $(INC_LINE_PRS)
-	@mkdir -p $(DIR_OBJ)
-	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
-	@echo "Linking" [ $< ]
+#LNP
+$(DIR_OBJ)/%.$(CH_OBJ): $(DIR_LNP_SRC)/%.$(CH_SRC)\
+$(COR_HEAD) $(LNP_HEAD)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+	@echo "Compiling" [ $< ]
 
-#lp_commands
-$(DIR_OBJ)%.o: $(DIR_LP_CMD)%.c $(INC_LINE_PRS)
-	@mkdir -p $(DIR_OBJ)
-	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
-	@echo "Linking" [ $< ]
-
+#-------------------------- Clean ----------------------------------------------
 clean:
 	@make -C $(DIR_LIB) clean
 	@rm -rf $(DIR_OBJ)
-	@echo "Clean [ obj files minishell ]"
+	@echo "Clean [ obj files $(NAME) ]"
 
 fclean:
 	@make -C $(DIR_LIB) fclean
 	@rm -rf $(DIR_OBJ)
-	@echo "Clean [ obj files minishell ]"
+	@echo "Clean [ obj files $(NAME) ]"
 	@rm -f $(NAME)
 	@echo "Clean" [ $(NAME) ]
 

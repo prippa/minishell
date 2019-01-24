@@ -5,6 +5,8 @@
 		"ft_str.h": "c",
 		"get_next_line.h": "c",
 		"ft_def.h": "c",
-		"stdint.h": "c"
+		"stdint.h": "c",
+		"minishell.h": "c",
+		"libft.h": "c"
 	}
 }
