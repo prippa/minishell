@@ -16,9 +16,9 @@
 # include "libft.h"
 
 # define PATH_MAX				4096
-# define FILENAME_MAX			255
+# define FILE_NAME_MAX			255
 
-# define PROMPT_SIZE			FILENAME_MAX + 20
+# define PROMPT_SIZE			FILE_NAME_MAX + 20
 # define KEY_VALUE_SEPARATOR	'='
 # define UNIX_PATH_SEPARATOR	'/'
 

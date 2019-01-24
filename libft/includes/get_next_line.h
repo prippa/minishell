@@ -1,9 +1,9 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <fcntl.h>
-
 # define BUFF_SIZE	80
+
+# include <stdint.h>
 
 typedef	struct		s_gnl
 {

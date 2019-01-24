@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strnequ.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <prippa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/25 16:30:01 by prippa            #+#    #+#             */
-/*   Updated: 2017/11/20 18:01:14 by prippa           ###   ########.fr       */
+/*   Created: 2017/11/03 18:20:39 by prippa            #+#    #+#             */
+/*   Updated: 2017/11/05 13:23:36 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "ft_str.h"
 
-# include "ft_def.h"
-# include "ft_arr.h"
-# include "ft_str.h"
-# include "ft_mem.h"
-# include "ft_put.h"
-# include "ft_is.h"
-# include "ft_to.h"
-# include "ft_other.h"
-
-# include "ft_lst.h"
-
-# include "get_next_line.h"
-
-# include "ft_printf.h"
-
-#endif
+int		ft_strnequ(char const *s1, char const *s2, size_t n)
+{
+	if (!s1 || !s2)
+		return (0);
+	if (!ft_strncmp(s1, s2, n))
+		return (1);
+	return (0);
+}

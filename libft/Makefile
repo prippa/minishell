@@ -11,51 +11,145 @@
 # **************************************************************************** #
 
 NAME		=	libft.a
-
 FLAGS		= 	-Wall -Werror -Wextra
-
-CC			=	gcc -g
+CC			=	gcc
 
 DIR_INC		=	./includes/
-DIR_LIBC	=	./libc/
-DIR_FPF		=	./printf/
-DIR_OBJ		= 	./obj/
 
-HEAD_LIBC	=	libft.h
-HEAD_FPF	=	ft_printf.h
-
-C_LIBC		= 	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c\
-			ft_isascii.c ft_isdigit.c ft_islower.c ft_isprint.c ft_isspace.c\
-			ft_is_str_alpha.c ft_is_str_digit.c ft_is_str_lower.c ft_is_str_upper.c\
-			ft_isupper.c ft_itoa.c ft_lstadd.c ft_lstdel.c ft_lstdelone.c\
-			ft_lstiter.c ft_lstmap.c ft_lstnew.c ft_memalloc.c\
-			ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c\
-			ft_memdel.c ft_memmove.c ft_memset.c ft_putchar.c\
-			ft_putchar_fd.c ft_putendl.c ft_putendl_fd.c ft_putnbr.c\
-			ft_putnbr_fd.c ft_putstr.c ft_putstr_fd.c ft_strcat.c\
-			ft_strchr.c ft_strclr.c ft_strcmp.c ft_strcpy.c ft_strdup_free.c\
-			ft_strdel.c ft_strdup.c ft_strequ.c ft_striter.c\
-			ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlen.c\
-			ft_strmap.c ft_strmapi.c ft_strncat.c ft_strncmp.c\
-			ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c\
-			ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c\
-			ft_strtrim.c ft_tolower.c ft_to_str_lower.c ft_to_str_upper.c\
-			ft_toupper.c get_next_line.c ft_arrdel.c ft_arrlen.c ft_nbrlen.c\
-			ft_clear.c ft_arrnew.c ft_putarr.c ft_putarr_fd.c ft_lstpop.c\
-			ft_memrev.c ft_strjoin_free.c ft_memjoin_free.c ft_perror_exit.c\
-			ft_lstrev.c ft_memjoin.c ft_isalpha_in_case.c ft_isalnum_in_case.c
-
-C_FPF		= 	ft_printf.c fpf_cat_data.c fpf_parser.c fpf_trash.c\
-				fpf_parser_get_type.c fpf_conversions.c fpf_unicode.c\
-				fpf_output_sc.c fpf_output_d.c fpf_output_u.c\
-				fpf_output_ox.c fpf_output_p.c fpf_colors.c fpf_bonus_flags.c
+DIR_SRC		=	source/
+DIR_MEM		=	$(DIR_SRC)mem/
+DIR_STR		=	$(DIR_SRC)str/
+DIR_IS		=	$(DIR_SRC)is/
+DIR_TO		=	$(DIR_SRC)to/
+DIR_PUT		=	$(DIR_SRC)put/
+DIR_LST		=	$(DIR_SRC)lst/
+DIR_ARR		=	$(DIR_SRC)arr/
+DIR_OTHER	=	$(DIR_SRC)other/
+DIR_GNL		=	$(DIR_SRC)get_next_line/
+DIR_FPF		=	$(DIR_SRC)printf/
 
 
-OBJ 		= 	$(addprefix $(DIR_OBJ), $(C_LIBC:.c=.o) $(C_FPF:.c=.o))
+HEAD		=	$(DIR_INC)libft.h\
+				$(DIR_INC)get_next_line.h\
+				$(DIR_INC)ft_printf.h\
+				$(DIR_INC)ft_def.h\
+				$(DIR_INC)ft_mem.h\
+				$(DIR_INC)ft_str.h\
+				$(DIR_INC)ft_is.h\
+				$(DIR_INC)ft_to.h\
+				$(DIR_INC)ft_put.h\
+				$(DIR_INC)ft_lst.h\
+				$(DIR_INC)ft_arr.h\
+				$(DIR_INC)ft_other.h
 
-INC 		= 	$(addprefix -I,$(DIR_INC))
-INC_LIBC 	= 	$(addprefix $(DIR_INC), $(HEAD_LIBC))
-INC_FPF 	= 	$(addprefix $(DIR_INC), $(HEAD_FPF))
+LIB_C		=	$(DIR_MEM)ft_bzero.c\
+				$(DIR_MEM)ft_memalloc.c\
+				$(DIR_MEM)ft_memccpy.c\
+				$(DIR_MEM)ft_memchr.c\
+				$(DIR_MEM)ft_memcmp.c\
+				$(DIR_MEM)ft_memcpy.c\
+				$(DIR_MEM)ft_memdel.c\
+				$(DIR_MEM)ft_memmove.c\
+				$(DIR_MEM)ft_memset.c\
+				$(DIR_MEM)ft_memrev.c\
+				$(DIR_MEM)ft_memjoin.c\
+				$(DIR_MEM)ft_memjoin_free.c\
+				$(DIR_STR)ft_strcat.c\
+				$(DIR_STR)ft_strchr.c\
+				$(DIR_STR)ft_strclr.c\
+				$(DIR_STR)ft_strcmp.c\
+				$(DIR_STR)ft_strcpy.c\
+				$(DIR_STR)ft_strdup_free.c\
+				$(DIR_STR)ft_strdel.c\
+				$(DIR_STR)ft_strdup.c\
+				$(DIR_STR)ft_strequ.c\
+				$(DIR_STR)ft_striter.c\
+				$(DIR_STR)ft_striteri.c\
+				$(DIR_STR)ft_strjoin.c\
+				$(DIR_STR)ft_strjoin_free.c\
+				$(DIR_STR)ft_strlcat.c\
+				$(DIR_STR)ft_strlen.c\
+				$(DIR_STR)ft_strmap.c\
+				$(DIR_STR)ft_strmapi.c\
+				$(DIR_STR)ft_strncat.c\
+				$(DIR_STR)ft_strncmp.c\
+				$(DIR_STR)ft_strncpy.c\
+				$(DIR_STR)ft_strnequ.c\
+				$(DIR_STR)ft_strnew.c\
+				$(DIR_STR)ft_strnstr.c\
+				$(DIR_STR)ft_strrchr.c\
+				$(DIR_STR)ft_strsplit.c\
+				$(DIR_STR)ft_strstr.c\
+				$(DIR_STR)ft_strsub.c\
+				$(DIR_STR)ft_strtrim.c\
+				$(DIR_IS)ft_isalnum.c\
+				$(DIR_IS)ft_isalpha.c\
+				$(DIR_IS)ft_isascii.c\
+				$(DIR_IS)ft_isdigit.c\
+				$(DIR_IS)ft_islower.c\
+				$(DIR_IS)ft_isprint.c\
+				$(DIR_IS)ft_isspace.c\
+				$(DIR_IS)ft_is_str_alpha.c\
+				$(DIR_IS)ft_is_str_digit.c\
+				$(DIR_IS)ft_is_str_lower.c\
+				$(DIR_IS)ft_is_str_upper.c\
+				$(DIR_IS)ft_isupper.c\
+				$(DIR_IS)ft_isalpha_in_case.c\
+				$(DIR_IS)ft_isalnum_in_case.c\
+				$(DIR_TO)ft_tolower.c\
+				$(DIR_TO)ft_to_str_lower.c\
+				$(DIR_TO)ft_to_str_upper.c\
+				$(DIR_TO)ft_toupper.c\
+				$(DIR_PUT)ft_putchar.c\
+				$(DIR_PUT)ft_putchar_fd.c\
+				$(DIR_PUT)ft_putendl.c\
+				$(DIR_PUT)ft_putendl_fd.c\
+				$(DIR_PUT)ft_putnbr.c\
+				$(DIR_PUT)ft_putnbr_fd.c\
+				$(DIR_PUT)ft_putstr.c\
+				$(DIR_PUT)ft_putstr_fd.c\
+				$(DIR_PUT)ft_putarr.c\
+				$(DIR_PUT)ft_putarr_fd.c\
+				$(DIR_LST)ft_lstadd.c\
+				$(DIR_LST)ft_lstdel.c\
+				$(DIR_LST)ft_lstdelone.c\
+				$(DIR_LST)ft_lstiter.c\
+				$(DIR_LST)ft_lstmap.c\
+				$(DIR_LST)ft_lstnew.c\
+				$(DIR_LST)ft_lstpop.c\
+				$(DIR_LST)ft_lstrev.c\
+				$(DIR_ARR)ft_arrdel.c\
+				$(DIR_ARR)ft_arrlen.c\
+				$(DIR_ARR)ft_arrnew.c\
+				$(DIR_OTHER)ft_atoi.c\
+				$(DIR_OTHER)ft_itoa.c\
+				$(DIR_OTHER)ft_nbrlen.c\
+				$(DIR_OTHER)ft_clear.c\
+				$(DIR_OTHER)ft_perror_exit.c
+
+GNL_C		=	$(DIR_GNL)get_next_line.c
+
+FPF_C		=	$(DIR_FPF)ft_printf.c\
+				$(DIR_FPF)fpf_cat_data.c\
+				$(DIR_FPF)fpf_parser.c\
+				$(DIR_FPF)fpf_trash.c\
+				$(DIR_FPF)fpf_parser_get_type.c\
+				$(DIR_FPF)fpf_conversions.c\
+				$(DIR_FPF)fpf_unicode.c\
+				$(DIR_FPF)fpf_output_sc.c\
+				$(DIR_FPF)fpf_output_d.c\
+				$(DIR_FPF)fpf_output_u.c\
+				$(DIR_FPF)fpf_output_ox.c\
+				$(DIR_FPF)fpf_output_p.c\
+				$(DIR_FPF)fpf_colors.c\
+				$(DIR_FPF)fpf_bonus_flags.c
+
+
+OBJ 		=	$(LIB_C:.c=.o)
+OBJ			+=	$(GNL_C:.c=.o)
+OBJ			+=	$(FPF_C:.c=.o)
+
+INC 		=	$(addprefix -I, $(DIR_INC))
 
 
 all: $(NAME)
@@ -65,22 +159,16 @@ $(NAME): $(OBJ)
 	@ranlib $(NAME)
 	@echo "Compiling" [ $(NAME) ]
 
-$(DIR_OBJ)%.o: $(DIR_LIBC)%.c $(INC_LIBC)
-	@mkdir -p $(DIR_OBJ)
-	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
-	@echo "Linking" [ $< ]
-
-$(DIR_OBJ)%.o: $(DIR_FPF)%.c $(INC_FPF)
-	@mkdir -p $(DIR_OBJ)
+$(OBJ): %.o: %.c $(HEAD)
 	@$(CC) $(FLAGS) $(INC) -c -o $@ $<
 	@echo "Linking" [ $< ]
 
 clean:
-	@rm -rf $(DIR_OBJ)
+	@rm -rf $(OBJ)
 	@echo "Clean [ obj files libft ]"
 
 fclean:
-	@rm -rf $(DIR_OBJ)
+	@rm -rf $(OBJ)
 	@echo "Clean [ obj files libft ]"
 	@rm -f $(NAME)
 	@echo "Clean" [ $(NAME) ]

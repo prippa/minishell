@@ -35,7 +35,7 @@ t_bool		msh_is_valid_path(const char *path)
 	{
 		if (*path == UNIX_PATH_SEPARATOR)
 			i = 0;
-		else if (++i > FILENAME_MAX)
+		else if (++i > FILE_NAME_MAX)
 			return (false);
 		++path;
 	}

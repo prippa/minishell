@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <prippa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/25 16:30:01 by prippa            #+#    #+#             */
-/*   Updated: 2017/11/20 18:01:14 by prippa           ###   ########.fr       */
+/*   Created: 2017/10/30 18:19:31 by prippa            #+#    #+#             */
+/*   Updated: 2017/11/05 13:47:11 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include <stdlib.h>
 
-# include "ft_def.h"
-# include "ft_arr.h"
-# include "ft_str.h"
-# include "ft_mem.h"
-# include "ft_put.h"
-# include "ft_is.h"
-# include "ft_to.h"
-# include "ft_other.h"
+int		ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	uint8_t *ptr1;
+	uint8_t *ptr2;
 
-# include "ft_lst.h"
-
-# include "get_next_line.h"
-
-# include "ft_printf.h"
-
-#endif
+	ptr1 = (uint8_t *)s1;
+	ptr2 = (uint8_t *)s2;
+	while (n--)
+		if (*ptr1++ != *ptr2++)
+			return (*(ptr1 - 1) - *(ptr2 - 1));
+	return (0);
+}

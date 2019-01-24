@@ -1,5 +1,9 @@
 {
 	"files.associations": {
-		"syntax_characters.h": "c"
+		"syntax_characters.h": "c",
+		"ft_put.h": "c",
+		"ft_str.h": "c",
+		"get_next_line.h": "c",
+		"ft_def.h": "c"
 	}
 }

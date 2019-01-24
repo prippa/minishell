@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <prippa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/25 16:30:01 by prippa            #+#    #+#             */
-/*   Updated: 2017/11/20 18:01:14 by prippa           ###   ########.fr       */
+/*   Created: 2017/11/03 17:44:21 by prippa            #+#    #+#             */
+/*   Updated: 2017/11/05 13:23:23 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "ft_str.h"
 
-# include "ft_def.h"
-# include "ft_arr.h"
-# include "ft_str.h"
-# include "ft_mem.h"
-# include "ft_put.h"
-# include "ft_is.h"
-# include "ft_to.h"
-# include "ft_other.h"
+char	*ft_strmapi(char const *s, char (*f)(uint32_t, char))
+{
+	uint32_t	i;
+	char		*new_obj;
 
-# include "ft_lst.h"
-
-# include "get_next_line.h"
-
-# include "ft_printf.h"
-
-#endif
+	if (!s || !f)
+		return (NULL);
+	if (!(new_obj = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1))))
+		return (NULL);
+	i = -1;
+	while (s[++i])
+		new_obj[i] = f(i, s[i]);
+	new_obj[i] = 0;
+	return (new_obj);
+}

@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <prippa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/25 16:30:01 by prippa            #+#    #+#             */
-/*   Updated: 2017/11/20 18:01:14 by prippa           ###   ########.fr       */
+/*   Created: 2017/10/26 15:20:01 by prippa            #+#    #+#             */
+/*   Updated: 2017/11/05 13:33:13 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "ft_str.h"
 
-# include "ft_def.h"
-# include "ft_arr.h"
-# include "ft_str.h"
-# include "ft_mem.h"
-# include "ft_put.h"
-# include "ft_is.h"
-# include "ft_to.h"
-# include "ft_other.h"
+char	*ft_strdup(const char *s1)
+{
+	char		*new_obj;
 
-# include "ft_lst.h"
-
-# include "get_next_line.h"
-
-# include "ft_printf.h"
-
-#endif
+	if (!(new_obj = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1))))
+		return (NULL);
+	ft_strcpy(new_obj, s1);
+	return (new_obj);
+}
