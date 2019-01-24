@@ -1,5 +1,4 @@
 #include "line_parser.h"
-#include "ft_printf.h"
 
 #define LP	"line parser : "
 

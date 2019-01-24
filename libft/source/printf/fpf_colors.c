@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "ft_color.h"
+#include "ft_def.h"
 
 static void	ft_fpf_back_color(t_printf *fpf)
 {

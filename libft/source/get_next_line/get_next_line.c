@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
 #include "ft_def.h"
 #include "ft_str.h"
-#include "get_next_line.h"
 #include <unistd.h>
 
 static int32_t	gnl_sub_line(t_gnl *file, char **line)

@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/30 17:50:26 by prippa            #+#    #+#             */
-/*   Updated: 2017/10/30 17:50:31 by prippa           ###   ########.fr       */
+/*   Created: 2017/10/30 13:34:25 by prippa            #+#    #+#             */
+/*   Updated: 2017/10/30 13:34:27 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdint.h>
 
-void	*ft_memchr(const void *s, int32_t c, size_t n)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	uint8_t	*ptr;
-	uint8_t	ch;
+	uint8_t	*ptr1;
+	uint8_t	*ptr2;
 
-	ptr = (uint8_t *)s;
-	ch = (uint8_t)c;
+	ptr1 = (uint8_t *)dst;
+	ptr2 = (uint8_t *)src;
 	while (n--)
-		if (*ptr++ == ch)
-			return (ptr - 1);
-	return (NULL);
+		ptr1[n] = ptr2[n];
+	return (dst);
 }

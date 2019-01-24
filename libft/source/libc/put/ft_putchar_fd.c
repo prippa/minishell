@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/30 13:34:25 by prippa            #+#    #+#             */
-/*   Updated: 2017/10/30 13:34:27 by prippa           ###   ########.fr       */
+/*   Created: 2017/11/06 15:20:47 by prippa            #+#    #+#             */
+/*   Updated: 2017/11/06 15:20:53 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <unistd.h>
+#include <stdint.h>
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	ft_putchar_fd(char c, int32_t fd)
 {
-	uint8_t	*ptr1;
-	uint8_t	*ptr2;
-
-	ptr1 = (uint8_t *)dst;
-	ptr2 = (uint8_t *)src;
-	while (n--)
-		ptr1[n] = ptr2[n];
-	return (dst);
+	write(fd, &c, 1);
 }

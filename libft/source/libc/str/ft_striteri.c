@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/31 16:08:51 by prippa            #+#    #+#             */
-/*   Updated: 2017/10/31 16:08:53 by prippa           ###   ########.fr       */
+/*   Created: 2017/11/03 17:23:44 by prippa            #+#    #+#             */
+/*   Updated: 2017/11/03 17:23:47 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdint.h>
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_striteri(char *s, void (*f)(uint32_t, char *))
 {
-	while ((*s1 || *s2) && n--)
-		if (*s1++ != *s2++)
-			return ((uint8_t)*(s1 - 1) - (uint8_t)*(s2 - 1));
-	return (0);
+	size_t i;
+
+	if (!s || !f)
+		return ;
+	i = -1;
+	while (s[++i])
+		f(i, &s[i]);
 }

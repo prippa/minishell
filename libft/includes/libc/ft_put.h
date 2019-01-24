@@ -1,7 +1,8 @@
 #ifndef FT_PUT_H
 # define FT_PUT_H
 
-#include <unistd.h>
+# include <unistd.h>
+# include <stdint.h>
 
 void		ft_putchar(char c);
 void		ft_putstr(char const *s);

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "ft_printf.h"
 
 #define MSH_CMD_NOT_FOUND "%s: command not found\n"
 

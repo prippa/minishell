@@ -23,7 +23,6 @@ DIR_LP		=	$(DIR_SRC)line_parser/
 DIR_LP_CMD	=	$(DIR_LP)lp_commands/
 DIR_OBJ		=	./obj/
 DIR_LIB		=	./libft/
-DIR_LIB_INC	=	$(DIR_LIB)includes/
 LIBFT		=	$(DIR_LIB)libft.a
 
 #-------------------------- Header files ---------------------------------------
@@ -48,7 +47,7 @@ C_LP_CMD	=	lp_dollar.c lp_backslash.c lp_single_quotes.c lp_double_quotes.c\
 OBJ 		=	$(addprefix $(DIR_OBJ), $(C_MSH:.c=.o) $(C_CMDS:.c=.o) \
 				$(C_LX:.c=.o) $(C_LP:.c=.o) $(C_LP_CMD:.c=.o))
 
-INC			=	$(addprefix -I, $(DIR_INC) $(DIR_LIB_INC))
+INC				=	$(addprefix -I, $(DIR_INC))
 INC_BASE		=	$(addprefix $(DIR_INC), $(HEAD_BASE))
 INC_LINE_PRS	=	$(addprefix $(DIR_INC), $(HEAD_BASE) $(HEAD_LINE_PRS))
 INC_LINE_LXR	=	$(addprefix $(DIR_INC), $(HEAD_BASE) $(HEAD_LINE_LXR))

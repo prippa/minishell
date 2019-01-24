@@ -14,33 +14,39 @@ NAME		=	libft.a
 FLAGS		= 	-Wall -Werror -Wextra
 CC			=	gcc
 
-DIR_INC		=	./includes/
+DIR_LIBFT_I	=	includes/libc/
+DIR_GNL_I	=	includes/get_next_line/
+DIR_FPF_I	=	includes/printf/
+
+DIR_INC		=	$(DIR_LIBFT_I) $(DIR_GNL_I) $(DIR_FPF_I)
 
 DIR_SRC		=	source/
-DIR_MEM		=	$(DIR_SRC)mem/
-DIR_STR		=	$(DIR_SRC)str/
-DIR_IS		=	$(DIR_SRC)is/
-DIR_TO		=	$(DIR_SRC)to/
-DIR_PUT		=	$(DIR_SRC)put/
-DIR_LST		=	$(DIR_SRC)lst/
-DIR_ARR		=	$(DIR_SRC)arr/
-DIR_OTHER	=	$(DIR_SRC)other/
+DIR_LIB		=	$(DIR_SRC)libc/
+
+DIR_MEM		=	$(DIR_LIB)mem/
+DIR_STR		=	$(DIR_LIB)str/
+DIR_IS		=	$(DIR_LIB)is/
+DIR_TO		=	$(DIR_LIB)to/
+DIR_PUT		=	$(DIR_LIB)put/
+DIR_LST		=	$(DIR_LIB)lst/
+DIR_ARR		=	$(DIR_LIB)arr/
+DIR_OTHER	=	$(DIR_LIB)other/
 DIR_GNL		=	$(DIR_SRC)get_next_line/
 DIR_FPF		=	$(DIR_SRC)printf/
 
 
-HEAD		=	$(DIR_INC)libft.h\
-				$(DIR_INC)get_next_line.h\
-				$(DIR_INC)ft_printf.h\
-				$(DIR_INC)ft_def.h\
-				$(DIR_INC)ft_mem.h\
-				$(DIR_INC)ft_str.h\
-				$(DIR_INC)ft_is.h\
-				$(DIR_INC)ft_to.h\
-				$(DIR_INC)ft_put.h\
-				$(DIR_INC)ft_lst.h\
-				$(DIR_INC)ft_arr.h\
-				$(DIR_INC)ft_other.h
+HEAD		=	$(DIR_LIBFT_I)libft.h\
+				$(DIR_LIBFT_I)ft_def.h\
+				$(DIR_LIBFT_I)ft_mem.h\
+				$(DIR_LIBFT_I)ft_str.h\
+				$(DIR_LIBFT_I)ft_is.h\
+				$(DIR_LIBFT_I)ft_to.h\
+				$(DIR_LIBFT_I)ft_put.h\
+				$(DIR_LIBFT_I)ft_lst.h\
+				$(DIR_LIBFT_I)ft_arr.h\
+				$(DIR_LIBFT_I)ft_other.h\
+				$(DIR_GNL_I)get_next_line.h\
+				$(DIR_FPF_I)ft_printf.h
 
 LIB_C		=	$(DIR_MEM)ft_bzero.c\
 				$(DIR_MEM)ft_memalloc.c\

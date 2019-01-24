@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memccpy.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/30 14:28:28 by prippa            #+#    #+#             */
-/*   Updated: 2017/10/30 14:28:38 by prippa           ###   ########.fr       */
+/*   Created: 2017/10/31 16:08:51 by prippa            #+#    #+#             */
+/*   Updated: 2017/10/31 16:08:53 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdint.h>
 
-void	*ft_memccpy(void *dst, const void *src, int32_t c, size_t n)
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	uint8_t	*ptr1;
-	uint8_t	*ptr2;
-	uint8_t	ch;
-
-	ptr1 = (uint8_t *)dst;
-	ptr2 = (uint8_t *)src;
-	ch = (uint8_t)c;
-	while (n--)
-		if ((*ptr1++ = *ptr2++) == ch)
-			return (ptr1);
-	return (NULL);
+	while ((*s1 || *s2) && n--)
+		if (*s1++ != *s2++)
+			return ((uint8_t)*(s1 - 1) - (uint8_t)*(s2 - 1));
+	return (0);
 }

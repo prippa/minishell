@@ -1,7 +1,8 @@
 #ifndef FT_OTHER_H
 # define FT_OTHER_H
 
-#include <stdlib.h>
+# include <stdlib.h>
+# include <stdint.h>
 
 int32_t		ft_atoi(const char *str);
 intmax_t	ft_atoi_max(char *str);

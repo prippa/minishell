@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striteri.c                                      :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: prippa <prippa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/03 17:23:44 by prippa            #+#    #+#             */
-/*   Updated: 2017/11/03 17:23:47 by prippa           ###   ########.fr       */
+/*   Created: 2017/10/30 18:19:31 by prippa            #+#    #+#             */
+/*   Updated: 2017/11/05 13:47:11 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdint.h>
 
-void	ft_striteri(char *s, void (*f)(uint32_t, char *))
+int		ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t i;
+	uint8_t *ptr1;
+	uint8_t *ptr2;
 
-	if (!s || !f)
-		return ;
-	i = -1;
-	while (s[++i])
-		f(i, &s[i]);
+	ptr1 = (uint8_t *)s1;
+	ptr2 = (uint8_t *)s2;
+	while (n--)
+		if (*ptr1++ != *ptr2++)
+			return (*(ptr1 - 1) - *(ptr2 - 1));
+	return (0);
 }

@@ -1,5 +1,4 @@
 #include "line_lexer.h"
-#include "ft_printf.h"
 
 #define LX_UNEXPECTED_EOF "\nline_lexer : unexpected EOF\n"
 #define LX_CMD_SIZE	3

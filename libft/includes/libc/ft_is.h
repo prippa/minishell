@@ -1,7 +1,7 @@
 #ifndef FT_IS_H
 # define FT_IS_H
 
-#include <stdint.h>
+# include <stdint.h>
 
 int32_t		ft_isalpha(int32_t c);
 int32_t		ft_isdigit(int32_t c);

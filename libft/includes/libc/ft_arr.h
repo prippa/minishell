@@ -1,7 +1,8 @@
 #ifndef FT_ARR_H
 # define FT_ARR_H
 
-#include <stdlib.h>
+# include <stdlib.h>
+# include <stdint.h>
 
 char		**ft_arrnew(size_t y, size_t x, int32_t c);
 size_t		ft_arrlen(char **arr);

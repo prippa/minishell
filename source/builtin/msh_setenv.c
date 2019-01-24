@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "ft_printf.h"
 
 #define MSH_SETENV_USG			"setenv: usage: setenv [key=value] ...\n"
 #define MSH_SETENV_INVALID_ARG	"setenv: '%s' not a valid identifier\n"

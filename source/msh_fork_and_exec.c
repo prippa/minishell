@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "ft_printf.h"
 #include <sys/wait.h>
 
 #define EXEC_IS_FOLDER		"%s: Is a directory\n"

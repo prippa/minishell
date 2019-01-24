@@ -4,6 +4,7 @@
 # define BUFF_SIZE	80
 
 # include <stdint.h>
+# include <stdlib.h>
 
 typedef	struct		s_gnl
 {

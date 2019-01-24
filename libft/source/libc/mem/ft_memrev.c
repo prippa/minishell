@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_memrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/26 18:10:15 by prippa            #+#    #+#             */
-/*   Updated: 2017/10/26 18:10:40 by prippa           ###   ########.fr       */
+/*   Created: 2018/05/26 13:58:49 by prippa            #+#    #+#             */
+/*   Updated: 2018/05/26 13:58:50 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdint.h>
 
-void	*ft_memset(void *b, int32_t c, size_t len)
+void	*ft_memrev(void *dst, size_t n)
 {
-	uint8_t *ptr;
-	uint8_t ch;
+	uint8_t	tmp;
+	uint8_t	*ptr;
+	size_t	i;
 
-	ptr = (uint8_t *)b;
-	ch = (uint8_t)c;
-	while (len--)
-		ptr[len] = ch;
-	return (b);
+	if (!n)
+		return (dst);
+	ptr = (uint8_t *)dst;
+	i = -1;
+	while (--n > ++i)
+	{
+		tmp = ptr[i];
+		ptr[i] = ptr[n];
+		ptr[n] = tmp;
+	}
+	return (dst);
 }

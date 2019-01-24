@@ -14,18 +14,13 @@
 # define LIBFT_H
 
 # include "ft_def.h"
-# include "ft_arr.h"
-# include "ft_str.h"
 # include "ft_mem.h"
-# include "ft_put.h"
+# include "ft_str.h"
 # include "ft_is.h"
 # include "ft_to.h"
+# include "ft_arr.h"
 # include "ft_other.h"
-
+# include "ft_put.h"
 # include "ft_lst.h"
-
-# include "get_next_line.h"
-
-# include "ft_printf.h"
 
 #endif

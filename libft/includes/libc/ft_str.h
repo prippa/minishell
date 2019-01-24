@@ -1,7 +1,8 @@
 #ifndef FT_STR_H
 # define FT_STR_H
 
-#include <stdlib.h>
+# include <stdlib.h>
+# include <stdint.h>
 
 size_t		ft_strlen(const char *s);
 char		*ft_strdup(const char *s1);

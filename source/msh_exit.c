@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "ft_printf.h"
 
 #define MSH_ERR	"ERROR: minishell : %s\n"
 

@@ -1,7 +1,8 @@
 #ifndef FT_MEM_H
 # define FT_MEM_H
 
-#include <stdlib.h>
+# include <stdlib.h>
+# include <stdint.h>
 
 void		ft_bzero(void *s, size_t n);
 void		*ft_memset(void *b, int32_t c, size_t len);

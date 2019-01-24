@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "ft_printf.h"
 
 #define MSH_UNSETENV_USG		"unsetenv: usage: unsetenv [key] ...\n"
 #define MSH_UNSETENV_NO_NAME	"unsetenv: '%s' not found\n"
