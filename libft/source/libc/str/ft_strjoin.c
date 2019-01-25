@@ -12,15 +12,14 @@
 
 #include "ft_str.h"
 
-char	*ft_strjoin(char const *s1, char const *s2,
-			size_t s1len, size_t s2len)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*new_obj;
 
-	if (!(new_obj = (char *)malloc(sizeof(char) * (s1len + s2len + 1))))
+	if (!(new_obj = (char *)malloc(sizeof(char) *
+		(ft_strlen(s1) + ft_strlen(s2) + 1))))
 		return (NULL);
-	ft_strncpy(new_obj, s1, s1len);
-	ft_strncpy(new_obj + s1len, s2, s2len);
-	new_obj[s1len + s2len] = 0;
+	ft_strcpy(new_obj, s1);
+	ft_strcat(new_obj, s2);
 	return (new_obj);
 }

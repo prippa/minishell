@@ -30,7 +30,8 @@ int32_t		ft_strnequ(char const *s1, char const *s2, size_t n);
 char		*ft_strsub(char const *s, uint32_t start, size_t len);
 char		*ft_strtrim(char const *s);
 char		**ft_strsplit(char const *s, char c);
-char		*ft_strjoin(char const *s1, char const *s2,
+char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strnjoin(char const *s1, char const *s2,
 				size_t s1len, size_t s2len);
 char		*ft_strjoin_free(char **dst, const char *src,
 				size_t dstsize, size_t srcsize);

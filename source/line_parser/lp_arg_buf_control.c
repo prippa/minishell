@@ -19,7 +19,7 @@ static void	msh_double_join(t_minishel *msh, t_line_parser *lp,
 
 	if (lp->arg_buf_len)
 	{
-		if (!(buf_plus_s = ft_strjoin(lp->arg_buf, src,
+		if (!(buf_plus_s = ft_strnjoin(lp->arg_buf, src,
 			lp->arg_buf_len, len)))
 				lp_error_exit(msh, lp, MALLOC_ERR);
 	}
