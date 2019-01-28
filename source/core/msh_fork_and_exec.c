@@ -13,12 +13,13 @@ static void		msh_do_magic(t_minishel *msh,
 	pid_t	father;
 	int		wstatus;
 
-	father = fork();
-	if (father > 0)
+	if ((father = fork()) == ERR)
+		msh_error_exit(msh, FORK_FAILED);
+	if (father)
 	{
 		if (wait(&wstatus) == ERR)
 			msh_error_exit(msh, WAIT_FAILED);
-		if (wstatus > 0)
+		if (wstatus)
 			msh->success_exec = false;
 	}
 	if (!father)
@@ -26,8 +27,6 @@ static void		msh_do_magic(t_minishel *msh,
 		execve(path, args, env);
 		exit(EXIT_FAILURE);
 	}
-	if (father == ERR)
-		msh_error_exit(msh, FORK_FAILED);
 }
 
 static char		**msh_env_convert_from_list_char(t_minishel *msh)
