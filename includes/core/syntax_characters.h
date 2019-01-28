@@ -2,6 +2,7 @@
 # define SYNTAX_CHARACTERS_H
 
 # define SPACE_C			' '
+# define TAB_C				'\t'
 # define DOLLAR_C			'$'
 # define SEMICOLON_C		';'
 # define SINGLE_QUOTES_C	'\''

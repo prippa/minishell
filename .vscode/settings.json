@@ -7,6 +7,7 @@
 		"ft_def.h": "c",
 		"stdint.h": "c",
 		"minishell.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"ft_is.h": "c"
 	}
 }

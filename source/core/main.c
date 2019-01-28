@@ -29,7 +29,7 @@ static void	msh_loop(t_minishel *msh)
 {
 	while ((msh->line = readline(msh->prompt)))
 	{
-		if (*msh->line)
+		if (!ft_is_str_space(msh->line))
 		{
 			msh_execute_command(msh);
 			msh_update_prompt(msh);

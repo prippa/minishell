@@ -12,17 +12,17 @@
 
 #include "line_parser.h"
 
-#define LP_BASE_SIZE	7
+#define LP_BASE_SIZE	8
 
 static const char	g_base_c[LP_BASE_SIZE] =
 {
-	SPACE_C, DOLLAR_C, SEMICOLON_C, SINGLE_QUOTES_C, DOUBLE_QUOTES_C,
+	SPACE_C, TAB_C, DOLLAR_C, SEMICOLON_C, SINGLE_QUOTES_C, DOUBLE_QUOTES_C,
 	BACKSLASH_C, TILDE_C
 };
 
 static const		t_func_cmd	g_base_f[LP_BASE_SIZE] =
 {
-	lp_space, lp_dollar, lp_semicolon, lp_single_quotes, lp_double_quotes,
+	lp_space, lp_space, lp_dollar, lp_semicolon, lp_single_quotes, lp_double_quotes,
 	lp_backslash, lp_tilde
 };
 
