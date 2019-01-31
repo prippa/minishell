@@ -1,5 +1,6 @@
 #include "minishell.h"
 #include <sys/wait.h>
+#include <signal.h>
 
 #define EXEC_IS_FOLDER		"%s: Is a directory\n"
 #define	EXEC_PERM_DENIED	"%s: Permission denied\n"
@@ -7,20 +8,19 @@
 #define	WAIT_FAILED			"wait failed"
 #define	EXECVE_FAILED		"execve failed"
 
-static void		msh_do_magic(t_minishel *msh,
-					const char *path, char **args, char **env)
+static void		msh_do_magic(const char *path, char **args, char **env)
 {
+	int32_t	wstatus;
 	pid_t	father;
-	int		wstatus;
 
 	if ((father = fork()) == ERR)
-		msh_error_exit(msh, FORK_FAILED);
+		msh_fatal_err(FORK_FAILED);
 	if (father)
 	{
 		if (wait(&wstatus) == ERR)
-			msh_error_exit(msh, WAIT_FAILED);
+			msh_fatal_err(WAIT_FAILED);
 		if (wstatus)
-			msh->success_exec = false;
+			g_ok = false;
 	}
 	if (!father)
 	{
@@ -29,16 +29,16 @@ static void		msh_do_magic(t_minishel *msh,
 	}
 }
 
-static char		**msh_env_convert_from_list_char(t_minishel *msh)
+static char		**msh_env_convert_from_list_char(void)
 {
 	char		**env;
 	t_list2		*env_start;
 	uint32_t	i;
 
-	if (!(env = (char **)malloc(sizeof(char *) * (msh->env_size + 1))))
-		msh_error_exit(msh, MALLOC_ERR);
-	env[msh->env_size] = NULL;
-	env_start = msh->env_start;
+	if (!(env = (char **)malloc(sizeof(char *) * (g_msh.env_size + 1))))
+		msh_fatal_err(MALLOC_ERR);
+	env[g_msh.env_size] = NULL;
+	env_start = g_msh.env_start;
 	i = -1;
 	while (env_start)
 	{
@@ -48,10 +48,9 @@ static char		**msh_env_convert_from_list_char(t_minishel *msh)
 	return (env);
 }
 
-static t_bool	msh_fork_exec_vild_path(t_minishel *msh,
-					const char *path)
+static t_bool	msh_fork_exec_vild_path(const char *path)
 {
-	if (msh_is_dir(msh, path))
+	if (msh_is_dir(path))
 		ft_dprintf(STDERR_FILENO, EXEC_IS_FOLDER, path);
 	else if (access(path, X_OK) == ERR)
 		ft_dprintf(STDERR_FILENO, EXEC_PERM_DENIED, path);
@@ -60,14 +59,13 @@ static t_bool	msh_fork_exec_vild_path(t_minishel *msh,
 	return (false);
 }
 
-void			msh_fork_exec(t_minishel *msh,
-					const char *path, char **args)
+void			msh_exec(const char *path, char **args)
 {
 	char		**env;
 
-	if (!(msh->success_exec = msh_fork_exec_vild_path(msh, path)))
+	if (!(g_ok = msh_fork_exec_vild_path(path)))
 		return ;
-	env = msh_env_convert_from_list_char(msh);
-	msh_do_magic(msh, path, args, env);
+	env = msh_env_convert_from_list_char();
+	msh_do_magic(path, args, env);
 	free(env);
 }

@@ -17,8 +17,8 @@ static void	msh_print_env_elem(t_list2 *elem)
 	ft_putendl(((t_env *)elem->content)->env);
 }
 
-void		msh_env(t_minishel *msh, char **args)
+void		msh_env(char **args)
 {
 	(void)args;
-	ft_lst2iter(msh->env_start, msh_print_env_elem);
+	ft_lst2iter(g_msh.env_start, msh_print_env_elem);
 }

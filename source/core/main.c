@@ -11,53 +11,46 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <readline/readline.h>
-#include <readline/history.h>
 
-#define MSH_OK_ICON		"✓"
-#define MSH_ERROR_ICON	"✕"
+#define MSH_OK_ICON		BOLD_GREEN "✓"
+#define MSH_ERROR_ICON	BOLD_RED "✕"
 
-static void	msh_update_prompt(t_minishel *msh)
+void		msh_update_prompt(void)
 {
-	ft_strcpy(msh->prompt, (msh->success_exec ? MSH_OK_ICON : MSH_ERROR_ICON));
-	ft_strcat(msh->prompt, " (");
-	ft_strcat(msh->prompt, msh->curent_path);
-	ft_strcat(msh->prompt, ") ");
+	ft_strcpy(g_msh.prompt, (g_ok ? MSH_OK_ICON : MSH_ERROR_ICON));
+	ft_strcat(g_msh.prompt, COLOR_RESET);
+	ft_strcat(g_msh.prompt, BOLD_MAGENTA);
+	ft_strcat(g_msh.prompt, " (");
+	ft_strcat(g_msh.prompt, COLOR_RESET);
+	ft_strcat(g_msh.prompt, BOLD_CYAN);
+	ft_strcat(g_msh.prompt, g_msh.curent_path);
+	ft_strcat(g_msh.prompt, COLOR_RESET);
+	ft_strcat(g_msh.prompt, BOLD_MAGENTA);
+	ft_strcat(g_msh.prompt, ") ");
+	ft_strcat(g_msh.prompt, COLOR_RESET);
 }
 
-static void	msh_loop(t_minishel *msh)
+static void	msh_loop(void)
 {
-	while ((msh->line = readline(msh->prompt)))
+	ft_putstr(g_msh.prompt);
+	while ((get_next_line(STDIN_FILENO, &g_msh.line)) > 0)
 	{
-		if (!ft_is_str_space(msh->line))
+		if (!ft_is_str_space(g_msh.line))
 		{
-			msh_execute_command(msh);
-			msh_update_prompt(msh);
-			add_history(msh->line);
-			msh->success_exec = true;
+			line_syntax();
+			if (g_ok)
+				line_parser();
+			msh_update_prompt();
+			g_ok = true;
 		}
-		ft_strdel(&msh->line);
+		ft_strdel(&g_msh.line);
+		ft_putstr(g_msh.prompt);
 	}
-}
-
-static void	msh_init(t_minishel *msh)
-{
-	extern char	**environ;
-
-	ft_bzero(msh, sizeof(t_minishel));
-	msh_setenv(msh, environ);
-	msh->success_exec = true;
-	msh_update_curent_dir_name(msh);
-	msh_update_prompt(msh);
 }
 
 int			main(void)
 {
-	t_minishel	msh;
-
-	msh_init(&msh);
-	msh_loop(&msh);
-	msh_free(&msh);
-	system("leaks -q minishell");
+	msh_init();
+	msh_loop();
 	return (EXIT_SUCCESS);
 }

@@ -101,6 +101,7 @@ LIB_C		:=	$(DIR_MEM)ft_bzero.c\
 				$(DIR_IS)ft_is_str_lower.c\
 				$(DIR_IS)ft_is_str_upper.c\
 				$(DIR_IS)ft_is_str_space.c\
+				$(DIR_IS)ft_is_str_empty.c\
 				$(DIR_IS)ft_isupper.c\
 				$(DIR_IS)ft_isalpha_in_case.c\
 				$(DIR_IS)ft_isalnum_in_case.c\

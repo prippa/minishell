@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_env_get.c                                      :+:      :+:    :+:   */
+/*   msh_getenv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,8 @@
 
 #include "minishell.h"
 
-t_list2		*msh_env_get_obj_by_key(t_list2 *start, const char *env, size_t len)
+t_list2		*msh_getenv_obj_by_key(t_list2 *start,
+				const char *env, size_t len)
 {
 	t_env *e;
 
@@ -26,7 +27,8 @@ t_list2		*msh_env_get_obj_by_key(t_list2 *start, const char *env, size_t len)
 	return (NULL);
 }
 
-const char	*msh_env_get_value_by_key(t_list2 *start, const char *env, size_t len)
+const char	*msh_getenv_value_by_key(t_list2 *start,
+				const char *env, size_t len)
 {
 	t_env *e;
 

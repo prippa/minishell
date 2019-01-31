@@ -15,7 +15,7 @@
 #define MSH_SETENV_USG			"setenv: usage: setenv [key=value] ...\n"
 #define MSH_SETENV_INVALID_ARG	"setenv: '%s' not a valid identifier\n"
 
-static void		msh_edit_or_set_new_env(t_minishel *msh, const char *env)
+static void		msh_edit_or_set_new_env(const char *env)
 {
 	t_env	new_env;
 	t_env	*edit_env;
@@ -23,8 +23,8 @@ static void		msh_edit_or_set_new_env(t_minishel *msh, const char *env)
 
 	new_env.index = ft_strchr(env, KEY_VALUE_SEPARATOR) - env;
 	if (!(new_env.env = ft_strdup(env)))
-		msh_error_exit(msh, MALLOC_ERR);
-	if ((obj = msh_env_get_obj_by_key(msh->env_start, env, new_env.index)))
+		msh_fatal_err(MALLOC_ERR);
+	if ((obj = msh_getenv_obj_by_key(g_msh.env_start, env, new_env.index)))
 	{
 		edit_env = (t_env *)obj->content;
 		msh_del_env_body(edit_env);
@@ -32,9 +32,9 @@ static void		msh_edit_or_set_new_env(t_minishel *msh, const char *env)
 		return ;
 	}
 	if (!(obj = ft_lst2new(&new_env, sizeof(t_env))))
-		msh_error_exit(msh, MALLOC_ERR);
-	ft_lst2_push_back(&msh->env_start, &msh->env_end, obj);
-	++msh->env_size;
+		msh_fatal_err(MALLOC_ERR);
+	ft_lst2_push_back(&g_msh.env_start, &g_msh.env_end, obj);
+	++g_msh.env_size;
 }
 
 static t_bool	msh_setenv_valid(const char *env)
@@ -49,24 +49,23 @@ static t_bool	msh_setenv_valid(const char *env)
 	return (false);
 }
 
-void			msh_setenv_one_env(t_minishel *msh, const char *env)
+void			msh_setenv_one_env(const char *env)
 {
 	if (msh_setenv_valid(env))
-		msh_edit_or_set_new_env(msh, env);
+		msh_edit_or_set_new_env(env);
 	else
 	{
-		ft_dprintf(STDERR_FILENO, MSH_SETENV_INVALID_ARG, env);
-		msh->success_exec = false;
+		PRINT_ERR(MSH_SETENV_INVALID_ARG, env);
 	}
 }
 
-void			msh_setenv(t_minishel *msh, char **args)
+void			msh_setenv(char **args)
 {
 	if (!*args)
 	{
-		msh_print_error(msh, MSH_SETENV_USG);
+		PRINT_ERR(MSH_SETENV_USG, NULL);
 		return ;
 	}
 	while (*args)
-		msh_setenv_one_env(msh, *args++);
+		msh_setenv_one_env(*args++);
 }

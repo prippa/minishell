@@ -26,20 +26,3 @@ void		msh_del_env_list(void *content, size_t content_size)
 	msh_del_env_body(e);
 	free(content);
 }
-
-void		msh_del_commands_list(void *content, size_t content_size)
-{
-	t_command *cmd;
-
-	cmd = (t_command *)content;
-	(void)content_size;
-	ft_arrdel(&cmd->args);
-	free(content);
-}
-
-void		msh_free(t_minishel *msh)
-{
-	ft_lst2del(&msh->env_start, &msh->env_end, msh_del_env_list);
-	ft_lstdel(&msh->commands, msh_del_commands_list);
-	ft_strdel(&msh->line);
-}

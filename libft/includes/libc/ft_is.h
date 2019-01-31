@@ -18,5 +18,6 @@ int32_t		ft_is_str_alpha(const char *str);
 int32_t		ft_is_str_upper(const char *str);
 int32_t		ft_is_str_lower(const char *str);
 int32_t		ft_is_str_space(const char *str);
+int32_t		ft_is_str_empty(const char *str);
 
 #endif

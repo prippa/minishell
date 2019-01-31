@@ -12,27 +12,11 @@
 
 #include "minishell.h"
 
-#define MSH_ERR	"ERROR: minishell : %s\n"
+#define EXIT_MSG	"exit"
 
-void		msh_error_exit(t_minishel *msh, const char *message)
-{
-	ft_dprintf(STDERR_FILENO, MSH_ERR, message);
-	msh_free(msh);
-	system("leaks -q minishell");
-	exit(EXIT_FAILURE);
-}
-
-void		msh_error_exit_no_message(t_minishel *msh)
-{
-	msh_free(msh);
-	system("leaks -q minishell");
-	exit(EXIT_FAILURE);
-}
-
-void		msh_exit(t_minishel *msh, char **args)
+void		msh_exit(char **args)
 {
 	(void)args;
-	msh_free(msh);
-	system("leaks -q minishell");
+	ft_putendl(EXIT_MSG);
 	exit(EXIT_SUCCESS);
 }

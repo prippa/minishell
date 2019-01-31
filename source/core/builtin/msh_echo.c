@@ -31,11 +31,10 @@ static void	msh_echo_flags(t_echo_flags *f, char ***args)
 	}
 }
 
-void		msh_echo(t_minishel *msh, char **args)
+void		msh_echo(char **args)
 {
 	t_echo_flags f;
 
-	(void)msh;
 	ft_bzero(&f, sizeof(t_echo_flags));
 	msh_echo_flags(&f, &args);
 	while (*args)

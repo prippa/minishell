@@ -7,6 +7,8 @@
 # define READ_ERR		"read failed"
 # define OTHER_ERR		"some system critical error happened"
 
+# define EMPTY_STR		""
+
 typedef char	t_bool;
 enum			{ false, true };
 

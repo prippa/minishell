@@ -13,54 +13,55 @@ CH_SRC		:=	c
 CH_OBJ		:=	o
 
 COR			:=	core/
-LNL			:=	line_lexer/
+LNS			:=	line_syntax/
 LNP			:=	line_parser/
 
 LIBFT		:=	$(DIR_LIB)libft.a
 
 DIR_COR_INC	:=	$(DIR_INC)$(COR)
-DIR_LNL_INC	:=	$(DIR_INC)$(LNL)
+DIR_LNS_INC	:=	$(DIR_INC)$(LNS)
 DIR_LNP_INC	:=	$(DIR_INC)$(LNP)
 
 DIR_COR_SRC	:=	$(DIR_SRC)$(COR)
-DIR_LNL_SRC	:=	$(DIR_SRC)$(LNL)
+DIR_LNS_SRC	:=	$(DIR_SRC)$(LNS)
 DIR_LNP_SRC	:=	$(DIR_SRC)$(LNP)
 
 DIR_BLT		:=	$(DIR_COR_SRC)builtin/
+DIR_EXC		:=	$(DIR_COR_SRC)exec/
+DIR_HLP		:=	$(DIR_COR_SRC)helpers/
 DIR_LPCMD	:=	$(DIR_LNP_SRC)lp_commands/
 
 #-------------------------- Header files ---------------------------------------
 COR_H		:=	$(DIR_COR_INC)minishell.h\
 				$(DIR_COR_INC)syntax_characters.h
 
-LNL_H		:=	$(DIR_LNL_INC)line_lexer.h
+LNS_H		:=	$(DIR_LNS_INC)line_syntax.h
 
 LNP_H		:=	$(DIR_LNP_INC)line_parser.h
 
 #-------------------------- Source files ---------------------------------------
 COR_C		:=	$(DIR_COR_SRC)main.c\
-				$(DIR_COR_SRC)msh_exit.c\
 				$(DIR_COR_SRC)msh_free.c\
-				$(DIR_COR_SRC)msh_execute_cmd.c\
-				$(DIR_COR_SRC)msh_utility.c\
-				$(DIR_COR_SRC)msh_env_get.c\
-				$(DIR_COR_SRC)msh_search_command.c\
-				$(DIR_COR_SRC)msh_fork_and_exec.c\
+				$(DIR_COR_SRC)msh_init.c\
+				$(DIR_BLT)msh_exit.c\
 				$(DIR_BLT)msh_cd.c\
 				$(DIR_BLT)msh_echo.c\
 				$(DIR_BLT)msh_env.c\
 				$(DIR_BLT)msh_setenv.c\
-				$(DIR_BLT)msh_unsetenv.c
+				$(DIR_BLT)msh_unsetenv.c\
+				$(DIR_EXC)msh_exec.c\
+				$(DIR_EXC)msh_process_cmd.c\
+				$(DIR_HLP)msh_getenv.c\
+				$(DIR_HLP)msh_utility.c
 
 
-LNL_C		:=	$(DIR_LNL_SRC)line_lexer.c\
-				$(DIR_LNL_SRC)lx_read_new_line.c\
-				$(DIR_LNL_SRC)lx_commands.c
+LNS_C		:=	$(DIR_LNS_SRC)line_syntax.c\
+				$(DIR_LNS_SRC)ls_read_new_line.c\
+				$(DIR_LNS_SRC)ls_commands.c
 
 LNP_C		:=	$(DIR_LNP_SRC)line_parser.c\
 				$(DIR_LNP_SRC)lp_arg_buf_control.c\
-				$(DIR_LNP_SRC)lp_utility.c\
-				$(DIR_LNP_SRC)lp_push_to_list.c\
+				$(DIR_LNP_SRC)lp_push.c\
 				$(DIR_LPCMD)lp_dollar.c\
 				$(DIR_LPCMD)lp_backslash.c\
 				$(DIR_LPCMD)lp_single_quotes.c\
@@ -73,12 +74,12 @@ LNP_C		:=	$(DIR_LNP_SRC)line_parser.c\
 #-------------------------- Init OBJ INC ---------------------------------------
 OBJ			:=	$(patsubst $(DIR_COR_SRC)%,$(DIR_OBJ)%,\
 				$(COR_C:.$(CH_SRC)=.$(CH_OBJ)))
-OBJ			+=	$(patsubst $(DIR_LNL_SRC)%,$(DIR_OBJ)%,\
-				$(LNL_C:.$(CH_SRC)=.$(CH_OBJ)))
+OBJ			+=	$(patsubst $(DIR_LNS_SRC)%,$(DIR_OBJ)%,\
+				$(LNS_C:.$(CH_SRC)=.$(CH_OBJ)))
 OBJ			+=	$(patsubst $(DIR_LNP_SRC)%,$(DIR_OBJ)%,\
 				$(LNP_C:.$(CH_SRC)=.$(CH_OBJ)))
 
-INC			:=	$(addprefix -I, $(DIR_COR_INC) $(DIR_LNL_INC) $(DIR_LNP_INC))
+INC			:=	$(addprefix -I, $(DIR_COR_INC) $(DIR_LNS_INC) $(DIR_LNP_INC))
 
 #-------------------------- Make -----------------------------------------------
 all: lib $(DIR_OBJ) $(NAME)
@@ -102,9 +103,9 @@ $(COR_H)
 	@$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 	@echo "Compiling" [ $< ]
 
-#LNL
-$(DIR_OBJ)%.$(CH_OBJ): $(DIR_LNL_SRC)%.$(CH_SRC)\
-$(COR_H) $(LNL_H)
+#LNS
+$(DIR_OBJ)%.$(CH_OBJ): $(DIR_LNS_SRC)%.$(CH_SRC)\
+$(COR_H) $(LNS_H)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(INC) -c -o $@ $<
 	@echo "Compiling" [ $< ]

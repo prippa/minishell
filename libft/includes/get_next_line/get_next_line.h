@@ -1,10 +1,12 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFF_SIZE	80
+# define BUFF_SIZE	1
 
 # include <stdint.h>
 # include <stdlib.h>
+
+# define GNL_FAILED	"get_next_line failed"
 
 typedef	struct		s_gnl
 {

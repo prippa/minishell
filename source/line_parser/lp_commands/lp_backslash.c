@@ -1,7 +1,6 @@
 #include "line_parser.h"
 
-t_bool		lp_backslash(t_minishel *msh, t_line_parser *lp)
+void	lp_backslash(t_line_parser *lp)
 {
-	lp_write_to_arg_buf_char(msh, lp, msh->line[++msh->i]);
-	return (true);
+	lp_write_to_arg_buf_char(lp, g_msh.line[++g_msh.i]);
 }

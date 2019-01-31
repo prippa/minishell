@@ -1,8 +1,6 @@
 #include "line_parser.h"
 
-t_bool		lp_space(t_minishel *msh, t_line_parser *lp)
+void	lp_space(t_line_parser *lp)
 {
-	if (lp->arg_len || lp->arg_buf_len)
-		lp_push_arg(msh, lp);
-	return (true);
+	lp_push_arg(lp);
 }

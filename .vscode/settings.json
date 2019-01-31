@@ -8,6 +8,9 @@
 		"stdint.h": "c",
 		"minishell.h": "c",
 		"libft.h": "c",
-		"ft_is.h": "c"
+		"ft_is.h": "c",
+		"ft_printf.h": "c",
+		"line_syntax.h": "c",
+		"readline.h": "c"
 	}
 }
