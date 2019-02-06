@@ -29,16 +29,12 @@ void		msh_update_prompt(void)
 	ft_strcat(g_msh.prompt, ") ");
 	ft_strcat(g_msh.prompt, COLOR_RESET);
 }
-#include <readline/readline.h>
-#include <readline/history.h>
+
 static void	msh_loop(void)
 {
 	ft_putstr(g_msh.prompt);
-	// while ((get_next_line(STDIN_FILENO, &g_msh.line)) > 0)
-	while ((g_msh.line = readline(g_msh.prompt)))
+	while ((get_next_line(STDIN_FILENO, &g_msh.line)) > 0)
 	{
-ft_printf("\n\n[%s]\n", g_msh.line + (ft_strlen(g_msh.line) - 10));
-exit(1);
 		if (!ft_is_str_space(g_msh.line))
 		{
 			line_syntax();

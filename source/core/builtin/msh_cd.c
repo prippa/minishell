@@ -15,11 +15,11 @@
 #define CD_DASH_F			"-"
 
 #define CD					"cd: "
-#define CD_TO_MANY_ARGS		CD "too many arguments\n"
-#define CD_NOT_DIR			CD "not a directory: %s\n"
-#define CD_PERM_DENIED		CD "%s: Permission denied\n"
-#define CD_NONEXIST_PATH	CD "no such file or directory: %s\n"
-#define CD_FILENAME_TO_LONG	CD "file name too long: %s\n"
+#define CD_TO_MANY_ARGS		CD "Too many arguments\n"
+#define CD_NOT_DIR			CD "'%s': Not a directory\n"
+#define CD_PERM_DENIED		CD "'%s': Permission denied\n"
+#define CD_NONEXIST_PATH	CD "'%s': No such file or directory\n"
+#define CD_FILENAME_TO_LONG	CD "'%s': File name too long\n"
 
 #define CD_NO_ENV			CD "%s not set\n"
 
