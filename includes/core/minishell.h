@@ -29,7 +29,7 @@ extern t_minishel	g_msh;
 # define PATH_MAX				4096
 # define FILE_NAME_MAX			255
 
-# define PROMPT_SIZE			FILE_NAME_MAX + 20
+# define PROMPT_SIZE			FILE_NAME_MAX * 2
 # define KEY_VALUE_SEPARATOR	'='
 # define UNIX_PATH_SEPARATOR	'/'
 # define PATH_ENV_SEPARATOR		':'
