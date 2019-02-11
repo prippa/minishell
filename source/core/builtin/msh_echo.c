@@ -14,17 +14,12 @@
 
 #define ECHO_NEW_LINE_F	"-n"
 
-typedef struct	s_echo_flags
-{
-	t_bool		new_line;
-}				t_echo_flags;
-
-static void	msh_echo_flags(t_echo_flags *f, char ***args)
+static void	msh_echo_flags(t_bool *f, char ***args)
 {
 	while (**args)
 	{
 		if (!ft_strcmp(**args, ECHO_NEW_LINE_F))
-			f->new_line = true;
+			*f = true;
 		else
 			break ;
 		++(*args);
@@ -33,16 +28,16 @@ static void	msh_echo_flags(t_echo_flags *f, char ***args)
 
 void		msh_echo(char **args)
 {
-	t_echo_flags f;
+	t_bool nl_f;
 
-	ft_bzero(&f, sizeof(t_echo_flags));
-	msh_echo_flags(&f, &args);
+	nl_f = false;
+	msh_echo_flags(&nl_f, &args);
 	while (*args)
 	{
 		ft_putstr(*args++);
 		if (*args)
 			ft_putchar(' ');
 	}
-	if (!f.new_line)
+	if (!nl_f)
 		ft_putchar('\n');
 }

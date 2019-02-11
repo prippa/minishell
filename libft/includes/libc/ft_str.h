@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_str.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/11 12:22:30 by prippa            #+#    #+#             */
+/*   Updated: 2019/02/11 12:22:31 by prippa           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_STR_H
 # define FT_STR_H
 
@@ -22,9 +34,9 @@ char		*ft_strnew(size_t size);
 void		ft_strdel(char **as);
 void		ft_strclr(char *s);
 void		ft_striter(char *s, void (*f)(char *));
-void		ft_striteri(char *s, void (*f)(uint32_t, char *));
+void		ft_striteri(char *s, void (*f)(unsigned int, char *));
 char		*ft_strmap(char const *s, char (*f)(char));
-char		*ft_strmapi(char const *s, char (*f)(uint32_t, char));
+char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int32_t		ft_strequ(char const *s1, char const *s2);
 int32_t		ft_strnequ(char const *s1, char const *s2, size_t n);
 char		*ft_strsub(char const *s, uint32_t start, size_t len);

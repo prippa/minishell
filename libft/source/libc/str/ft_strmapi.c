@@ -12,7 +12,7 @@
 
 #include "ft_str.h"
 
-char	*ft_strmapi(char const *s, char (*f)(uint32_t, char))
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	uint32_t	i;
 	char		*new_obj;

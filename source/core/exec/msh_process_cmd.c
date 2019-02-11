@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   msh_process_cmd.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/11 12:53:32 by prippa            #+#    #+#             */
+/*   Updated: 2019/02/11 12:53:33 by prippa           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 #define MSH_CMD_NOT_FOUND	"%s: command not found\n"
@@ -16,10 +28,10 @@ static const char	*g_cmd_string[MSH_CMD_SIZE] =
 	"unsetenv", "exit"
 };
 
-static t_bool	msh_base_cmd_search(char **args)
+static t_bool		msh_base_cmd_search(char **args)
 {
 	size_t	i;
-	
+
 	i = -1;
 	while (++i < MSH_CMD_SIZE)
 		if (!ft_strcmp(*args, g_cmd_string[i]))
@@ -30,7 +42,7 @@ static t_bool	msh_base_cmd_search(char **args)
 	return (false);
 }
 
-static t_bool	msh_full_path_cmd_search(const char *full_path, char **args)
+static t_bool		msh_full_path_cmd_search(const char *full_path, char **args)
 {
 	if (!access(full_path, F_OK))
 	{
@@ -40,7 +52,7 @@ static t_bool	msh_full_path_cmd_search(const char *full_path, char **args)
 	return (false);
 }
 
-static t_bool	msh_check_path(const char *path, char **args)
+static t_bool		msh_check_path(const char *path, char **args)
 {
 	char	*full_path;
 	t_bool	ny_cho_tam;
@@ -55,7 +67,7 @@ static t_bool	msh_check_path(const char *path, char **args)
 	return (ny_cho_tam);
 }
 
-static t_bool	msh_env_path_cmd_search(char **args)
+static t_bool		msh_env_path_cmd_search(char **args)
 {
 	const char	*path_value;
 	char		**paths;
@@ -78,7 +90,7 @@ static t_bool	msh_env_path_cmd_search(char **args)
 	return (false);
 }
 
-void			msh_process_cmd(char **args)
+void				msh_process_cmd(char **args)
 {
 	if (!msh_base_cmd_search(args) &&
 		!msh_full_path_cmd_search(*args, args) &&

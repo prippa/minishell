@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ls_commands.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/11 12:59:48 by prippa            #+#    #+#             */
+/*   Updated: 2019/02/11 12:59:49 by prippa           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "line_syntax.h"
 
 #define LS_ERR	"line syntax : ERROR : "
 #define WTF_EOF	"\n" LS_ERR "unexpected EOF while looking for matching `%c'\n"
 #define WTF_SEMICOLON_X1	LS_ERR "near unexpected token `;'\n"
-#define	WTF_SEMICOLON_X2	LS_ERR "near unexpected token `;;'\n"
+#define WTF_SEMICOLON_X2	LS_ERR "near unexpected token `;;'\n"
 
 t_bool		ls_backslash_check(t_line_syntax *ls)
 {

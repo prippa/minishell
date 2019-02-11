@@ -77,7 +77,7 @@ static int32_t	fpf_pull_wchar(wchar_t wc, char *new_obj, int32_t i)
 char			*fpf_wstr_to_str(wchar_t *ws)
 {
 	char	*new_obj;
-	int32_t		len;
+	int32_t	len;
 
 	len = fpf_wbytelen(ws);
 	if (!(new_obj = (char *)malloc(sizeof(char) * (len + 1))))

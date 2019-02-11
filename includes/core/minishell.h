@@ -18,8 +18,8 @@
 # include "../../libft/includes/get_next_line/get_next_line.h"
 # include <sys/types.h>
 
-typedef struct s_env t_env;
-typedef struct s_minishel t_minishel;
+typedef struct s_env		t_env;
+typedef struct s_minishel	t_minishel;
 
 extern t_bool		g_ok;
 extern t_minishel	g_msh;

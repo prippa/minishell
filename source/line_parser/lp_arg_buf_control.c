@@ -20,7 +20,7 @@ static void	msh_double_join(t_line_parser *lp, const char *src, size_t len)
 	{
 		if (!(buf_plus_s = ft_strnjoin(lp->arg_buf, src,
 			lp->arg_buf_len, len)))
-				msh_fatal_err(MALLOC_ERR);
+			msh_fatal_err(MALLOC_ERR);
 	}
 	else
 		buf_plus_s = (char *)src;

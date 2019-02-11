@@ -27,7 +27,7 @@ static void		fpf_percision_tricks(t_printf *fpf, int32_t *len)
 		fpf->f[F_SHARP] = 0;
 }
 
-static int32_t		fpf_write_sharp(t_printf *fpf)
+static int32_t	fpf_write_sharp(t_printf *fpf)
 {
 	if (fpf->type == 'x')
 	{

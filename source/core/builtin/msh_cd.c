@@ -23,7 +23,7 @@
 
 #define CD_NO_ENV			CD "%s not set\n"
 
-#define	CHDIR_FAILED		"chdir failed\n"
+#define CHDIR_FAILED		"chdir failed\n"
 #define GETCWD_FAILED		"getcwd failed\n"
 
 static t_bool	msh_cd_path_valid(const char *path)

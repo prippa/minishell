@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   msh_exec.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/11 12:52:50 by prippa            #+#    #+#             */
+/*   Updated: 2019/02/11 12:52:52 by prippa           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include <sys/wait.h>
 #include <signal.h>
 
 #define EXEC_IS_FOLDER		"%s: Is a directory\n"
-#define	EXEC_PERM_DENIED	"%s: Permission denied\n"
-#define	FORK_FAILED			"fork failed"
-#define	WAIT_FAILED			"wait failed"
-#define	EXECVE_FAILED		"execve failed"
+#define EXEC_PERM_DENIED	"%s: Permission denied\n"
+#define FORK_FAILED			"fork failed"
+#define WAIT_FAILED			"wait failed"
+#define EXECVE_FAILED		"execve failed"
 
 static void		msh_do_magic(const char *path, char **args, char **env)
 {

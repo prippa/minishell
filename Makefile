@@ -1,7 +1,6 @@
 #-------------------------- Key Values -----------------------------------------
 NAME		:=	minishell
 CFLAGS		:=	-Wall -Werror -Wextra
-READLINE_F	:=	-lreadline
 CC			:=	gcc
 
 DIR_LIB		:=	libft/

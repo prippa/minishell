@@ -26,7 +26,7 @@ static const		t_func_cmd	g_base_f[LP_BASE_SIZE] =
 	lp_single_quotes, lp_double_quotes, lp_backslash, lp_tilde
 };
 
-static void		lp_loop(t_line_parser *lp)
+static void			lp_loop(t_line_parser *lp)
 {
 	uint8_t i;
 
