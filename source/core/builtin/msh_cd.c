@@ -54,14 +54,15 @@ static void		msh_cd_make_move(const char *path)
 	if ((pwd = msh_getenv_value_by_key(g_msh.env_start,
 		PWD_ENV, ft_strlen(PWD_ENV))))
 		msh_setenv_one_env(OLDPWD_ENV, pwd);
-	else
+	else if (msh_getenv_value_by_key(g_msh.env_start,
+		OLDPWD_ENV, ft_strlen(OLDPWD_ENV)))
 		msh_unsetenv_one_env(OLDPWD_ENV);
 	if ((chdir(path)) == ERR)
 		msh_fatal_err(CHDIR_FAILED);
 	if (!(pwd = getcwd(NULL, 0)))
 		msh_fatal_err(GETCWD_FAILED);
 	msh_setenv_one_env(PWD_ENV, pwd);
-	ft_memdel((void **)pwd);
+	ft_memdel((void **)&pwd);
 }
 
 static void		msh_cd_by_env(const char *env_key)
