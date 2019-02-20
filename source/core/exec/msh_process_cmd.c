@@ -63,7 +63,7 @@ static t_bool		msh_check_path(const char *path, char **args)
 	ft_strcat(full_path, (char[2]){ UNIX_PATH_SEPARATOR, 0 });
 	ft_strcat(full_path, *args);
 	ny_cho_tam = msh_full_path_cmd_search(full_path, args);
-	ft_strdel(&full_path);
+	ft_memdel((void **)&full_path);
 	return (ny_cho_tam);
 }
 

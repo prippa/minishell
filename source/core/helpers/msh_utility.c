@@ -62,7 +62,7 @@ void		msh_update_curent_dir_name(void)
 	}
 	else
 		ft_strcpy(g_msh.curent_path, pwd);
-	ft_strdel(&pwd);
+	ft_memdel((void **)&pwd);
 }
 
 void		msh_fatal_err(const char *message)

@@ -61,6 +61,7 @@ static void		msh_cd_make_move(const char *path)
 	if (!(pwd = getcwd(NULL, 0)))
 		msh_fatal_err(GETCWD_FAILED);
 	msh_setenv_one_env(PWD_ENV, pwd);
+	ft_memdel((void **)pwd);
 }
 
 static void		msh_cd_by_env(const char *env_key)
@@ -78,7 +79,7 @@ static void		msh_cd_by_env(const char *env_key)
 	if (!(path = ft_strdup(path)))
 		msh_fatal_err(MALLOC_ERR);
 	msh_cd_make_move(path);
-	ft_strdel((char **)&path);
+	ft_memdel((void **)&path);
 }
 
 void			msh_cd(char **args)

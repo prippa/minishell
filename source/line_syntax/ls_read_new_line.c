@@ -32,6 +32,6 @@ t_bool		ls_read_new_line(t_bool nl_f)
 	if (!(ft_strjoin_free(&g_msh.line, new_line,
 		ft_strlen(g_msh.line), ft_strlen(new_line))))
 		msh_fatal_err(MALLOC_ERR);
-	ft_strdel(&new_line);
+	ft_memdel((void **)&new_line);
 	return (true);
 }

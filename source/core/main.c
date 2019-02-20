@@ -43,7 +43,7 @@ static void	msh_loop(void)
 			msh_update_prompt();
 			g_ok = true;
 		}
-		ft_strdel(&g_msh.line);
+		ft_memdel((void **)&g_msh.line);
 		ft_putstr(g_msh.prompt);
 	}
 }

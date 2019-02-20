@@ -59,7 +59,7 @@ void			msh_setenv_one_env(const char *key, const char *value)
 	ft_strcat(env, (char[2]){ KEY_VALUE_SEPARATOR, 0 });
 	ft_strcat(env, value);
 	msh_setenv((char*[2]){env, NULL});
-	ft_strdel(&env);
+	ft_memdel((void **)&env);
 }
 
 void			msh_setenv(char **args)

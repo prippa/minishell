@@ -26,7 +26,7 @@ static void	msh_double_join(t_line_parser *lp, const char *src, size_t len)
 		buf_plus_s = (char *)src;
 	lp_join_to_arg(lp, buf_plus_s, lp->arg_buf_len + len);
 	if (lp->arg_buf_len)
-		ft_strdel(&buf_plus_s);
+		ft_memdel((void **)&buf_plus_s);
 	lp->arg_buf_len = 0;
 	*lp->arg_buf = 0;
 }
