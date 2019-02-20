@@ -68,7 +68,7 @@ const char		*msh_getenv_value_by_key(t_list2 *start,
 					const char *env, size_t len);
 t_list2			*msh_getenv_obj_by_key(t_list2 *start,
 					const char *env, size_t len);
-void			msh_setenv_one_env(const char *env);
+void			msh_setenv_one_env(const char *key, const char *value);
 void			msh_unsetenv_one_env(const char *env);
 
 void			line_syntax(void);

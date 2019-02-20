@@ -49,14 +49,17 @@ static t_bool	msh_setenv_valid(const char *env)
 	return (false);
 }
 
-void			msh_setenv_one_env(const char *env)
+void			msh_setenv_one_env(const char *key, const char *value)
 {
-	if (msh_setenv_valid(env))
-		msh_edit_or_set_new_env(env);
-	else
-	{
-		PRINT_ERR(MSH_SETENV_INVALID_ARG, env);
-	}
+	char *env;
+
+	if (!(env = ft_strnew(ft_strlen(key) + ft_strlen(value) + 1)))
+		msh_fatal_err(MALLOC_ERR);
+	ft_strcpy(env, key);
+	ft_strcat(env, (char[2]){ KEY_VALUE_SEPARATOR, 0 });
+	ft_strcat(env, value);
+	msh_setenv((char*[2]){env, NULL});
+	ft_strdel(&env);
 }
 
 void			msh_setenv(char **args)
@@ -67,5 +70,13 @@ void			msh_setenv(char **args)
 		return ;
 	}
 	while (*args)
-		msh_setenv_one_env(*args++);
+	{
+		if (msh_setenv_valid(*args))
+			msh_edit_or_set_new_env(*args);
+		else
+		{
+			PRINT_ERR(MSH_SETENV_INVALID_ARG, *args);
+		}
+		++args;
+	}
 }

@@ -23,8 +23,8 @@
 
 #define CD_NO_ENV			CD "%s not set\n"
 
-#define CHDIR_FAILED		"chdir failed\n"
-#define GETCWD_FAILED		"getcwd failed\n"
+#define CHDIR_FAILED		"chdir failed"
+#define GETCWD_FAILED		"getcwd failed"
 
 static t_bool	msh_cd_path_valid(const char *path)
 {
@@ -47,29 +47,20 @@ static t_bool	msh_cd_path_valid(const char *path)
 	return (g_ok);
 }
 
-static void		msh_set_pwd(const char *pwd_name)
-{
-	char	*pwd;
-	char	*env;
-
-	if (!(pwd = getcwd(NULL, 0)))
-		msh_fatal_err(GETCWD_FAILED);
-	if (!(env = ft_strnew(ft_strlen(pwd_name) + ft_strlen(pwd) + 1)))
-		msh_fatal_err(MALLOC_ERR);
-	ft_strcpy(env, pwd_name);
-	ft_strcat(env, (char[2]){ KEY_VALUE_SEPARATOR, 0 });
-	ft_strcat(env, pwd);
-	msh_setenv_one_env(env);
-	ft_strdel(&pwd);
-	ft_strdel(&env);
-}
-
 static void		msh_cd_make_move(const char *path)
 {
-	msh_set_pwd(OLDPWD_ENV);
+	const char *pwd;
+
+	if ((pwd = msh_getenv_value_by_key(g_msh.env_start,
+		PWD_ENV, ft_strlen(PWD_ENV))))
+		msh_setenv_one_env(OLDPWD_ENV, pwd);
+	else
+		msh_unsetenv_one_env(OLDPWD_ENV);
 	if ((chdir(path)) == ERR)
 		msh_fatal_err(CHDIR_FAILED);
-	msh_set_pwd(PWD_ENV);
+	if (!(pwd = getcwd(NULL, 0)))
+		msh_fatal_err(GETCWD_FAILED);
+	msh_setenv_one_env(PWD_ENV, pwd);
 }
 
 static void		msh_cd_by_env(const char *env_key)
