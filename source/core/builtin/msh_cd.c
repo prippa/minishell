@@ -11,17 +11,18 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "def.h"
 
 #define CD_DASH_F			"-"
 
 #define CD					"cd: "
-#define CD_TO_MANY_ARGS		CD "Too many arguments\n"
-#define CD_NOT_DIR			CD "'%s': Not a directory\n"
-#define CD_PERM_DENIED		CD "'%s': Permission denied\n"
-#define CD_NONEXIST_PATH	CD "'%s': No such file or directory\n"
-#define CD_FILENAME_TO_LONG	CD "'%s': File name too long\n"
+#define CD_TO_MANY_ARGS		CD "Too many arguments"
+#define CD_NOT_DIR			CD "'%s': Not a directory"
+#define CD_PERM_DENIED		CD "'%s': Permission denied"
+#define CD_NONEXIST_PATH	CD "'%s': No such file or directory"
+#define CD_FILENAME_TO_LONG	CD "'%s': File name too long"
 
-#define CD_NO_ENV			CD "%s not set\n"
+#define CD_NO_ENV			CD "%s not set"
 
 #define CHDIR_FAILED		"chdir failed"
 #define GETCWD_FAILED		"getcwd failed"

@@ -11,11 +11,13 @@
 /* ************************************************************************** */
 
 #include "line_syntax.h"
+#include "syntax_characters.h"
+#include "def.h"
 
 #define LS_ERR	"line syntax : ERROR : "
-#define WTF_EOF	"\n" LS_ERR "unexpected EOF while looking for matching `%c'\n"
-#define WTF_SEMICOLON_X1	LS_ERR "near unexpected token `;'\n"
-#define WTF_SEMICOLON_X2	LS_ERR "near unexpected token `;;'\n"
+#define WTF_EOF	"\n" LS_ERR "unexpected EOF while looking for matching `%c'"
+#define WTF_SEMICOLON_X1	LS_ERR "near unexpected token `;'"
+#define WTF_SEMICOLON_X2	LS_ERR "near unexpected token `;;'"
 
 t_bool		ls_backslash_check(t_line_syntax *ls)
 {

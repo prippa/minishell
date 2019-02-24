@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "line_syntax.h"
+#include "syntax_characters.h"
 
 #define LS_CMD_SIZE	4
 

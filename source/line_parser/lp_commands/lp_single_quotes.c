@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "line_parser.h"
+#include "syntax_characters.h"
 
 void	lp_single_quotes(t_line_parser *lp)
 {

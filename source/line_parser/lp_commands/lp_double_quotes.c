@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "line_parser.h"
+#include "syntax_characters.h"
 
 static t_bool		lp_dqb_adaptation(char c)
 {

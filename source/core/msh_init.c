@@ -15,12 +15,19 @@
 t_bool		g_ok;
 t_minishel	g_msh;
 
-void	msh_init(void)
+static void	msh_init_env(void)
 {
 	extern char	**environ;
 
+	if (*environ)
+		msh_setenv(environ);
+	
+}
+
+void		msh_init(void)
+{
 	ft_bzero(&g_msh, sizeof(t_minishel));
-	msh_setenv(environ);
+	msh_init_env();
 	g_ok = true;
 	msh_update_curent_dir_name();
 	msh_update_prompt();

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "def.h"
 
 #define MSH_CMD_NOT_FOUND	"%s: command not found\n"
 #define MSH_CMD_SIZE	6

@@ -14,8 +14,6 @@
 # define LINE_SYNTAX_H
 
 # include "minishell.h"
-# include "syntax_characters.h"
-# include <stdint.h>
 
 typedef struct	s_line_syntax
 {

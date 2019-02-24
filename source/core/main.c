@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "get_next_line.h"
 
 #define MSH_OK_ICON		BOLD_GREEN "✓"
 #define MSH_ERROR_ICON	BOLD_RED "✕"

@@ -13,39 +13,20 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../../libft/includes/libc/libft.h"
-# include "../../libft/includes/printf/ft_printf.h"
-# include "../../libft/includes/get_next_line/get_next_line.h"
+# include "libft.h"
 # include <sys/types.h>
-
-typedef struct s_env		t_env;
-typedef struct s_minishel	t_minishel;
-
-extern t_bool		g_ok;
-extern t_minishel	g_msh;
-
-# define PRINT_ERR(f, a ...) ft_dprintf(STDERR_FILENO, f, a); g_ok = false;
 
 # define PATH_MAX				4096
 # define FILE_NAME_MAX			255
-
 # define PROMPT_SIZE			FILE_NAME_MAX * 2
-# define KEY_VALUE_SEPARATOR	'='
-# define UNIX_PATH_SEPARATOR	'/'
-# define PATH_ENV_SEPARATOR		':'
 
-# define HOME_ENV				"HOME"
-# define PWD_ENV				"PWD"
-# define OLDPWD_ENV				"OLDPWD"
-# define PATH_ENV				"PATH"
-
-struct			s_env
+typedef struct	s_env
 {
 	char		*env;
 	size_t		index;
-};
+}				t_env;
 
-struct			s_minishel
+typedef struct	s_minishel
 {
 	char		prompt[PROMPT_SIZE];
 	char		curent_path[PATH_MAX + 1];
@@ -54,7 +35,10 @@ struct			s_minishel
 	size_t		env_size;
 	char		*line;
 	size_t		i;
-};
+}				t_minishel;
+
+extern t_bool		g_ok;
+extern t_minishel	g_msh;
 
 void			msh_init(void);
 void			msh_del_env_list(void *content, size_t content_size);

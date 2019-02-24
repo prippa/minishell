@@ -18,9 +18,8 @@ static char	**lp_get_command(t_line_parser *lp)
 	char	**args;
 	t_list	*args_lst;
 
-	if (!(args = (char **)malloc(sizeof(char *) * (lp->args_size + 1))))
+	if (!(args = (char **)ft_memalloc(sizeof(char *) * (lp->args_size + 1))))
 		msh_fatal_err(MALLOC_ERR);
-	args[lp->args_size] = NULL;
 	args_lst = lp->args;
 	i = -1;
 	while (args_lst)

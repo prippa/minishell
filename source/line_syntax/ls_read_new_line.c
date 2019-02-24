@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "line_syntax.h"
+#include "get_next_line.h"
 
 #define LS_PROMPT	"> "
 

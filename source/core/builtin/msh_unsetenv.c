@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "def.h"
 
-#define MSH_UNSETENV_USG		"unsetenv: usage: unsetenv [key] ...\n"
-#define MSH_UNSETENV_NO_NAME	"unsetenv: '%s' not found\n"
+#define MSH_UNSETENV_USG		"unsetenv: usage: unsetenv [key] ..."
+#define MSH_UNSETENV_NO_NAME	"unsetenv: '%s' not found"
 
 void	msh_unsetenv_one_env(const char *env)
 {

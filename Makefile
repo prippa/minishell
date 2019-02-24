@@ -3,7 +3,6 @@ NAME		:=	minishell
 CFLAGS		:=	-Wall -Werror -Wextra
 CC			:=	gcc
 
-DIR_LIB		:=	libft/
 DIR_INC		:=	includes/
 DIR_SRC		:=	source/
 DIR_OBJ		:=	object/
@@ -15,6 +14,9 @@ COR			:=	core/
 LNS			:=	line_syntax/
 LNP			:=	line_parser/
 
+DIR_LIB		:=	libft/
+DIR_LIB_INC	:=	$(DIR_LIB)includes/libc/ $(DIR_LIB)includes/printf/\
+				$(DIR_LIB)includes/get_next_line/
 LIBFT		:=	$(DIR_LIB)libft.a
 
 DIR_COR_INC	:=	$(DIR_INC)$(COR)
@@ -32,6 +34,7 @@ DIR_LPCMD	:=	$(DIR_LNP_SRC)lp_commands/
 
 #-------------------------- Header files ---------------------------------------
 COR_H		:=	$(DIR_COR_INC)minishell.h\
+				$(DIR_COR_INC)def.h\
 				$(DIR_COR_INC)syntax_characters.h
 
 LNS_H		:=	$(DIR_LNS_INC)line_syntax.h
@@ -78,7 +81,8 @@ OBJ			+=	$(patsubst $(DIR_LNS_SRC)%,$(DIR_OBJ)%,\
 OBJ			+=	$(patsubst $(DIR_LNP_SRC)%,$(DIR_OBJ)%,\
 				$(LNP_C:.$(CH_SRC)=.$(CH_OBJ)))
 
-INC			:=	$(addprefix -I, $(DIR_COR_INC) $(DIR_LNS_INC) $(DIR_LNP_INC))
+INC			:=	$(addprefix -I, $(DIR_LIB_INC) $(DIR_COR_INC) $(DIR_LNS_INC)\
+				$(DIR_LNP_INC))
 
 #-------------------------- Make -----------------------------------------------
 all: lib $(DIR_OBJ) $(NAME)

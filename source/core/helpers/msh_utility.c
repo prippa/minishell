@@ -11,12 +11,13 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <sys/stat.h>
+#include "def.h"
 #include "syntax_characters.h"
+#include <sys/stat.h>
 
-#define MSH_ERR			"ERROR: minishell : %s\n"
-#define STAT_FAILED		"stat failed\n"
-#define GETCWD_FAILED	"getcwd failed\n"
+#define MSH_ERR			"ERROR: " SHELL_NAME " : %s"
+#define STAT_FAILED		"stat failed"
+#define GETCWD_FAILED	"getcwd failed"
 
 t_bool		msh_is_dir(const char *path)
 {

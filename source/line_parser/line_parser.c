@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "line_parser.h"
+#include "syntax_characters.h"
 
 #define LP_BASE_SIZE	8
 

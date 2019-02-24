@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "line_parser.h"
+#include "syntax_characters.h"
+#include "def.h"
 
 static t_bool	lp_tilde_valid_prev(const char *line, size_t i)
 {

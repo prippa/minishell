@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "def.h"
 
-#define MSH_SETENV_USG			"setenv: usage: setenv [key=value] ...\n"
-#define MSH_SETENV_INVALID_ARG	"setenv: '%s' not a valid identifier\n"
+#define MSH_SETENV_USG			"setenv: usage: setenv [key=value] ..."
+#define MSH_SETENV_INVALID_ARG	"setenv: '%s' not a valid identifier"
 
 static void		msh_edit_or_set_new_env(const char *env)
 {

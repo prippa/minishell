@@ -14,7 +14,6 @@
 # define LINE_PARSER_H
 
 # include "minishell.h"
-# include "syntax_characters.h"
 
 # define ARG_BUF_SIZE	4096
 
