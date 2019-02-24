@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "def.h"
+#include "messages.h"
 
-#define MSH_CMD_NOT_FOUND	"%s: command not found\n"
-#define MSH_CMD_SIZE	6
+#define MSH_CMD_NOT_FOUND	"%s: command not found"
+#define MSH_CMD_SIZE		6
 
 typedef void		(*t_func_cmd)(char **args);
 static const		t_func_cmd	g_cmd_func[MSH_CMD_SIZE] =
@@ -43,39 +43,29 @@ static t_bool		msh_base_cmd_search(char **args)
 	return (false);
 }
 
-static t_bool		msh_full_path_cmd_search(const char *full_path, char **args)
-{
-	if (!access(full_path, F_OK))
-	{
-		msh_exec(full_path, args);
-		return (true);
-	}
-	return (false);
-}
-
 static t_bool		msh_check_path(const char *path, char **args)
 {
 	char	*full_path;
-	t_bool	ny_cho_tam;
+	int32_t	res;
 
 	if (!(full_path = ft_strnew(ft_strlen(path) + ft_strlen(*args) + 1)))
 		msh_fatal_err(MALLOC_ERR);
 	ft_strcpy(full_path, path);
 	ft_strcat(full_path, (char[2]){ UNIX_PATH_SEPARATOR, 0 });
 	ft_strcat(full_path, *args);
-	ny_cho_tam = msh_full_path_cmd_search(full_path, args);
+	if (!(res = access(full_path, F_OK)))
+		msh_exec(full_path, args);
 	ft_memdel((void **)&full_path);
-	return (ny_cho_tam);
+	return (res ? false : true);
 }
 
 static t_bool		msh_env_path_cmd_search(char **args)
 {
-	const char	*path_value;
-	char		**paths;
-	size_t		i;
+	char	*path_value;
+	char	**paths;
+	size_t	i;
 
-	if ((path_value = msh_getenv_value_by_key(g_msh.env_start, PATH_ENV,
-		ft_strlen(PATH_ENV))))
+	if ((path_value = msh_getenv_vlu_by_key(PATH_ENV)))
 	{
 		if (!(paths = ft_strsplit(path_value, PATH_ENV_SEPARATOR)))
 			msh_fatal_err(MALLOC_ERR);
@@ -91,8 +81,21 @@ static t_bool		msh_env_path_cmd_search(char **args)
 	return (false);
 }
 
+static t_bool		msh_full_path_cmd_search(const char *full_path, char **args)
+{
+	if (msh_check_path_permision(full_path))
+		return (true);
+	if (!access(full_path, F_OK))
+	{
+		msh_exec(full_path, args);
+		return (true);
+	}
+	return (false);
+}
+
 void				msh_process_cmd(char **args)
 {
+	msh_setenv_one_env(PREV_CMD_ENV, *args);
 	if (!msh_base_cmd_search(args) &&
 		!msh_full_path_cmd_search(*args, args) &&
 		!msh_env_path_cmd_search(args))

@@ -12,7 +12,6 @@
 
 #include "line_syntax.h"
 #include "syntax_characters.h"
-#include "def.h"
 
 #define LS_ERR	"line syntax : ERROR : "
 #define WTF_EOF	"\n" LS_ERR "unexpected EOF while looking for matching `%c'"

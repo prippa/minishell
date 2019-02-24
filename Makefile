@@ -30,12 +30,13 @@ DIR_LNP_SRC	:=	$(DIR_SRC)$(LNP)
 DIR_BLT		:=	$(DIR_COR_SRC)builtin/
 DIR_EXC		:=	$(DIR_COR_SRC)exec/
 DIR_HLP		:=	$(DIR_COR_SRC)helpers/
+DIR_INI		:=	$(DIR_COR_SRC)init/
 DIR_LPCMD	:=	$(DIR_LNP_SRC)lp_commands/
 
 #-------------------------- Header files ---------------------------------------
 COR_H		:=	$(DIR_COR_INC)minishell.h\
-				$(DIR_COR_INC)def.h\
-				$(DIR_COR_INC)syntax_characters.h
+				$(DIR_COR_INC)syntax_characters.h\
+				$(DIR_COR_INC)messages.h
 
 LNS_H		:=	$(DIR_LNS_INC)line_syntax.h
 
@@ -43,8 +44,8 @@ LNP_H		:=	$(DIR_LNP_INC)line_parser.h
 
 #-------------------------- Source files ---------------------------------------
 COR_C		:=	$(DIR_COR_SRC)main.c\
-				$(DIR_COR_SRC)msh_free.c\
-				$(DIR_COR_SRC)msh_init.c\
+				$(DIR_INI)msh_init.c\
+				$(DIR_INI)msh_init_env.c\
 				$(DIR_BLT)msh_exit.c\
 				$(DIR_BLT)msh_cd.c\
 				$(DIR_BLT)msh_echo.c\
@@ -53,6 +54,8 @@ COR_C		:=	$(DIR_COR_SRC)main.c\
 				$(DIR_BLT)msh_unsetenv.c\
 				$(DIR_EXC)msh_exec.c\
 				$(DIR_EXC)msh_process_cmd.c\
+				$(DIR_HLP)msh_free.c\
+				$(DIR_HLP)msh_check_path_permision.c\
 				$(DIR_HLP)msh_getenv.c\
 				$(DIR_HLP)msh_utility.c
 

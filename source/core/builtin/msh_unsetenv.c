@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "def.h"
 
 #define MSH_UNSETENV_USG		"unsetenv: usage: unsetenv [key] ..."
 #define MSH_UNSETENV_NO_NAME	"unsetenv: '%s' not found"
@@ -20,7 +19,7 @@ void	msh_unsetenv_one_env(const char *env)
 {
 	t_list2		*t;
 
-	if (!(t = msh_getenv_obj_by_key(g_msh.env_start, env, ft_strlen(env))))
+	if (!(t = msh_getenv_obj_by_key(env)))
 	{
 		PRINT_ERR(MSH_UNSETENV_NO_NAME, env);
 		return ;

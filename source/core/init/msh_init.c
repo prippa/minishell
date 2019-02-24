@@ -15,15 +15,6 @@
 t_bool		g_ok;
 t_minishel	g_msh;
 
-static void	msh_init_env(void)
-{
-	extern char	**environ;
-
-	if (*environ)
-		msh_setenv(environ);
-	
-}
-
 void		msh_init(void)
 {
 	ft_bzero(&g_msh, sizeof(t_minishel));

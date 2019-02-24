@@ -11,15 +11,8 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "def.h"
+#include "messages.h"
 #include <sys/wait.h>
-
-#define EXEC_IS_FOLDER		"%s: Is a directory"
-#define EXEC_PERM_DENIED	"%s: Permission denied"
-
-#define FORK_FAILED			"fork failed"
-#define WAIT_FAILED			"wait failed"
-#define EXECVE_FAILED		"execve failed"
 
 static void		msh_do_magic(const char *path, char **args, char **env)
 {
@@ -62,13 +55,13 @@ static char		**msh_env_convert_from_list_char(void)
 
 static t_bool	msh_fork_exec_vild_path(const char *path)
 {
-	if (msh_is_dir(path))
+	if (access(path, X_OK) == ERR)
 	{
-		PRINT_ERR(EXEC_IS_FOLDER, path);
+		PRINT_ERR(MSH_PERM_DENIED, path);
 	}
-	else if (access(path, X_OK) == ERR)
+	else if (msh_is_dir(path))
 	{
-		PRINT_ERR(EXEC_PERM_DENIED, path);
+		PRINT_ERR(MSH_IS_A_DIR, path);
 	}
 	return (g_ok);
 }

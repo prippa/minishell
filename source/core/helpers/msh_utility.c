@@ -11,13 +11,11 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "def.h"
+#include "messages.h"
 #include "syntax_characters.h"
 #include <sys/stat.h>
 
-#define MSH_ERR			"ERROR: " SHELL_NAME " : %s"
-#define STAT_FAILED		"stat failed"
-#define GETCWD_FAILED	"getcwd failed"
+#define MSH_ERR		"ERROR: " SHELL_NAME " : %s\n"
 
 t_bool		msh_is_dir(const char *path)
 {
@@ -46,14 +44,13 @@ t_bool		msh_is_valid_path(const char *path)
 
 void		msh_update_curent_dir_name(void)
 {
-	const char	*home;
-	char		*file;
-	char		*pwd;
+	char	*home;
+	char	*file;
+	char	*pwd;
 
 	if (!(pwd = getcwd(NULL, 0)))
 		msh_fatal_err(GETCWD_FAILED);
-	if ((home = msh_getenv_value_by_key(g_msh.env_start,
-		HOME_ENV, ft_strlen(HOME_ENV))) && !ft_strcmp(home, pwd))
+	if (((home = msh_getenv_vlu_by_key(HOME_ENV)) && !ft_strcmp(home, pwd)))
 		ft_strcpy(g_msh.curent_path, (char[2]){ TILDE_C, 0 });
 	else if ((file = ft_strrchr(pwd, UNIX_PATH_SEPARATOR)))
 	{

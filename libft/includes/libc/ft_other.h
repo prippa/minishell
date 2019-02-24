@@ -26,5 +26,6 @@ int32_t		ft_base(const char c);
 uint16_t	ft_nbrlen(intmax_t nb);
 void		ft_clear(void);
 void		ft_perror_exit(const char *message);
+void		ft_fatal_err_exit(const char *message);
 
 #endif

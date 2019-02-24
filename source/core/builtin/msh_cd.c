@@ -11,21 +11,16 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "def.h"
+#include "messages.h"
 
 #define CD_DASH_F			"-"
-
 #define CD					"cd: "
 #define CD_TO_MANY_ARGS		CD "Too many arguments"
 #define CD_NOT_DIR			CD "'%s': Not a directory"
-#define CD_PERM_DENIED		CD "'%s': Permission denied"
-#define CD_NONEXIST_PATH	CD "'%s': No such file or directory"
+#define CD_PERM_DENIED		CD PERM_DENIED
+#define CD_NONEXIST_PATH	CD NO_FILE_OR_DIR
 #define CD_FILENAME_TO_LONG	CD "'%s': File name too long"
-
 #define CD_NO_ENV			CD "%s not set"
-
-#define CHDIR_FAILED		"chdir failed"
-#define GETCWD_FAILED		"getcwd failed"
 
 static t_bool	msh_cd_path_valid(const char *path)
 {
@@ -33,6 +28,8 @@ static t_bool	msh_cd_path_valid(const char *path)
 	{
 		PRINT_ERR(CD_FILENAME_TO_LONG, path);
 	}
+	else if (msh_check_path_permision(path))
+		;
 	else if (access(path, F_OK) == ERR)
 	{
 		PRINT_ERR(CD_NONEXIST_PATH, path);
@@ -50,13 +47,11 @@ static t_bool	msh_cd_path_valid(const char *path)
 
 static void		msh_cd_make_move(const char *path)
 {
-	const char *pwd;
+	char *pwd;
 
-	if ((pwd = msh_getenv_value_by_key(g_msh.env_start,
-		PWD_ENV, ft_strlen(PWD_ENV))))
+	if ((pwd = msh_getenv_vlu_by_key(PWD_ENV)))
 		msh_setenv_one_env(OLDPWD_ENV, pwd);
-	else if (msh_getenv_value_by_key(g_msh.env_start,
-		OLDPWD_ENV, ft_strlen(OLDPWD_ENV)))
+	else if (msh_getenv_vlu_by_key(OLDPWD_ENV))
 		msh_unsetenv_one_env(OLDPWD_ENV);
 	if ((chdir(path)) == ERR)
 		msh_fatal_err(CHDIR_FAILED);
@@ -68,10 +63,9 @@ static void		msh_cd_make_move(const char *path)
 
 static void		msh_cd_by_env(const char *env_key)
 {
-	const char *path;
+	char *path;
 
-	if (!(path = msh_getenv_value_by_key(g_msh.env_start,
-		env_key, ft_strlen(env_key))))
+	if (!(path = msh_getenv_vlu_by_key(env_key)))
 	{
 		PRINT_ERR(CD_NO_ENV, env_key);
 		return ;

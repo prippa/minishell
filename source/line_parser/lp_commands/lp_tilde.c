@@ -12,7 +12,7 @@
 
 #include "line_parser.h"
 #include "syntax_characters.h"
-#include "def.h"
+#include "messages.h"
 
 static t_bool	lp_tilde_valid_prev(const char *line, size_t i)
 {
@@ -35,13 +35,12 @@ static t_bool	lp_tilde_valid_next(const char *line, size_t i)
 
 void			lp_tilde(t_line_parser *lp)
 {
-	const char	*home;
+	char	*home;
 
 	if (lp_tilde_valid_prev(g_msh.line, g_msh.i - 1) &&
 		lp_tilde_valid_next(g_msh.line, g_msh.i + 1))
 	{
-		if ((home = msh_getenv_value_by_key(g_msh.env_start,
-			HOME_ENV, ft_strlen(HOME_ENV))))
+		if ((home = msh_getenv_vlu_by_key(HOME_ENV)))
 			lp_write_to_arg_buf_str(lp, home, ft_strlen(home));
 	}
 	else
