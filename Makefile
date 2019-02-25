@@ -100,7 +100,7 @@ $(DIR_OBJ):
 
 #-------------------------- Link Block -----------------------------------------
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) -o $(NAME) $(OBJ) $(READLINE_F) $(LIBFT) 
+	@$(CC) -o $(NAME) $(OBJ) $(LIBFT) 
 	@echo "Linking" [ $(NAME) ]
 
 #-------------------------- Compil Block ---------------------------------------
