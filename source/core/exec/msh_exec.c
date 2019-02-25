@@ -53,25 +53,15 @@ static char		**msh_env_convert_from_list_char(void)
 	return (env);
 }
 
-static t_bool	msh_fork_exec_vild_path(const char *path)
-{
-	if (access(path, X_OK) == ERR)
-	{
-		PRINT_ERR(MSH_PERM_DENIED, path);
-	}
-	else if (msh_is_dir(path))
-	{
-		PRINT_ERR(MSH_IS_A_DIR, path);
-	}
-	return (g_ok);
-}
-
 void			msh_exec(const char *path, char **args)
 {
 	char		**env;
 
-	if (!msh_fork_exec_vild_path(path))
+	if (access(path, X_OK) == ERR)
+	{
+		PRINT_ERR(MSH_PERM_DENIED, path);
 		return ;
+	}
 	env = msh_env_convert_from_list_char();
 	msh_do_magic(path, args, env);
 	free(env);

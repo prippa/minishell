@@ -13,7 +13,7 @@
 #include "minishell.h"
 #include "messages.h"
 
-#define MSH_CMD_NOT_FOUND	"%s: command not found"
+#define MSH_CMD_NOT_FOUND	SHELL_NAME ": %s: command not found"
 #define MSH_CMD_SIZE		6
 
 typedef void		(*t_func_cmd)(char **args);
@@ -53,7 +53,7 @@ static t_bool		msh_check_path(const char *path, char **args)
 	ft_strcpy(full_path, path);
 	ft_strcat(full_path, (char[2]){ UNIX_PATH_SEPARATOR, 0 });
 	ft_strcat(full_path, *args);
-	if (!(res = access(full_path, F_OK)))
+	if (!(res = access(full_path, F_OK)) && !(res = msh_is_dir(full_path)))
 		msh_exec(full_path, args);
 	ft_memdel((void **)&full_path);
 	return (res ? false : true);
@@ -83,14 +83,18 @@ static t_bool		msh_env_path_cmd_search(char **args)
 
 static t_bool		msh_full_path_cmd_search(const char *full_path, char **args)
 {
-	if (msh_check_path_permision(full_path))
-		return (true);
-	if (!access(full_path, F_OK))
+	if (!ft_strchr(full_path, UNIX_PATH_SEPARATOR))
+		return (false);
+	if (!msh_check_path_permision(full_path, SHELL_NAME ": "))
 	{
-		msh_exec(full_path, args);
-		return (true);
+		if (msh_is_dir(full_path))
+		{
+			PRINT_ERR(MSH_IS_A_DIR, full_path);
+		}
+		else
+			msh_exec(full_path, args);
 	}
-	return (false);
+	return (true);
 }
 
 void				msh_process_cmd(char **args)

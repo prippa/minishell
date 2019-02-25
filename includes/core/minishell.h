@@ -53,7 +53,7 @@ void			msh_del_commands_list(void *content, size_t content_size);
 void			msh_fatal_err(const char *message);
 t_bool			msh_is_dir(const char *path);
 t_bool			msh_is_valid_path(const char *path);
-t_bool			msh_check_path_permision(const char *path);
+t_bool			msh_check_path_permision(const char *path, const char *prefix);
 void			msh_update_curent_dir_name(void);
 char			*msh_getenv_vlu_by_key(const char *key);
 t_list2			*msh_getenv_obj_by_key(const char *key);

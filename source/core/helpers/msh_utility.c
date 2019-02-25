@@ -36,10 +36,10 @@ t_bool		msh_is_valid_path(const char *path)
 		if (*path == UNIX_PATH_SEPARATOR)
 			i = 0;
 		else if (++i > FILE_NAME_MAX)
-			return (false);
+			return (true);
 		++path;
 	}
-	return (true);
+	return (false);
 }
 
 void		msh_update_curent_dir_name(void)

@@ -18,22 +18,17 @@
 #define CD_TO_MANY_ARGS		CD "Too many arguments"
 #define CD_NOT_DIR			CD "'%s': Not a directory"
 #define CD_PERM_DENIED		CD PERM_DENIED
-#define CD_NONEXIST_PATH	CD NO_FILE_OR_DIR
 #define CD_FILENAME_TO_LONG	CD "'%s': File name too long"
 #define CD_NO_ENV			CD "%s not set"
 
 static t_bool	msh_cd_path_valid(const char *path)
 {
-	if (!msh_is_valid_path(path))
+	if (msh_is_valid_path(path))
 	{
 		PRINT_ERR(CD_FILENAME_TO_LONG, path);
 	}
-	else if (msh_check_path_permision(path))
-		;
-	else if (access(path, F_OK) == ERR)
-	{
-		PRINT_ERR(CD_NONEXIST_PATH, path);
-	}
+	else if (msh_check_path_permision(path, CD))
+		return (g_ok);
 	else if (!msh_is_dir(path))
 	{
 		PRINT_ERR(CD_NOT_DIR, path);

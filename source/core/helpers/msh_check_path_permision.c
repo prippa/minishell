@@ -1,41 +1,50 @@
 #include "minishell.h"
 #include "messages.h"
 
-static t_bool	msh_check_by_access(char *s, const char *path)
+static t_bool	msh_check_by_access(char *s, const char *path,
+					const char *prefix)
 {
 	if (access(s, F_OK))
 	{
-		PRINT_ERR(MSH_NO_FILE_OR_DIR, path);
+		ft_putstr_fd(prefix, STDERR_FILENO);
+		PRINT_ERR(NO_FILE_OR_DIR, path);
 	}
 	else if (access(s, X_OK))
 	{
-		PRINT_ERR(MSH_PERM_DENIED, path);
+		ft_putstr_fd(prefix, STDERR_FILENO);
+		PRINT_ERR(PERM_DENIED, path);
 	}
 	else
-		return (0);
-	return (1);
+		return (false);
+	return (true);
 }
 
-t_bool			msh_check_path_permision(const char *path)
+t_bool			msh_check_path_permision(const char *path, const char *prefix)
 {
 	char	*s;
 	size_t	i;
-	int32_t	status;
 
 	if (!(s = ft_strdup(path)))
 		msh_fatal_err(MALLOC_ERR);
-	status = 0;
-	i = -1;
-	if (*s == UNIX_PATH_SEPARATOR)
+	if ((i = -1) && *s == UNIX_PATH_SEPARATOR)
 		++i;
 	while (s[++i])
 		if (s[i] == UNIX_PATH_SEPARATOR)
 		{
 			s[i] = 0;
-			if ((status = msh_check_by_access(s, path)))
-				break ;
+			if (msh_check_by_access(s, path, prefix))
+			{
+				ft_memdel((void **)&s);
+				return (true);
+			}
 			s[i] = UNIX_PATH_SEPARATOR;
 		}
+	if (access(s, F_OK))
+	{
+		ft_putstr_fd(prefix, STDERR_FILENO);
+		PRINT_ERR(NO_FILE_OR_DIR, path);
+		return (true);
+	}
 	ft_memdel((void **)&s);
-	return (status);
+	return (false);
 }
