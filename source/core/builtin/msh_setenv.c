@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 #include "messages.h"
+#include "builtin.h"
 
 #define MSH_SETENV_USG			"setenv: usage: setenv [key=value] ..."
 #define MSH_SETENV_INVALID_ARG	"setenv: '%s' not a valid identifier"
@@ -70,7 +71,7 @@ void			msh_setenv(char **args)
 {
 	if (!*args)
 	{
-		PRINT_ERR(MSH_SETENV_USG, NULL);
+		PRINT_ERR(EXIT_FAILURE, MSH_SETENV_USG, NULL);
 		return ;
 	}
 	while (*args)
@@ -79,7 +80,7 @@ void			msh_setenv(char **args)
 			msh_edit_or_set_new_env(*args);
 		else
 		{
-			PRINT_ERR(MSH_SETENV_INVALID_ARG, *args);
+			PRINT_ERR(EXIT_FAILURE, MSH_SETENV_INVALID_ARG, *args);
 		}
 		++args;
 	}

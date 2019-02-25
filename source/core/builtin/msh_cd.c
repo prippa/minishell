@@ -12,10 +12,11 @@
 
 #include "minishell.h"
 #include "messages.h"
+#include "builtin.h"
 
 #define CD_DASH_F			"-"
-#define CD					"cd: "
-#define CD_TO_MANY_ARGS		CD "Too many arguments"
+#define CD					CD_CMD ": "
+#define CD_TO_MANY_ARGS		CD TO_MANY_ARGS
 #define CD_NOT_DIR			CD "'%s': Not a directory"
 #define CD_PERM_DENIED		CD PERM_DENIED
 #define CD_FILENAME_TO_LONG	CD "'%s': File name too long"
@@ -25,17 +26,17 @@ static t_bool	msh_cd_path_valid(const char *path)
 {
 	if (msh_is_valid_path(path))
 	{
-		PRINT_ERR(CD_FILENAME_TO_LONG, path);
+		PRINT_ERR(EXIT_FAILURE, CD_FILENAME_TO_LONG, path);
 	}
-	else if (msh_check_path_permision(path, CD))
+	else if (msh_path_access(path, CD))
 		return (g_ok);
 	else if (!msh_is_dir(path))
 	{
-		PRINT_ERR(CD_NOT_DIR, path);
+		PRINT_ERR(EXIT_FAILURE, CD_NOT_DIR, path);
 	}
 	else if (access(path, X_OK) == ERR)
 	{
-		PRINT_ERR(CD_PERM_DENIED, path);
+		PRINT_ERR(EXIT_FAILURE, CD_PERM_DENIED, path);
 	}
 	return (g_ok);
 }
@@ -62,7 +63,7 @@ static void		msh_cd_by_env(const char *env_key)
 
 	if (!(path = msh_getenv_vlu_by_key(env_key)))
 	{
-		PRINT_ERR(CD_NO_ENV, env_key);
+		PRINT_ERR(EXIT_FAILURE, CD_NO_ENV, env_key);
 		return ;
 	}
 	if (!msh_cd_path_valid(path))
@@ -79,11 +80,11 @@ void			msh_cd(char **args)
 		msh_cd_by_env(HOME_ENV);
 	else if (*(args + 1))
 	{
-		PRINT_ERR(CD_TO_MANY_ARGS, NULL);
+		PRINT_ERR(EXIT_FAILURE, CD_TO_MANY_ARGS, NULL);
 	}
 	else if (!ft_strcmp(*args, CD_DASH_F))
 		msh_cd_by_env(OLDPWD_ENV);
-	else if ((msh_cd_path_valid(*args)))
+	else if (msh_cd_path_valid(*args))
 		msh_cd_make_move(*args);
 	if (g_ok)
 		msh_update_curent_dir_name();

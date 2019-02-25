@@ -1,10 +1,4 @@
 env -i ./minishell
 
-!!!ENV!!!
-SHELL=
-SHLVL=
-_=
-!!!EMPTY ENV!!!
-PWD=
----------------------------------
-Permision with file in folder
+g_exec_code
+builtin

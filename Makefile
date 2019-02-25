@@ -36,6 +36,8 @@ DIR_LPCMD	:=	$(DIR_LNP_SRC)lp_commands/
 #-------------------------- Header files ---------------------------------------
 COR_H		:=	$(DIR_COR_INC)minishell.h\
 				$(DIR_COR_INC)syntax_characters.h\
+				$(DIR_COR_INC)builtin_static_arr.h\
+				$(DIR_COR_INC)builtin.h\
 				$(DIR_COR_INC)messages.h
 
 LNS_H		:=	$(DIR_LNS_INC)line_syntax.h
@@ -46,8 +48,8 @@ LNP_H		:=	$(DIR_LNP_INC)line_parser.h
 COR_C		:=	$(DIR_COR_SRC)main.c\
 				$(DIR_INI)msh_init.c\
 				$(DIR_INI)msh_init_env.c\
-				$(DIR_BLT)msh_exit.c\
 				$(DIR_BLT)msh_cd.c\
+				$(DIR_BLT)msh_exit.c\
 				$(DIR_BLT)msh_echo.c\
 				$(DIR_BLT)msh_env.c\
 				$(DIR_BLT)msh_setenv.c\

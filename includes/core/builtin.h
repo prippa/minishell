@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_init.c                                         :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 12:53:38 by prippa            #+#    #+#             */
-/*   Updated: 2019/02/11 12:53:41 by prippa           ###   ########.fr       */
+/*   Created: 2019/02/25 20:18:20 by prippa            #+#    #+#             */
+/*   Updated: 2019/02/25 20:18:24 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-t_bool		g_ok;
-int32_t		g_exec_code;
-t_minishel	g_msh;
+void	msh_cd(char **args);
+void	msh_echo(char **args);
+void	msh_env(char **args);
+void	msh_setenv(char **args);
+void	msh_unsetenv(char **args);
+void	msh_exit(char **args);
 
-void		msh_init(void)
-{
-	ft_bzero(&g_msh, sizeof(t_minishel));
-	msh_init_env();
-	g_ok = true;
-	g_exec_code = EXIT_SUCCESS;
-	msh_update_curent_dir_name();
-	msh_update_prompt();
-}
+# define MSH_CMD_SIZE	6
+
+# define CD_CMD			"cd"
+# define ECHO_CMD		"echo"
+# define ENV_CMD		"env"
+# define SETENV_CMD		"setenv"
+# define UNSETENV_CMD	"unsetenv"
+# define EXIT_CMD		"exit"
+
+#endif

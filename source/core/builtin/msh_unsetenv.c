@@ -21,7 +21,7 @@ void	msh_unsetenv_one_env(const char *env)
 
 	if (!(t = msh_getenv_obj_by_key(env)))
 	{
-		PRINT_ERR(MSH_UNSETENV_NO_NAME, env);
+		PRINT_ERR(EXIT_FAILURE, MSH_UNSETENV_NO_NAME, env);
 		return ;
 	}
 	ft_lst2del_by_obj(&g_msh.env_start, &g_msh.env_end, t, msh_del_env_list);
@@ -32,7 +32,7 @@ void	msh_unsetenv(char **args)
 {
 	if (!*args)
 	{
-		PRINT_ERR(MSH_UNSETENV_USG, NULL);
+		PRINT_ERR(EXIT_FAILURE, MSH_UNSETENV_USG, NULL);
 		return ;
 	}
 	while (*args)

@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_init.c                                         :+:      :+:    :+:   */
+/*   builtin_static_arr.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 12:53:38 by prippa            #+#    #+#             */
-/*   Updated: 2019/02/11 12:53:41 by prippa           ###   ########.fr       */
+/*   Created: 2019/02/25 20:20:15 by prippa            #+#    #+#             */
+/*   Updated: 2019/02/25 20:20:17 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef BUILTIN_STATIC_ARR_H
+# define BUILTIN_STATIC_ARR_H
 
-t_bool		g_ok;
-int32_t		g_exec_code;
-t_minishel	g_msh;
+# include "builtin.h"
 
-void		msh_init(void)
+typedef void		(*t_func_cmd)(char **args);
+static const		t_func_cmd	g_cmd_func[MSH_CMD_SIZE] =
 {
-	ft_bzero(&g_msh, sizeof(t_minishel));
-	msh_init_env();
-	g_ok = true;
-	g_exec_code = EXIT_SUCCESS;
-	msh_update_curent_dir_name();
-	msh_update_prompt();
-}
+	msh_cd, msh_echo, msh_env, msh_setenv,
+	msh_unsetenv, msh_exit
+};
+
+static const char	*g_cmd_string[MSH_CMD_SIZE] =
+{
+	CD_CMD, ECHO_CMD, ENV_CMD, SETENV_CMD,
+	UNSETENV_CMD, EXIT_CMD
+};
+
+#endif

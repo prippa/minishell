@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   messages.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/25 12:31:50 by prippa            #+#    #+#             */
+/*   Updated: 2019/02/25 12:31:52 by prippa           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MESSAGES_H
 # define MESSAGES_H
 
@@ -21,12 +33,13 @@
 # define WAIT_FAILED	"wait() failed"
 # define STAT_FAILED	"stat() failed"
 
-#define PERM_DENIED		"'%s': Permission denied"
-#define NO_FILE_OR_DIR	"'%s': No such file or directory"
-#define IS_A_DIR		"'%s': Is a directory"
+# define PERM_DENIED		"'%s': Permission denied"
+# define NO_FILE_OR_DIR		"'%s': No such file or directory"
+# define IS_A_DIR			"'%s': Is a directory"
+# define TO_MANY_ARGS		"Too many arguments"
 
-#define MSH_PERM_DENIED SHELL_NAME ": " PERM_DENIED
-#define MSH_NO_FILE_OR_DIR SHELL_NAME ": " NO_FILE_OR_DIR
-#define MSH_IS_A_DIR SHELL_NAME ": " IS_A_DIR
+# define MSH_PERM_DENIED 	SHELL_NAME ": " PERM_DENIED
+# define MSH_NO_FILE_OR_DIR	SHELL_NAME ": " NO_FILE_OR_DIR
+# define MSH_IS_A_DIR		SHELL_NAME ": " IS_A_DIR
 
 #endif

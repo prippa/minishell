@@ -12,6 +12,7 @@
 
 #include "line_syntax.h"
 #include "syntax_characters.h"
+#include "builtin.h"
 
 #define LS_ERR	"line syntax : ERROR : "
 #define WTF_EOF	"\n" LS_ERR "unexpected EOF while looking for matching `%c'"
@@ -39,7 +40,7 @@ t_bool		ls_dobule_q_check(t_line_syntax *ls)
 	{
 		if (!g_msh.line[++g_msh.i] && !ls_read_new_line(true))
 		{
-			PRINT_ERR(WTF_EOF, DOUBLE_QUOTES_C);
+			PRINT_ERR(EXIT_FAILURE, WTF_EOF, DOUBLE_QUOTES_C);
 			return (false);
 		}
 		if (g_msh.line[g_msh.i] == BACKSLASH_C)
@@ -56,7 +57,7 @@ t_bool		ls_single_q_check(t_line_syntax *ls)
 	{
 		if (!g_msh.line[++g_msh.i] && !ls_read_new_line(true))
 		{
-			PRINT_ERR(WTF_EOF, SINGLE_QUOTES_C);
+			PRINT_ERR(EXIT_FAILURE, WTF_EOF, SINGLE_QUOTES_C);
 			return (false);
 		}
 		if (g_msh.line[g_msh.i] == SINGLE_QUOTES_C)
@@ -71,11 +72,11 @@ t_bool		ls_semi_check(t_line_syntax *ls)
 		if (g_msh.line[g_msh.i + 1] == SEMICOLON_C || (g_msh.i &&
 			g_msh.line[g_msh.i - 1] == SEMICOLON_C))
 		{
-			PRINT_ERR(WTF_SEMICOLON_X2, NULL);
+			PRINT_ERR(EXIT_FAILURE, WTF_SEMICOLON_X2, NULL);
 		}
 		else
 		{
-			PRINT_ERR(WTF_SEMICOLON_X1, NULL);
+			PRINT_ERR(EXIT_FAILURE, WTF_SEMICOLON_X1, NULL);
 		}
 		return (false);
 	}

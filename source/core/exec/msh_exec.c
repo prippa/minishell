@@ -16,17 +16,19 @@
 
 static void		msh_do_magic(const char *path, char **args, char **env)
 {
-	int32_t	wstatus;
 	pid_t	father;
 
 	if ((father = fork()) == ERR)
 		msh_fatal_err(FORK_FAILED);
 	if (father)
 	{
-		if (wait(&wstatus) == ERR)
+		if (wait(&g_exec_code) == ERR)
 			msh_fatal_err(WAIT_FAILED);
-		if (wstatus)
+		if (WIFEXITED(g_exec_code) && g_exec_code)
+		{
+			g_exec_code = WEXITSTATUS(g_exec_code);
 			g_ok = false;
+		}
 	}
 	if (!father)
 	{
@@ -59,7 +61,7 @@ void			msh_exec(const char *path, char **args)
 
 	if (access(path, X_OK) == ERR)
 	{
-		PRINT_ERR(MSH_PERM_DENIED, path);
+		PRINT_ERR(EXIT_FAILURE, MSH_PERM_DENIED, path);
 		return ;
 	}
 	env = msh_env_convert_from_list_char();

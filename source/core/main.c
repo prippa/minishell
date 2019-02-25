@@ -23,7 +23,7 @@ void		msh_update_prompt(void)
 	ft_strcat(g_msh.prompt, BOLD_MAGENTA);
 	ft_strcat(g_msh.prompt, " (");
 	ft_strcat(g_msh.prompt, COLOR_RESET);
-	ft_strcat(g_msh.prompt, BOLD_CYAN);
+	ft_strcat(g_msh.prompt, BOLD_YELLOW);
 	ft_strcat(g_msh.prompt, g_msh.curent_path);
 	ft_strcat(g_msh.prompt, COLOR_RESET);
 	ft_strcat(g_msh.prompt, BOLD_MAGENTA);
@@ -41,6 +41,8 @@ static void	msh_loop(void)
 			line_syntax();
 			if (g_ok)
 				line_parser();
+			if (g_ok)
+				g_exec_code = EXIT_SUCCESS;
 			msh_update_prompt();
 			g_ok = true;
 		}
