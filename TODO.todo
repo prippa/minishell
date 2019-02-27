@@ -1,4 +1,4 @@
 env -i ./minishell
 
-g_exec_code
-builtin
+backslash with double Q
+#define WTF_EOF	"\n" LS_ERR "unexpected EOF while looking for matching `%c'"

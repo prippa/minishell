@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_syntax.h                                      :+:      :+:    :+:   */
+/*   ft_strsub_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 12:46:42 by prippa            #+#    #+#             */
-/*   Updated: 2019/02/11 12:46:44 by prippa           ###   ########.fr       */
+/*   Created: 2019/02/27 17:08:20 by prippa            #+#    #+#             */
+/*   Updated: 2019/02/27 17:08:22 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LINE_SYNTAX_H
-# define LINE_SYNTAX_H
+#include "ft_str.h"
 
-# include "minishell.h"
-
-typedef struct	s_line_syntax
+char	*ft_strsub_free(char **s, uint32_t start, size_t len)
 {
-	t_bool		semi_flag;
-}				t_line_syntax;
+	char	*tmp;
 
-t_bool			ls_read_new_line(t_bool nl_f);
-t_bool			ls_backslash_check(t_line_syntax *ls);
-t_bool			ls_dobule_q_check(t_line_syntax *ls);
-t_bool			ls_single_q_check(t_line_syntax *ls);
-t_bool			ls_semi_check(t_line_syntax *ls);
-
-#endif
+	if (!s || !*s)
+		return (NULL);
+	tmp = *s;
+	if (!(*s = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	ft_strncpy(*s, tmp + start, len);
+	(*s)[len] = 0;
+	free(tmp);
+	return (*s);
+}

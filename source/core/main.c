@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 #include "get_next_line.h"
+#include "builtin.h"
 
 #define MSH_OK_ICON		BOLD_GREEN "✓"
 #define MSH_ERROR_ICON	BOLD_RED "✕"
@@ -33,12 +34,10 @@ void		msh_update_prompt(void)
 
 static void	msh_loop(void)
 {
-	ft_putstr(g_msh.prompt);
-	while ((get_next_line(STDIN_FILENO, &g_msh.line)) > 0)
+	while ((g_msh.line = read_line(g_msh.prompt)))
 	{
 		if (!ft_is_str_space(g_msh.line))
 		{
-			line_syntax();
 			if (g_ok)
 				line_parser();
 			if (g_ok)
@@ -47,7 +46,6 @@ static void	msh_loop(void)
 			g_ok = true;
 		}
 		ft_memdel((void **)&g_msh.line);
-		ft_putstr(g_msh.prompt);
 	}
 }
 
@@ -55,5 +53,5 @@ int			main(void)
 {
 	msh_init();
 	msh_loop();
-	return (EXIT_SUCCESS);
+	msh_exit(NULL);
 }

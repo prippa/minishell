@@ -61,7 +61,7 @@ t_list2			*msh_getenv_obj_by_key(const char *key);
 void			msh_setenv_one_env(const char *key, const char *value);
 void			msh_unsetenv_one_env(const char *env);
 
-void			line_syntax(void);
+char			*read_line(const char *prompt);
 void			line_parser(void);
 void			msh_process_cmd(char **args);
 void			msh_exec(const char *path, char **args);
