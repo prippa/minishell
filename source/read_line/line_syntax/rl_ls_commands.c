@@ -45,9 +45,12 @@ t_bool		ls_dobule_q_check(t_read_line *rl, t_line_syntax *ls)
 		if (!rl->line[++rl->i] ||
 			(rl->line[rl->i] == BACKSLASH_C && !rl->line[rl->i + 1]))
 		{
-			if (rl->line[rl->i] == BACKSLASH_C && !rl->line[rl->i + 1] &&
-				!ft_strsub_free(&rl->line, 0, rl->i))
-				msh_fatal_err(MALLOC_ERR);
+			if (rl->line[rl->i] == BACKSLASH_C && !rl->line[rl->i + 1])
+			{
+				if (!ft_strsub_free(&rl->line, 0, rl->i))
+					msh_fatal_err(MALLOC_ERR);
+				rl->new_line_flag = false;
+			}
 			write(STDOUT_FILENO, DQUOT_PROMPT, ft_strlen(DQUOT_PROMPT));
 			return (false);
 		}

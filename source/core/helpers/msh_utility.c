@@ -50,7 +50,8 @@ void		msh_update_curent_dir_name(void)
 
 	if (!(pwd = getcwd(NULL, 0)))
 		msh_fatal_err(GETCWD_FAILED);
-	if (((home = msh_getenv_vlu_by_key(HOME_ENV)) && !ft_strcmp(home, pwd)))
+	if (((home = msh_getenv_vlu_by_key(HOME_ENV, ft_strlen(HOME_ENV))) &&
+		!ft_strcmp(home, pwd)))
 		ft_strcpy(g_msh.curent_path, (char[2]){ TILDE_C, 0 });
 	else if ((file = ft_strrchr(pwd, UNIX_PATH_SEPARATOR)))
 	{

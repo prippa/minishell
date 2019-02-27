@@ -56,8 +56,8 @@ t_bool			msh_is_dir(const char *path);
 t_bool			msh_is_valid_path(const char *path);
 t_bool			msh_path_access(const char *path, const char *prefix);
 void			msh_update_curent_dir_name(void);
-char			*msh_getenv_vlu_by_key(const char *key);
-t_list2			*msh_getenv_obj_by_key(const char *key);
+char			*msh_getenv_vlu_by_key(const char *key, size_t len);
+t_list2			*msh_getenv_obj_by_key(const char *key, size_t len);
 void			msh_setenv_one_env(const char *key, const char *value);
 void			msh_unsetenv_one_env(const char *env);
 

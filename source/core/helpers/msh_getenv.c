@@ -12,14 +12,12 @@
 
 #include "minishell.h"
 
-t_list2		*msh_getenv_obj_by_key(const char *key)
+t_list2		*msh_getenv_obj_by_key(const char *key, size_t len)
 {
 	t_env	*e;
 	t_list2	*start;
-	size_t	len;
 
 	start = g_msh.env_start;
-	len = ft_strlen(key);
 	while (start)
 	{
 		e = (t_env *)start->content;
@@ -30,14 +28,12 @@ t_list2		*msh_getenv_obj_by_key(const char *key)
 	return (NULL);
 }
 
-char		*msh_getenv_vlu_by_key(const char *key)
+char		*msh_getenv_vlu_by_key(const char *key, size_t len)
 {
 	t_env	*e;
 	t_list2	*start;
-	size_t	len;
 
 	start = g_msh.env_start;
-	len = ft_strlen(key);
 	while (start)
 	{
 		e = (t_env *)start->content;

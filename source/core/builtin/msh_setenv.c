@@ -26,10 +26,7 @@ static void		msh_edit_or_set_new_env(const char *env)
 	new_env.index = ft_strchr(env, KEY_VALUE_SEPARATOR) - env;
 	if (!(new_env.env = ft_strdup(env)))
 		msh_fatal_err(MALLOC_ERR);
-	new_env.env[new_env.index] = 0;
-	obj = msh_getenv_obj_by_key(new_env.env);
-	new_env.env[new_env.index] = KEY_VALUE_SEPARATOR;
-	if (obj)
+	if ((obj = msh_getenv_obj_by_key(env, new_env.index)))
 	{
 		edit_env = (t_env *)obj->content;
 		msh_del_env_body(edit_env);

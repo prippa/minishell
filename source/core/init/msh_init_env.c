@@ -18,7 +18,8 @@ static void	msh_set_shell_lvl(void)
 {
 	char		*value;
 
-	if ((value = msh_getenv_vlu_by_key(SHELL_LVL_ENV)))
+	if ((value = msh_getenv_vlu_by_key(SHELL_LVL_ENV,
+		ft_strlen(SHELL_LVL_ENV))))
 	{
 		if (!(value = ft_itoa_max(ft_atoi_max(value) + 1)))
 			msh_fatal_err(MALLOC_ERR);
@@ -33,7 +34,7 @@ static void	msh_set_pwd(void)
 {
 	char *value;
 
-	if (!(value = msh_getenv_vlu_by_key(PWD_ENV)))
+	if (!(value = msh_getenv_vlu_by_key(PWD_ENV, ft_strlen(PWD_ENV))))
 	{
 		if (!(value = getcwd(NULL, 0)))
 			msh_fatal_err(GETCWD_FAILED);

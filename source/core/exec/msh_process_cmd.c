@@ -53,7 +53,7 @@ static t_bool		msh_env_path_cmd_search(char **args)
 	char	**paths;
 	size_t	i;
 
-	if ((path_value = msh_getenv_vlu_by_key(PATH_ENV)))
+	if ((path_value = msh_getenv_vlu_by_key(PATH_ENV, ft_strlen(PATH_ENV))))
 	{
 		if (!(paths = ft_strsplit(path_value, PATH_ENV_SEPARATOR)))
 			msh_fatal_err(MALLOC_ERR);
@@ -74,7 +74,7 @@ static t_bool		msh_full_path_cmd_search(const char *full_path, char **args)
 	char *value;
 
 	if (!ft_strchr(full_path, UNIX_PATH_SEPARATOR) &&
-		(value = msh_getenv_vlu_by_key(PATH_ENV)) &&
+		(value = msh_getenv_vlu_by_key(PATH_ENV, ft_strlen(PATH_ENV))) &&
 		ft_strcmp(value, EMPTY_STR))
 		return (false);
 	if (!msh_path_access(full_path, SHELL_NAME ": "))

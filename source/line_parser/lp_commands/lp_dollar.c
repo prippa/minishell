@@ -28,7 +28,7 @@ void	lp_dollar(t_line_parser *lp)
 		len = 1;
 		while (ft_isalnum_in_case(g_msh.line[++g_msh.i]))
 			++len;
-		if ((s = msh_getenv_vlu_by_key(s)))
+		if ((s = msh_getenv_vlu_by_key(s, len)))
 			lp_write_to_arg_buf_str(lp, s, ft_strlen(s));
 		--g_msh.i;
 	}

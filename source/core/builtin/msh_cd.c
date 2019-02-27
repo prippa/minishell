@@ -45,9 +45,9 @@ static void		msh_cd_make_move(const char *path)
 {
 	char *pwd;
 
-	if ((pwd = msh_getenv_vlu_by_key(PWD_ENV)))
+	if ((pwd = msh_getenv_vlu_by_key(PWD_ENV, ft_strlen(PWD_ENV))))
 		msh_setenv_one_env(OLDPWD_ENV, pwd);
-	else if (msh_getenv_vlu_by_key(OLDPWD_ENV))
+	else if (msh_getenv_vlu_by_key(OLDPWD_ENV, ft_strlen(OLDPWD_ENV)))
 		msh_unsetenv_one_env(OLDPWD_ENV);
 	if ((chdir(path)) == ERR)
 		msh_fatal_err(CHDIR_FAILED);
@@ -61,7 +61,7 @@ static void		msh_cd_by_env(const char *env_key)
 {
 	char *path;
 
-	if (!(path = msh_getenv_vlu_by_key(env_key)))
+	if (!(path = msh_getenv_vlu_by_key(env_key, ft_strlen(env_key))))
 	{
 		PRINT_ERR(EXIT_FAILURE, CD_NO_ENV, env_key);
 		return ;

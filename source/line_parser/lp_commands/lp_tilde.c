@@ -40,7 +40,7 @@ void			lp_tilde(t_line_parser *lp)
 	if (lp_tilde_valid_prev(g_msh.line, g_msh.i - 1) &&
 		lp_tilde_valid_next(g_msh.line, g_msh.i + 1))
 	{
-		if ((home = msh_getenv_vlu_by_key(HOME_ENV)))
+		if ((home = msh_getenv_vlu_by_key(HOME_ENV, ft_strlen(HOME_ENV))))
 			lp_write_to_arg_buf_str(lp, home, ft_strlen(home));
 	}
 	else
