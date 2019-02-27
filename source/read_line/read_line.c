@@ -27,7 +27,7 @@ char			*read_line(const char *prompt)
 		if (!rl.line && !(rl.line = ft_strdup("")))
 			msh_fatal_err(MALLOC_ERR);
 		if (buf[0] == '\n' && !rl_line_syntax(&rl))
-				break ;
+			break ;
 		else if (rl.new_line_flag &&
 			!(ft_strjoin_free(&rl.line, buf, ft_strlen(rl.line), 1)))
 			msh_fatal_err(MALLOC_ERR);
