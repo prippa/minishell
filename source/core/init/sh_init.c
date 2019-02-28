@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "shell.h"
-#include <signal.h>
 
 t_bool	g_ok;
 int32_t	g_exec_code;
