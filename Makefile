@@ -34,7 +34,7 @@ DIR_LPCMD	:=	$(DIR_LNP_SRC)lp_commands/
 DIR_LS		:=	$(DIR_RL_SRC)line_syntax/
 
 #-------------------------- Header files ---------------------------------------
-COR_H		:=	$(DIR_COR_INC)minishell.h\
+COR_H		:=	$(DIR_COR_INC)shell.h\
 				$(DIR_COR_INC)syntax_characters.h\
 				$(DIR_COR_INC)builtin_static_arr.h\
 				$(DIR_COR_INC)builtin.h\
@@ -46,20 +46,20 @@ RL_H		:=	$(DIR_RL_INC)read_line.h
 
 #-------------------------- Source files ---------------------------------------
 COR_C		:=	$(DIR_COR_SRC)main.c\
-				$(DIR_INI)msh_init.c\
-				$(DIR_INI)msh_init_env.c\
-				$(DIR_BLT)msh_cd.c\
-				$(DIR_BLT)msh_exit.c\
-				$(DIR_BLT)msh_echo.c\
-				$(DIR_BLT)msh_env.c\
-				$(DIR_BLT)msh_setenv.c\
-				$(DIR_BLT)msh_unsetenv.c\
-				$(DIR_EXC)msh_exec.c\
-				$(DIR_EXC)msh_process_cmd.c\
-				$(DIR_HLP)msh_free.c\
-				$(DIR_HLP)msh_check_path_permision.c\
-				$(DIR_HLP)msh_getenv.c\
-				$(DIR_HLP)msh_utility.c
+				$(DIR_INI)sh_init.c\
+				$(DIR_INI)sh_init_env.c\
+				$(DIR_BLT)sh_cd.c\
+				$(DIR_BLT)sh_exit.c\
+				$(DIR_BLT)sh_echo.c\
+				$(DIR_BLT)sh_env.c\
+				$(DIR_BLT)sh_setenv.c\
+				$(DIR_BLT)sh_unsetenv.c\
+				$(DIR_EXC)sh_exec.c\
+				$(DIR_EXC)sh_process_cmd.c\
+				$(DIR_HLP)sh_free.c\
+				$(DIR_HLP)sh_check_path_permision.c\
+				$(DIR_HLP)sh_getenv.c\
+				$(DIR_HLP)sh_utility.c
 
 LNP_C		:=	$(DIR_LNP_SRC)line_parser.c\
 				$(DIR_LNP_SRC)lp_arg_buf_control.c\

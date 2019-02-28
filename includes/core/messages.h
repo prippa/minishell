@@ -38,8 +38,8 @@
 # define IS_A_DIR			"'%s': Is a directory"
 # define TO_MANY_ARGS		"Too many arguments"
 
-# define MSH_PERM_DENIED 	SHELL_NAME ": " PERM_DENIED
-# define MSH_NO_FILE_OR_DIR	SHELL_NAME ": " NO_FILE_OR_DIR
-# define MSH_IS_A_DIR		SHELL_NAME ": " IS_A_DIR
+# define SH_PERM_DENIED 	SHELL_NAME ": " PERM_DENIED
+# define SH_NO_FILE_OR_DIR	SHELL_NAME ": " NO_FILE_OR_DIR
+# define SH_IS_A_DIR		SHELL_NAME ": " IS_A_DIR
 
 #endif

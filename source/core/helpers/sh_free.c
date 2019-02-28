@@ -1,43 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_echo.c                                         :+:      :+:    :+:   */
+/*   sh_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/04 12:35:46 by prippa            #+#    #+#             */
-/*   Updated: 2018/10/04 12:35:47 by prippa           ###   ########.fr       */
+/*   Created: 2018/10/04 12:36:26 by prippa            #+#    #+#             */
+/*   Updated: 2018/10/04 12:36:27 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
-#define ECHO_NEW_LINE_F	"-n"
-
-static void	msh_echo_flags(t_bool *f, char ***args)
+void		sh_del_env_body(t_env *e)
 {
-	while (**args)
-	{
-		if (!ft_strcmp(**args, ECHO_NEW_LINE_F))
-			*f = true;
-		else
-			break ;
-		++(*args);
-	}
+	ft_memdel((void **)&e->env);
 }
 
-void		msh_echo(char **args)
+void		sh_del_env_list(void *content, size_t content_size)
 {
-	t_bool nl_f;
+	t_env *e;
 
-	nl_f = false;
-	msh_echo_flags(&nl_f, &args);
-	while (*args)
-	{
-		ft_putstr(*args++);
-		if (*args)
-			ft_putchar(' ');
-	}
-	if (!nl_f)
-		ft_putchar('\n');
+	e = (t_env *)content;
+	(void)content_size;
+	sh_del_env_body(e);
+	free(content);
 }

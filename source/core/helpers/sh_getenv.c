@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_getenv.c                                       :+:      :+:    :+:   */
+/*   sh_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
-t_list2		*msh_getenv_obj_by_key(const char *key, size_t len)
+t_list2		*sh_getenv_obj_by_key(const char *key, size_t len)
 {
 	t_env	*e;
 	t_list2	*start;
 
-	start = g_msh.env_start;
+	start = g_sh.env_start;
 	while (start)
 	{
 		e = (t_env *)start->content;
@@ -28,12 +28,12 @@ t_list2		*msh_getenv_obj_by_key(const char *key, size_t len)
 	return (NULL);
 }
 
-char		*msh_getenv_vlu_by_key(const char *key, size_t len)
+char		*sh_getenv_vlu_by_key(const char *key, size_t len)
 {
 	t_env	*e;
 	t_list2	*start;
 
-	start = g_msh.env_start;
+	start = g_sh.env_start;
 	while (start)
 	{
 		e = (t_env *)start->content;

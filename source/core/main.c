@@ -10,48 +10,48 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 #include "get_next_line.h"
 #include "builtin.h"
 
-#define MSH_OK_ICON		BOLD_GREEN "✓"
-#define MSH_ERROR_ICON	BOLD_RED "✕"
+#define SH_OK_ICON		BOLD_GREEN "✓"
+#define SH_ERROR_ICON	BOLD_RED "✕"
 
-void		msh_update_prompt(void)
+void		sh_update_prompt(void)
 {
-	ft_strcpy(g_msh.prompt, (g_ok ? MSH_OK_ICON : MSH_ERROR_ICON));
-	ft_strcat(g_msh.prompt, COLOR_RESET);
-	ft_strcat(g_msh.prompt, BOLD_MAGENTA);
-	ft_strcat(g_msh.prompt, " (");
-	ft_strcat(g_msh.prompt, COLOR_RESET);
-	ft_strcat(g_msh.prompt, BOLD_YELLOW);
-	ft_strcat(g_msh.prompt, g_msh.curent_path);
-	ft_strcat(g_msh.prompt, COLOR_RESET);
-	ft_strcat(g_msh.prompt, BOLD_MAGENTA);
-	ft_strcat(g_msh.prompt, ") ");
-	ft_strcat(g_msh.prompt, COLOR_RESET);
+	ft_strcpy(g_sh.prompt, (g_ok ? SH_OK_ICON : SH_ERROR_ICON));
+	ft_strcat(g_sh.prompt, COLOR_RESET);
+	ft_strcat(g_sh.prompt, BOLD_MAGENTA);
+	ft_strcat(g_sh.prompt, " (");
+	ft_strcat(g_sh.prompt, COLOR_RESET);
+	ft_strcat(g_sh.prompt, BOLD_YELLOW);
+	ft_strcat(g_sh.prompt, g_sh.curent_path);
+	ft_strcat(g_sh.prompt, COLOR_RESET);
+	ft_strcat(g_sh.prompt, BOLD_MAGENTA);
+	ft_strcat(g_sh.prompt, ") ");
+	ft_strcat(g_sh.prompt, COLOR_RESET);
 }
 
-static void	msh_loop(void)
+static void	sh_loop(void)
 {
-	while ((g_msh.line = read_line(g_msh.prompt)))
+	while ((g_sh.line = read_line(g_sh.prompt)))
 	{
-		if (!ft_is_str_space(g_msh.line))
+		if (!ft_is_str_space(g_sh.line))
 		{
 			if (g_ok)
 				line_parser();
 			if (g_ok)
 				g_exec_code = EXIT_SUCCESS;
-			msh_update_prompt();
+			sh_update_prompt();
 			g_ok = true;
 		}
-		ft_memdel((void **)&g_msh.line);
+		ft_memdel((void **)&g_sh.line);
 	}
 }
 
 int			main(void)
 {
-	msh_init();
-	msh_loop();
-	msh_exit(NULL);
+	sh_init();
+	sh_loop();
+	sh_exit(NULL);
 }

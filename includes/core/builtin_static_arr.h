@@ -16,13 +16,13 @@
 # include "builtin.h"
 
 typedef void		(*t_func_cmd)(char **args);
-static const		t_func_cmd	g_cmd_func[MSH_CMD_SIZE] =
+static const		t_func_cmd	g_cmd_func[SH_CMD_SIZE] =
 {
-	msh_cd, msh_echo, msh_env, msh_setenv,
-	msh_unsetenv, msh_exit
+	sh_cd, sh_echo, sh_env, sh_setenv,
+	sh_unsetenv, sh_exit
 };
 
-static const char	*g_cmd_string[MSH_CMD_SIZE] =
+static const char	*g_cmd_string[SH_CMD_SIZE] =
 {
 	CD_CMD, ECHO_CMD, ENV_CMD, SETENV_CMD,
 	UNSETENV_CMD, EXIT_CMD

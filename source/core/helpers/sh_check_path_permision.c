@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_check_path_permision.c                         :+:      :+:    :+:   */
+/*   sh_check_path_permision.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 #include "messages.h"
 
-static t_bool	msh_path_access_check(char *s, size_t i,
+static t_bool	sh_path_access_check(char *s, size_t i,
 					const char *path, const char *prefix)
 {
 	t_bool	res;
@@ -36,7 +36,7 @@ static t_bool	msh_path_access_check(char *s, size_t i,
 	return (res);
 }
 
-static t_bool	msh_path_access_loop(char *s, const char *path,
+static t_bool	sh_path_access_loop(char *s, const char *path,
 					const char *prefix)
 {
 	size_t	i;
@@ -46,7 +46,7 @@ static t_bool	msh_path_access_loop(char *s, const char *path,
 		++i;
 	while (s[++i])
 		if (s[i] == UNIX_PATH_SEPARATOR &&
-			msh_path_access_check(s, i, path, prefix))
+			sh_path_access_check(s, i, path, prefix))
 			return (true);
 	if (access(s, F_OK))
 	{
@@ -57,14 +57,14 @@ static t_bool	msh_path_access_loop(char *s, const char *path,
 	return (false);
 }
 
-t_bool			msh_path_access(const char *path, const char *prefix)
+t_bool			sh_path_access(const char *path, const char *prefix)
 {
 	char	*s;
 	t_bool	res;
 
 	if (!(s = ft_strdup(path)))
-		msh_fatal_err(MALLOC_ERR);
-	res = msh_path_access_loop(s, path, prefix);
+		sh_fatal_err(MALLOC_ERR);
+	res = sh_path_access_loop(s, path, prefix);
 	ft_memdel((void **)&s);
 	return (res);
 }

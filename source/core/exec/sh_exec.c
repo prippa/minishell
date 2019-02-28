@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_exec.c                                         :+:      :+:    :+:   */
+/*   sh_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,20 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 #include "messages.h"
 #include <sys/wait.h>
 
-static void		msh_do_magic(const char *path, char **args, char **env)
+static void		sh_do_magic(const char *path, char **args, char **env)
 {
 	pid_t	father;
 
 	if ((father = fork()) == ERR)
-		msh_fatal_err(FORK_FAILED);
+		sh_fatal_err(FORK_FAILED);
 	if (father)
 	{
 		if (wait(&g_exec_code) == ERR)
-			msh_fatal_err(WAIT_FAILED);
+			sh_fatal_err(WAIT_FAILED);
 		if (WIFEXITED(g_exec_code) && g_exec_code)
 		{
 			g_exec_code = WEXITSTATUS(g_exec_code);
@@ -37,15 +37,15 @@ static void		msh_do_magic(const char *path, char **args, char **env)
 	}
 }
 
-static char		**msh_env_convert_from_list_char(void)
+static char		**sh_env_convert_from_list_char(void)
 {
 	char		**env;
 	t_list2		*env_start;
 	uint32_t	i;
 
-	if (!(env = (char **)ft_memalloc(sizeof(char *) * (g_msh.env_size + 1))))
-		msh_fatal_err(MALLOC_ERR);
-	env_start = g_msh.env_start;
+	if (!(env = (char **)ft_memalloc(sizeof(char *) * (g_sh.env_size + 1))))
+		sh_fatal_err(MALLOC_ERR);
+	env_start = g_sh.env_start;
 	i = -1;
 	while (env_start)
 	{
@@ -55,16 +55,16 @@ static char		**msh_env_convert_from_list_char(void)
 	return (env);
 }
 
-void			msh_exec(const char *path, char **args)
+void			sh_exec(const char *path, char **args)
 {
 	char		**env;
 
 	if (access(path, X_OK) == ERR)
 	{
-		PRINT_ERR(EXIT_FAILURE, MSH_PERM_DENIED, path);
+		PRINT_ERR(EXIT_FAILURE, SH_PERM_DENIED, path);
 		return ;
 	}
-	env = msh_env_convert_from_list_char();
-	msh_do_magic(path, args, env);
+	env = sh_env_convert_from_list_char();
+	sh_do_magic(path, args, env);
 	free(env);
 }

@@ -1,27 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_init.c                                         :+:      :+:    :+:   */
+/*   sh_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 12:53:38 by prippa            #+#    #+#             */
-/*   Updated: 2019/02/11 12:53:41 by prippa           ###   ########.fr       */
+/*   Created: 2018/10/04 12:35:46 by prippa            #+#    #+#             */
+/*   Updated: 2018/10/04 12:35:47 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
-t_bool		g_ok;
-int32_t		g_exec_code;
-t_minishel	g_msh;
+#define ECHO_NEW_LINE_F	"-n"
 
-void		msh_init(void)
+static void	sh_echo_flags(t_bool *f, char ***args)
 {
-	ft_bzero(&g_msh, sizeof(t_minishel));
-	msh_init_env();
-	g_ok = true;
-	g_exec_code = EXIT_SUCCESS;
-	msh_update_curent_dir_name();
-	msh_update_prompt();
+	while (**args)
+	{
+		if (!ft_strcmp(**args, ECHO_NEW_LINE_F))
+			*f = true;
+		else
+			break ;
+		++(*args);
+	}
+}
+
+void		sh_echo(char **args)
+{
+	t_bool nl_f;
+
+	nl_f = false;
+	sh_echo_flags(&nl_f, &args);
+	while (*args)
+	{
+		ft_putstr(*args++);
+		if (*args)
+			ft_putchar(' ');
+	}
+	if (!nl_f)
+		ft_putchar('\n');
 }

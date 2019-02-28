@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_env.c                                          :+:      :+:    :+:   */
+/*   sh_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/04 12:35:51 by prippa            #+#    #+#             */
-/*   Updated: 2018/10/04 12:35:52 by prippa           ###   ########.fr       */
+/*   Created: 2019/02/11 12:53:38 by prippa            #+#    #+#             */
+/*   Updated: 2019/02/11 12:53:41 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
+#include <signal.h>
 
-static void	msh_print_env_elem(t_list2 *elem)
-{
-	ft_putendl(((t_env *)elem->content)->env);
-}
+t_bool	g_ok;
+int32_t	g_exec_code;
+t_shell	g_sh;
 
-void		msh_env(char **args)
+void		sh_init(void)
 {
-	(void)args;
-	ft_lst2iter(g_msh.env_start, msh_print_env_elem);
+	ft_bzero(&g_sh, sizeof(t_shell));
+	sh_init_env();
+	g_ok = true;
+	g_exec_code = EXIT_SUCCESS;
+	sh_update_curent_dir_name();
+	sh_update_prompt();
 }

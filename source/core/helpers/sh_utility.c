@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_utility.c                                      :+:      :+:    :+:   */
+/*   sh_utility.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,23 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 #include "messages.h"
 #include "syntax_characters.h"
 #include <sys/stat.h>
 
-#define MSH_ERR		"ERROR: " SHELL_NAME " : %s\n"
+#define SH_ERR		"ERROR: " SHELL_NAME " : %s\n"
 
-t_bool		msh_is_dir(const char *path)
+t_bool		sh_is_dir(const char *path)
 {
 	struct stat	sb;
 
 	if ((stat(path, &sb)) == ERR)
-		msh_fatal_err(STAT_FAILED);
+		sh_fatal_err(STAT_FAILED);
 	return (S_ISDIR(sb.st_mode));
 }
 
-t_bool		msh_is_valid_path(const char *path)
+t_bool		sh_is_valid_path(const char *path)
 {
 	uint16_t	i;
 
@@ -42,30 +42,30 @@ t_bool		msh_is_valid_path(const char *path)
 	return (false);
 }
 
-void		msh_update_curent_dir_name(void)
+void		sh_update_curent_dir_name(void)
 {
 	char	*home;
 	char	*file;
 	char	*pwd;
 
 	if (!(pwd = getcwd(NULL, 0)))
-		msh_fatal_err(GETCWD_FAILED);
-	if (((home = msh_getenv_vlu_by_key(HOME_ENV, ft_strlen(HOME_ENV))) &&
+		sh_fatal_err(GETCWD_FAILED);
+	if (((home = sh_getenv_vlu_by_key(HOME_ENV, ft_strlen(HOME_ENV))) &&
 		!ft_strcmp(home, pwd)))
-		ft_strcpy(g_msh.curent_path, (char[2]){ TILDE_C, 0 });
+		ft_strcpy(g_sh.curent_path, (char[2]){ TILDE_C, 0 });
 	else if ((file = ft_strrchr(pwd, UNIX_PATH_SEPARATOR)))
 	{
 		if (*(file + 1))
 			++file;
-		ft_strcpy(g_msh.curent_path, file);
+		ft_strcpy(g_sh.curent_path, file);
 	}
 	else
-		ft_strcpy(g_msh.curent_path, pwd);
+		ft_strcpy(g_sh.curent_path, pwd);
 	ft_memdel((void **)&pwd);
 }
 
-void		msh_fatal_err(const char *message)
+void		sh_fatal_err(const char *message)
 {
-	ft_dprintf(STDERR_FILENO, MSH_ERR, message);
+	ft_dprintf(STDERR_FILENO, SH_ERR, message);
 	exit(EXIT_FAILURE);
 }

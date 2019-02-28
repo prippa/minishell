@@ -12,7 +12,7 @@
 
 #include "line_parser.h"
 
-static void	msh_double_join(t_line_parser *lp, const char *src, size_t len)
+static void	sh_double_join(t_line_parser *lp, const char *src, size_t len)
 {
 	char *buf_plus_s;
 
@@ -20,7 +20,7 @@ static void	msh_double_join(t_line_parser *lp, const char *src, size_t len)
 	{
 		if (!(buf_plus_s = ft_strnjoin(lp->arg_buf, src,
 			lp->arg_buf_len, len)))
-			msh_fatal_err(MALLOC_ERR);
+			sh_fatal_err(MALLOC_ERR);
 	}
 	else
 		buf_plus_s = (char *)src;
@@ -31,7 +31,7 @@ static void	msh_double_join(t_line_parser *lp, const char *src, size_t len)
 	*lp->arg_buf = 0;
 }
 
-static void	msh_join_cpy(t_line_parser *lp, const char *src, size_t len)
+static void	sh_join_cpy(t_line_parser *lp, const char *src, size_t len)
 {
 	lp_join_to_arg(lp, lp->arg_buf, lp->arg_buf_len);
 	ft_strncpy(lp->arg_buf, src, len);
@@ -48,14 +48,14 @@ void		lp_join_to_arg(t_line_parser *lp, const char *src, size_t len)
 	else
 		lp->arg = ft_strsub(src, 0, len);
 	if (!lp->arg)
-		msh_fatal_err(MALLOC_ERR);
+		sh_fatal_err(MALLOC_ERR);
 	lp->arg_len += len;
 }
 
 void		lp_write_to_arg_buf_char(t_line_parser *lp, char c)
 {
 	if (lp->arg_buf_len + 1 > ARG_BUF_SIZE)
-		msh_join_cpy(lp, &c, 1);
+		sh_join_cpy(lp, &c, 1);
 	else
 	{
 		lp->arg_buf[lp->arg_buf_len] = c;
@@ -67,9 +67,9 @@ void		lp_write_to_arg_buf_str(t_line_parser *lp,
 				const char *src, size_t len)
 {
 	if (len > ARG_BUF_SIZE)
-		msh_double_join(lp, src, len);
+		sh_double_join(lp, src, len);
 	else if (lp->arg_buf_len + len > ARG_BUF_SIZE)
-		msh_join_cpy(lp, src, len);
+		sh_join_cpy(lp, src, len);
 	else
 	{
 		ft_strncpy(lp->arg_buf + lp->arg_buf_len, src, len);

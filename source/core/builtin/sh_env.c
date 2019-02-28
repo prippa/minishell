@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_free.c                                         :+:      :+:    :+:   */
+/*   sh_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/04 12:36:26 by prippa            #+#    #+#             */
-/*   Updated: 2018/10/04 12:36:27 by prippa           ###   ########.fr       */
+/*   Created: 2018/10/04 12:35:51 by prippa            #+#    #+#             */
+/*   Updated: 2018/10/04 12:35:52 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 
-void		msh_del_env_body(t_env *e)
+static void	sh_print_env_elem(t_list2 *elem)
 {
-	ft_memdel((void **)&e->env);
+	ft_putendl(((t_env *)elem->content)->env);
 }
 
-void		msh_del_env_list(void *content, size_t content_size)
+void		sh_env(char **args)
 {
-	t_env *e;
-
-	e = (t_env *)content;
-	(void)content_size;
-	msh_del_env_body(e);
-	free(content);
+	(void)args;
+	ft_lst2iter(g_sh.env_start, sh_print_env_elem);
 }

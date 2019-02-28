@@ -25,14 +25,14 @@ char			*read_line(const char *prompt)
 	{
 		rl.new_line_flag = true;
 		if (!rl.line && !(rl.line = ft_strdup("")))
-			msh_fatal_err(MALLOC_ERR);
+			sh_fatal_err(MALLOC_ERR);
 		if (buf[0] == '\n' && !rl_line_syntax(&rl))
 			break ;
 		else if (rl.new_line_flag &&
 			!(ft_strjoin_free(&rl.line, buf, ft_strlen(rl.line), 1)))
-			msh_fatal_err(MALLOC_ERR);
+			sh_fatal_err(MALLOC_ERR);
 	}
 	if (ret == -1)
-		msh_fatal_err(READ_ERR);
+		sh_fatal_err(READ_ERR);
 	return (rl.line);
 }

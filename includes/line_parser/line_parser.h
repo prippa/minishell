@@ -13,7 +13,7 @@
 #ifndef LINE_PARSER_H
 # define LINE_PARSER_H
 
-# include "minishell.h"
+# include "shell.h"
 
 # define ARG_BUF_SIZE	4096
 

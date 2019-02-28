@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_exit.c                                         :+:      :+:    :+:   */
+/*   sh_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "shell.h"
 #include "messages.h"
 #include "builtin.h"
 
@@ -18,7 +18,7 @@
 #define EXIT_TMA	SHELL_NAME ": " EXIT_CMD ": " TO_MANY_ARGS
 #define EXIT_MSG	"exit"
 
-static int32_t	msh_exit_get_arg_value(char **args)
+static int32_t	sh_exit_get_arg_value(char **args)
 {
 	if (*(args + 1))
 	{
@@ -33,13 +33,13 @@ static int32_t	msh_exit_get_arg_value(char **args)
 	return (ft_atoi(*args));
 }
 
-void			msh_exit(char **args)
+void			sh_exit(char **args)
 {
 	int32_t exit_code;
 
 	if (args && *args)
 	{
-		if ((exit_code = msh_exit_get_arg_value(args)) == ERR)
+		if ((exit_code = sh_exit_get_arg_value(args)) == ERR)
 			return ;
 	}
 	else
