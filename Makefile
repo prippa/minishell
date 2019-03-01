@@ -88,9 +88,9 @@ INC			:=	$(addprefix -I, $(DIR_LIB_INC) $(DIR_COR_INC) $(DIR_LNP_INC)\
 				$(DIR_RL_INC))
 
 #-------------------------- Make -----------------------------------------------
-all: lib $(DIR_OBJ) $(NAME)
+all: $(LIBFT) $(DIR_OBJ) $(NAME)
 
-lib:
+$(LIBFT):
 	@make -C $(DIR_LIB)
 
 $(DIR_OBJ):
@@ -98,7 +98,7 @@ $(DIR_OBJ):
 
 #-------------------------- Link Block -----------------------------------------
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) -o $(NAME) $(OBJ) $(LIBFT) 
+	@$(CC) -o $(NAME) $(OBJ) $(LIBFT)
 	@echo "Linking" [ $(NAME) ]
 
 #-------------------------- Compil Block ---------------------------------------
