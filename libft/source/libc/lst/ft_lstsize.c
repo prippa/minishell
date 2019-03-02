@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_env.c                                           :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/04 12:35:51 by prippa            #+#    #+#             */
-/*   Updated: 2018/10/04 12:35:52 by prippa           ###   ########.fr       */
+/*   Created: 2019/03/02 17:00:09 by prippa            #+#    #+#             */
+/*   Updated: 2019/03/02 17:00:13 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
-#include "environ_manipulation.h"
+#include "ft_lst.h"
 
-void		sh_env(char **args)
+size_t	ft_lstsize(t_list *start)
 {
-	(void)args;
-	env_print(g_sh.env_start);
+	size_t size;
+
+	size = 0;
+	while (start)
+	{
+		++size;
+		start = start->next;
+	}
+	return (size);
 }

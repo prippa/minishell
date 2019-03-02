@@ -13,6 +13,7 @@
 #include "line_parser.h"
 #include "syntax_characters.h"
 #include "messages.h"
+#include "environ_manipulation.h"
 
 static t_bool	lp_tilde_valid_prev(const char *line, size_t i)
 {
@@ -40,7 +41,7 @@ void			lp_tilde(t_line_parser *lp)
 	if (lp_tilde_valid_prev(g_sh.line, g_sh.i - 1) &&
 		lp_tilde_valid_next(g_sh.line, g_sh.i + 1))
 	{
-		if ((home = sh_getenv_vlu_by_key(HOME_ENV, ft_strlen(HOME_ENV))))
+		if ((home = env_get_vlu_by_key(g_sh.env_start, HOME_ENV)))
 			lp_write_to_arg_buf_str(lp, home, ft_strlen(home));
 	}
 	else

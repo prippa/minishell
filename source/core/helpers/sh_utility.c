@@ -13,6 +13,7 @@
 #include "shell.h"
 #include "messages.h"
 #include "syntax_characters.h"
+#include "environ_manipulation.h"
 #include <sys/stat.h>
 
 #define SH_ERR		"ERROR: " SHELL_NAME " : %s\n"
@@ -50,7 +51,7 @@ void		sh_update_curent_dir_name(void)
 
 	if (!(pwd = getcwd(NULL, 0)))
 		sh_fatal_err(GETCWD_FAILED);
-	if (((home = sh_getenv_vlu_by_key(HOME_ENV, ft_strlen(HOME_ENV))) &&
+	if (((home = env_get_vlu_by_key(g_sh.env_start, HOME_ENV)) &&
 		!ft_strcmp(home, pwd)))
 		ft_strcpy(g_sh.curent_path, (char[2]){ TILDE_C, 0 });
 	else if ((file = ft_strrchr(pwd, UNIX_PATH_SEPARATOR)))

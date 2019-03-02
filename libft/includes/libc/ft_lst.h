@@ -55,6 +55,7 @@ void				ft_lst2_pop_back(t_list2 **start, t_list2 **end,
 						void (*del)(void *, size_t));
 void				ft_lst2rev(t_list2 **start, t_list2 **end);
 
+size_t				ft_lstsize(t_list *start);
 void				ft_lstdel_content(void *content, size_t content_size);
 
 #endif

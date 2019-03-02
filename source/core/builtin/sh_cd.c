@@ -13,6 +13,7 @@
 #include "shell.h"
 #include "messages.h"
 #include "builtin.h"
+#include "environ_manipulation.h"
 
 #define CD_DASH_F			"-"
 #define CD					CD_CMD ": "
@@ -45,15 +46,17 @@ static void		sh_cd_make_move(const char *path)
 {
 	char *pwd;
 
-	if ((pwd = sh_getenv_vlu_by_key(PWD_ENV, ft_strlen(PWD_ENV))))
-		sh_setenv_one_env(OLDPWD_ENV, pwd);
-	else if (sh_getenv_vlu_by_key(OLDPWD_ENV, ft_strlen(OLDPWD_ENV)))
-		sh_unsetenv_one_env(OLDPWD_ENV);
+	if ((pwd = env_get_vlu_by_key(g_sh.env_start, PWD_ENV)))
+		env_set(&g_sh.env_start, &g_sh.env_end,
+			&(t_env){.key = OLDPWD_ENV, .value = pwd}, true);
+	else if (env_get_vlu_by_key(g_sh.env_start, OLDPWD_ENV))
+		env_unset(&g_sh.env_start, &g_sh.env_end, OLDPWD_ENV);
 	if ((chdir(path)) == ERR)
 		sh_fatal_err(CHDIR_FAILED);
 	if (!(pwd = getcwd(NULL, 0)))
 		sh_fatal_err(GETCWD_FAILED);
-	sh_setenv_one_env(PWD_ENV, pwd);
+	env_set(&g_sh.env_start, &g_sh.env_end,
+		&(t_env){.key = PWD_ENV, .value = pwd}, true);
 	ft_memdel((void **)&pwd);
 }
 
@@ -61,7 +64,7 @@ static void		sh_cd_by_env(const char *env_key)
 {
 	char *path;
 
-	if (!(path = sh_getenv_vlu_by_key(env_key, ft_strlen(env_key))))
+	if (!(path = env_get_vlu_by_key(g_sh.env_start, env_key)))
 	{
 		PRINT_ERR(EXIT_FAILURE, CD_NO_ENV, env_key);
 		return ;

@@ -11,8 +11,20 @@
 /* ************************************************************************** */
 
 #include "line_parser.h"
+#include "environ_manipulation.h"
 
-void	lp_dollar(t_line_parser *lp)
+static void	lp_dollar_write(t_line_parser *lp, char *s, size_t len)
+{
+	char *key;
+
+	if (!(key = ft_strsub(s, 0, len)))
+		sh_fatal_err(MALLOC_ERR);
+	if ((s = env_get_vlu_by_key(g_sh.env_start, key)))
+		lp_write_to_arg_buf_str(lp, s, ft_strlen(s));
+	ft_memdel((void **)&key);
+}
+
+void		lp_dollar(t_line_parser *lp)
 {
 	char	*s;
 	size_t	len;
@@ -28,8 +40,7 @@ void	lp_dollar(t_line_parser *lp)
 		len = 1;
 		while (ft_isalnum_in_case(g_sh.line[++g_sh.i]))
 			++len;
-		if ((s = sh_getenv_vlu_by_key(s, len)))
-			lp_write_to_arg_buf_str(lp, s, ft_strlen(s));
+		lp_dollar_write(lp, s, len);
 		--g_sh.i;
 	}
 }

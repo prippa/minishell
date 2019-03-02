@@ -13,6 +13,7 @@
 #include "shell.h"
 #include "messages.h"
 #include "builtin_static_arr.h"
+#include "environ_manipulation.h"
 
 #define SH_CMD_NOT_FOUND	SHELL_NAME ": %s: command not found"
 
@@ -53,7 +54,7 @@ static t_bool		sh_env_path_cmd_search(char **args)
 	char	**paths;
 	size_t	i;
 
-	if ((path_value = sh_getenv_vlu_by_key(PATH_ENV, ft_strlen(PATH_ENV))))
+	if ((path_value = env_get_vlu_by_key(g_sh.env_start, PATH_ENV)))
 	{
 		if (!(paths = ft_strsplit(path_value, PATH_ENV_SEPARATOR)))
 			sh_fatal_err(MALLOC_ERR);
@@ -74,7 +75,7 @@ static t_bool		sh_full_path_cmd_search(const char *full_path, char **args)
 	char *value;
 
 	if (!ft_strchr(full_path, UNIX_PATH_SEPARATOR) &&
-		(value = sh_getenv_vlu_by_key(PATH_ENV, ft_strlen(PATH_ENV))) &&
+		(value = env_get_vlu_by_key(g_sh.env_start, PATH_ENV)) &&
 		ft_strcmp(value, EMPTY_STR))
 		return (false);
 	if (!sh_path_access(full_path, SHELL_NAME ": "))
@@ -91,7 +92,8 @@ static t_bool		sh_full_path_cmd_search(const char *full_path, char **args)
 
 void				sh_process_cmd(char **args)
 {
-	sh_setenv_one_env(PREV_CMD_ENV, *args);
+	env_set(&g_sh.env_start, &g_sh.env_end,
+		&(t_env){.key = PREV_CMD_ENV, .value = *args}, true);
 	ft_to_str_lower(args);
 	if (!sh_base_cmd_search(args) &&
 		!sh_full_path_cmd_search(*args, args) &&

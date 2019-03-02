@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_unsetenv.c                                      :+:      :+:    :+:   */
+/*   env_print.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/04 12:36:02 by prippa            #+#    #+#             */
-/*   Updated: 2018/10/04 12:36:03 by prippa           ###   ########.fr       */
+/*   Created: 2019/03/02 16:36:26 by prippa            #+#    #+#             */
+/*   Updated: 2019/03/02 16:36:28 by prippa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
 #include "environ_manipulation.h"
+#include "ft_printf.h"
 
-#define SH_UNSETENV_USG		"unsetenv: usage: unsetenv [key] ..."
-#define SH_UNSETENV_NO_NAME	"unsetenv: '%s' not found"
-
-void	sh_unsetenv(char **args)
+static void	env_print_f(t_list2 *elem)
 {
-	if (!*args)
-	{
-		PRINT_ERR(EXIT_FAILURE, SH_UNSETENV_USG, NULL);
-		return ;
-	}
-	while (*args)
-	{
-		if (env_unset(&g_sh.env_start, &g_sh.env_end, *args))
-		{
-			PRINT_ERR(EXIT_FAILURE, SH_UNSETENV_NO_NAME, *args);
-		}
-		++args;
-	}
+	t_env *e;
+
+	e = (t_env *)elem->content;
+	ft_printf("%s=%s\n", e->key, e->value);
+}
+
+void		env_print(t_list2 *env_start)
+{
+	ft_lst2iter(env_start, env_print_f);
 }

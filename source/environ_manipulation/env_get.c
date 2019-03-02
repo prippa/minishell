@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_getenv.c                                        :+:      :+:    :+:   */
+/*   env_get.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,36 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "environ_manipulation.h"
 
-t_list2		*sh_getenv_obj_by_key(const char *key, size_t len)
+t_list2		*env_get_obj_by_key(t_list2 *env_start, const char *key)
 {
-	t_env	*e;
-	t_list2	*start;
-
-	start = g_sh.env_start;
-	while (start)
+	while (env_start)
 	{
-		e = (t_env *)start->content;
-		if (e->index == len && !ft_strncmp(e->env, key, len))
-			return (start);
-		start = start->next;
+		if (!ft_strcmp(((t_env *)env_start->content)->key, key))
+			return (env_start);
+		env_start = env_start->next;
 	}
 	return (NULL);
 }
 
-char		*sh_getenv_vlu_by_key(const char *key, size_t len)
+char		*env_get_vlu_by_key(t_list2 *env_start, const char *key)
 {
-	t_env	*e;
-	t_list2	*start;
+	t_env *e;
 
-	start = g_sh.env_start;
-	while (start)
+	while (env_start)
 	{
-		e = (t_env *)start->content;
-		if (e->index == len && !ft_strncmp(e->env, key, len))
-			return (e->env + len + 1);
-		start = start->next;
+		e = (t_env *)env_start->content;
+		if (!ft_strcmp(e->key, key))
+			return (e->value);
+		env_start = env_start->next;
 	}
 	return (NULL);
 }
