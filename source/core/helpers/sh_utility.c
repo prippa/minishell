@@ -27,6 +27,15 @@ t_bool		sh_is_dir(const char *path)
 	return (S_ISDIR(sb.st_mode));
 }
 
+t_bool		sh_is_link(const char *path)
+{
+	struct stat	sb;
+
+	if ((lstat(path, &sb)) == ERR)
+		sh_fatal_err(LSTAT_FAILED);
+	return (S_ISLNK(sb.st_mode));
+}
+
 t_bool		sh_is_valid_path(const char *path)
 {
 	uint16_t	i;
@@ -43,13 +52,25 @@ t_bool		sh_is_valid_path(const char *path)
 	return (false);
 }
 
+// char		*sh_join_to_pwd(const char *name)
+// {
+// 	char	*pwd;
+
+// 	GET_MEM(GETCWD_FAILED, pwd, getcwd, NULL, 0);
+// 	GET_MEM(MALLOC_ERR, pwd, ft_strjoin_free,
+// 		&pwd, (char[2]){ UNIX_PATH_SEPARATOR, 0 }, ft_strlen(pwd), 1);
+// 	GET_MEM(MALLOC_ERR, pwd, ft_strjoin_free,
+// 		&pwd, name, ft_strlen(pwd), ft_strlen(name));
+// 	return (pwd);
+// }
+
 void		sh_update_curent_dir_name(void)
 {
 	char	*home;
 	char	*file;
 	char	*pwd;
 
-	GET_MEM(MALLOC_ERR, pwd, getcwd, NULL, 0);
+	GET_MEM(GETCWD_FAILED, pwd, getcwd, NULL, 0);
 	if (((home = env_get_vlu_by_key(g_sh.env_start, HOME_ENV)) &&
 		!ft_strcmp(home, pwd)))
 		ft_strcpy(g_sh.curent_path, (char[2]){ TILDE_C, 0 });

@@ -21,3 +21,5 @@ t_env		env_make_clone_of_body(const t_env *origin)
 	GET_MEM(MALLOC_ERR, cpy.value, ft_strdup, origin->value);
 	return (cpy);
 }
+
+// int32_t		env_make_clone()

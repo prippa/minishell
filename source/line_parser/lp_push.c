@@ -39,7 +39,7 @@ void		lp_push_command(t_line_parser *lp)
 		return ;
 	ft_lstrev(&lp->args);
 	args = lp_get_command(lp);
-	sh_process_cmd(args);
+	sh_process_cmd(&g_sh.env_start, &g_sh.env_end, args);
 	ft_arrdel(&args);
 	ft_lstdel(&lp->args, NULL);
 	lp->args_size = 0;

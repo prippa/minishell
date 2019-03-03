@@ -48,13 +48,13 @@ static t_bool		sh_check_path(const char *path, char **args)
 	return (res ? false : true);
 }
 
-static t_bool		sh_env_path_cmd_search(char **args)
+static t_bool		sh_env_path_cmd_search(t_list2 *env_start, char **args)
 {
 	char	*path_value;
 	char	**paths;
 	size_t	i;
 
-	if ((path_value = env_get_vlu_by_key(g_sh.env_start, PATH_ENV)))
+	if ((path_value = env_get_vlu_by_key(env_start, PATH_ENV)))
 	{
 		GET_MEM(MALLOC_ERR, paths, ft_strsplit, path_value, PATH_ENV_SEPARATOR);
 		i = -1;
@@ -69,12 +69,13 @@ static t_bool		sh_env_path_cmd_search(char **args)
 	return (false);
 }
 
-static t_bool		sh_full_path_cmd_search(const char *full_path, char **args)
+static t_bool		sh_full_path_cmd_search(t_list2 *env_start,
+						const char *full_path, char **args)
 {
 	char *value;
 
 	if (!ft_strchr(full_path, UNIX_PATH_SEPARATOR) &&
-		(value = env_get_vlu_by_key(g_sh.env_start, PATH_ENV)) &&
+		(value = env_get_vlu_by_key(env_start, PATH_ENV)) &&
 		ft_strcmp(value, EMPTY_STR))
 		return (false);
 	if (!sh_path_access(full_path, SHELL_NAME ": "))
@@ -89,13 +90,14 @@ static t_bool		sh_full_path_cmd_search(const char *full_path, char **args)
 	return (true);
 }
 
-void				sh_process_cmd(char **args)
+void				sh_process_cmd(t_list2 **env_start, t_list2 **env_end,
+						char **args)
 {
-	env_set(&g_sh.env_start, &g_sh.env_end, ENV(PREV_CMD_ENV, *args), true);
+	env_set(env_start, env_end, ENV(PREV_CMD_ENV, *args), true);
 	ft_to_str_lower(args);
 	if (!sh_base_cmd_search(args) &&
-		!sh_full_path_cmd_search(*args, args) &&
-		!sh_env_path_cmd_search(args))
+		!sh_full_path_cmd_search(*env_start, *args, args) &&
+		!sh_env_path_cmd_search(*env_start, args))
 	{
 		PRINT_ERR(EXIT_FAILURE, SH_CMD_NOT_FOUND, *args);
 	}

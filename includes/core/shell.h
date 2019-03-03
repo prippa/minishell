@@ -46,10 +46,13 @@ void			sh_fatal_err(const char *message);
 void			sh_init(void);
 void			sh_init_env(void);
 t_bool			sh_is_dir(const char *path);
+t_bool			sh_is_link(const char *path);
 t_bool			sh_is_valid_path(const char *path);
+// char			*sh_join_to_pwd(const char *name);
 t_bool			sh_path_access(const char *path, const char *prefix);
 void			sh_update_curent_dir_name(void);
-void			sh_process_cmd(char **args);
+void			sh_process_cmd(t_list2 **env_start, t_list2 **env_end,
+					char **args);
 void			sh_exec(const char *path, char **args);
 void			sh_update_prompt(void);
 

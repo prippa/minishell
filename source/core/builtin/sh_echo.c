@@ -18,7 +18,7 @@ static void	sh_echo_flags(t_bool *f, char ***args)
 {
 	while (**args)
 	{
-		if (!ft_strcmp(**args, ECHO_NEW_LINE_F))
+		if (!ft_strcmp(**args, "-n"))
 			*f = true;
 		else
 			break ;

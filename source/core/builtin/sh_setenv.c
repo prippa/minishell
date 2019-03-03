@@ -15,7 +15,6 @@
 #include "builtin.h"
 #include "environ_manipulation.h"
 
-#define SH_SETENV_USG			"setenv: usage: setenv [key=value] ..."
 #define SH_SETENV_INVALID_ARG	"setenv: '%s' not a valid identifier"
 
 static int32_t	sh_setenv_one_env(const char *env)
@@ -37,7 +36,7 @@ void			sh_setenv(char **args)
 {
 	if (!*args)
 	{
-		PRINT_ERR(EXIT_FAILURE, SH_SETENV_USG, NULL);
+		env_print(g_sh.env_start);
 		return ;
 	}
 	while (*args)

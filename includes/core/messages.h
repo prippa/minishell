@@ -32,6 +32,7 @@
 # define FORK_FAILED	"fork() failed"
 # define WAIT_FAILED	"wait() failed"
 # define STAT_FAILED	"stat() failed"
+# define LSTAT_FAILED	"lstat() failed"
 
 # define PERM_DENIED		"'%s': Permission denied"
 # define NO_FILE_OR_DIR		"'%s': No such file or directory"

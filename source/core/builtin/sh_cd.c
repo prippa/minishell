@@ -22,6 +22,8 @@
 #define CD_PERM_DENIED		CD PERM_DENIED
 #define CD_FILENAME_TO_LONG	CD "'%s': File name too long"
 #define CD_NO_ENV			CD "%s not set"
+#define CD_L_F				"-L"
+#define CD_P_F				"-P"
 
 static t_bool	sh_cd_path_valid(const char *path)
 {
@@ -42,9 +44,9 @@ static t_bool	sh_cd_path_valid(const char *path)
 	return (g_ok);
 }
 
-static void		sh_cd_make_move(const char *path)
+static void		sh_cd_make_move(const char *path, t_bool slf)
 {
-	char *pwd;
+	char *pwd;(void)slf;
 
 	if ((pwd = env_get_vlu_by_key(g_sh.env_start, PWD_ENV)))
 		env_set(&g_sh.env_start, &g_sh.env_end, ENV(OLDPWD_ENV, pwd), true);
@@ -57,7 +59,7 @@ static void		sh_cd_make_move(const char *path)
 	ft_memdel((void **)&pwd);
 }
 
-static void		sh_cd_by_env(const char *env_key)
+static void		sh_cd_by_env(const char *env_key, t_bool slf)
 {
 	char *path;
 
@@ -69,22 +71,54 @@ static void		sh_cd_by_env(const char *env_key)
 	if (!sh_cd_path_valid(path))
 		return ;
 	GET_MEM(MALLOC_ERR, path, ft_strdup, path);
-	sh_cd_make_move(path);
+	sh_cd_make_move(path, slf);
 	ft_memdel((void **)&path);
+}
+
+static t_bool	sh_cd_check_flags(char ***args)
+{
+	t_bool f;
+
+	f = false;
+	while (**args)
+	{
+		if (!ft_strcmp(CD_L_F, **args))
+			f = false;
+		else if (!ft_strcmp(CD_P_F, **args))
+			f = true;
+		else
+			break ;
+		++(*args);
+	}
+	return (f);
 }
 
 void			sh_cd(char **args)
 {
+	t_bool	symb_link_flag;
+	// char	*path;
+
+	symb_link_flag = sh_cd_check_flags(&args);
 	if (!*args)
-		sh_cd_by_env(HOME_ENV);
+		sh_cd_by_env(HOME_ENV, symb_link_flag);
 	else if (*(args + 1))
 	{
 		PRINT_ERR(EXIT_FAILURE, CD_TO_MANY_ARGS, NULL);
 	}
 	else if (!ft_strcmp(*args, CD_DASH_F))
-		sh_cd_by_env(OLDPWD_ENV);
+		sh_cd_by_env(OLDPWD_ENV, symb_link_flag);
 	else if (sh_cd_path_valid(*args))
-		sh_cd_make_move(*args);
+		sh_cd_make_move(*args, symb_link_flag);
+	// {
+	// 	if (**args == UNIX_PATH_SEPARATOR)
+	// 		sh_cd_make_move(*args, symb_link_flag);
+	// 	else
+	// 	{
+	// 		path = sh_join_to_pwd(*args);
+	// 		sh_cd_make_move(path, symb_link_flag);
+	// 		ft_memdel((void **)&path);
+	// 	}
+	// }
 	if (g_ok)
 		sh_update_curent_dir_name();
 }
