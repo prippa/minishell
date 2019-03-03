@@ -41,7 +41,7 @@ extern t_shell	g_sh;
 
 void			sh_fatal_err(const char *message);
 
-// # define GET_MEM(m, f, a ...) void *d; if (!(d = f(a))) sh_fatal_err(m); else d
+# define GET_MEM(m, v, f, a ...) if (!(v = f(a))) sh_fatal_err(m)
 
 void			sh_init(void);
 void			sh_init_env(void);

@@ -28,8 +28,7 @@ t_bool		ls_backslash_check(t_read_line *rl, t_line_syntax *ls)
 	(void)ls;
 	if (!rl->line[++rl->i])
 	{
-		if (!ft_strsub_free(&rl->line, 0, rl->i - 1))
-			sh_fatal_err(MALLOC_ERR);
+		GET_MEM(MALLOC_ERR, rl->line, ft_strsub_free, &rl->line, 0, rl->i - 1);
 		write(STDOUT_FILENO, SLASH_PROMPT, ft_strlen(SLASH_PROMPT));
 		rl->new_line_flag = false;
 		return (false);
@@ -47,8 +46,8 @@ t_bool		ls_dobule_q_check(t_read_line *rl, t_line_syntax *ls)
 		{
 			if (rl->line[rl->i] == BACKSLASH_C && !rl->line[rl->i + 1])
 			{
-				if (!ft_strsub_free(&rl->line, 0, rl->i))
-					sh_fatal_err(MALLOC_ERR);
+				GET_MEM(MALLOC_ERR, rl->line, ft_strsub_free,
+					&rl->line, 0, rl->i);
 				rl->new_line_flag = false;
 			}
 			write(STDOUT_FILENO, DQUOT_PROMPT, ft_strlen(DQUOT_PROMPT));

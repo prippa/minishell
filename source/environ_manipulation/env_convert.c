@@ -18,8 +18,7 @@ static char	*env_convert_to_str(const char *key, const char *value)
 {
 	char *env;
 
-	if (!(env = ft_strnew(ft_strlen(key) + ft_strlen(value) + 1)))
-		sh_fatal_err(MALLOC_ERR);
+	GET_MEM(MALLOC_ERR, env, ft_strnew, ft_strlen(key) + ft_strlen(value) + 1);
 	ft_strcpy(env, key);
 	ft_strcat(env, (char[2]){ KEY_VALUE_SEPARATOR, 0 });
 	ft_strcat(env, value);
@@ -32,9 +31,8 @@ char		**env_convert_to_arr(t_list2 *env_start)
 	char	**arr;
 	size_t	i;
 
-	if (!(arr = (char **)ft_memalloc(sizeof(char *) *
-		(ft_lstsize((t_list *)env_start) + 1))))
-		sh_fatal_err(MALLOC_ERR);
+	GET_MEM(MALLOC_ERR, arr, ft_memalloc,
+		sizeof(char *) * (ft_lstsize((t_list *)env_start) + 1));
 	i = -1;
 	while (env_start)
 	{

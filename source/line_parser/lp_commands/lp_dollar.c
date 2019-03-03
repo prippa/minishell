@@ -17,8 +17,7 @@ static void	lp_dollar_write(t_line_parser *lp, char *s, size_t len)
 {
 	char *key;
 
-	if (!(key = ft_strsub(s, 0, len)))
-		sh_fatal_err(MALLOC_ERR);
+	GET_MEM(MALLOC_ERR, key, ft_strsub, s, 0, len);
 	if ((s = env_get_vlu_by_key(g_sh.env_start, key)))
 		lp_write_to_arg_buf_str(lp, s, ft_strlen(s));
 	ft_memdel((void **)&key);

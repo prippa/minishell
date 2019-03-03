@@ -18,9 +18,8 @@ static void	sh_double_join(t_line_parser *lp, const char *src, size_t len)
 
 	if (lp->arg_buf_len)
 	{
-		if (!(buf_plus_s = ft_strnjoin(lp->arg_buf, src,
-			lp->arg_buf_len, len)))
-			sh_fatal_err(MALLOC_ERR);
+		GET_MEM(MALLOC_ERR, buf_plus_s, ft_strnjoin,
+			lp->arg_buf, src, lp->arg_buf_len, len);
 	}
 	else
 		buf_plus_s = (char *)src;

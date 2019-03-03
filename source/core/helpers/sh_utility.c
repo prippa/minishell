@@ -49,8 +49,7 @@ void		sh_update_curent_dir_name(void)
 	char	*file;
 	char	*pwd;
 
-	if (!(pwd = getcwd(NULL, 0)))
-		sh_fatal_err(GETCWD_FAILED);
+	GET_MEM(MALLOC_ERR, pwd, getcwd, NULL, 0);
 	if (((home = env_get_vlu_by_key(g_sh.env_start, HOME_ENV)) &&
 		!ft_strcmp(home, pwd)))
 		ft_strcpy(g_sh.curent_path, (char[2]){ TILDE_C, 0 });

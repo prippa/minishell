@@ -36,8 +36,8 @@ static t_bool		sh_check_path(const char *path, char **args)
 	char	*full_path;
 	int32_t	res;
 
-	if (!(full_path = ft_strnew(ft_strlen(path) + ft_strlen(*args) + 1)))
-		sh_fatal_err(MALLOC_ERR);
+	GET_MEM(MALLOC_ERR, full_path, ft_strnew,
+		ft_strlen(path) + ft_strlen(*args) + 1);
 	ft_strcpy(full_path, path);
 	ft_strcat(full_path, (char[2]){ UNIX_PATH_SEPARATOR, 0 });
 	ft_strcat(full_path, *args);
@@ -56,8 +56,7 @@ static t_bool		sh_env_path_cmd_search(char **args)
 
 	if ((path_value = env_get_vlu_by_key(g_sh.env_start, PATH_ENV)))
 	{
-		if (!(paths = ft_strsplit(path_value, PATH_ENV_SEPARATOR)))
-			sh_fatal_err(MALLOC_ERR);
+		GET_MEM(MALLOC_ERR, paths, ft_strsplit, path_value, PATH_ENV_SEPARATOR);
 		i = -1;
 		while (paths[++i])
 			if (sh_check_path(paths[i], args))
@@ -92,8 +91,7 @@ static t_bool		sh_full_path_cmd_search(const char *full_path, char **args)
 
 void				sh_process_cmd(char **args)
 {
-	env_set(&g_sh.env_start, &g_sh.env_end,
-		&(t_env){.key = PREV_CMD_ENV, .value = *args}, true);
+	env_set(&g_sh.env_start, &g_sh.env_end, ENV(PREV_CMD_ENV, *args), true);
 	ft_to_str_lower(args);
 	if (!sh_base_cmd_search(args) &&
 		!sh_full_path_cmd_search(*args, args) &&

@@ -18,8 +18,8 @@ static char	**lp_get_command(t_line_parser *lp)
 	char	**args;
 	t_list	*args_lst;
 
-	if (!(args = (char **)ft_memalloc(sizeof(char *) * (lp->args_size + 1))))
-		sh_fatal_err(MALLOC_ERR);
+	GET_MEM(MALLOC_ERR, args, ft_memalloc,
+		sizeof(char *) * (lp->args_size + 1));
 	args_lst = lp->args;
 	i = -1;
 	while (args_lst)
@@ -53,8 +53,7 @@ void		lp_push_arg(t_line_parser *lp)
 		lp_join_to_arg(lp, lp->arg_buf, lp->arg_buf_len);
 	if (lp->arg_len)
 	{
-		if (!(new_obj = ft_lstnew(lp->arg, 0)))
-			sh_fatal_err(MALLOC_ERR);
+		GET_MEM(MALLOC_ERR, new_obj, ft_lstnew, lp->arg, 0);
 		ft_lstadd(&lp->args, new_obj);
 		++lp->args_size;
 		lp->arg = NULL;

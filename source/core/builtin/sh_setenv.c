@@ -20,18 +20,16 @@
 
 static int32_t	sh_setenv_one_env(const char *env)
 {
+	char	*i;
 	int32_t	res;
-	size_t	len;
 	t_env	e;
 
-	if (!(len = ft_strchr(env, KEY_VALUE_SEPARATOR) - env))
+	if (!(i = ft_strchr(env, KEY_VALUE_SEPARATOR)))
 		return (ERR);
-	if (!(e.key = ft_strsub(env, 0, len)))
-		sh_fatal_err(MALLOC_ERR);
-	if (!(e.value = ft_strdup(&env[len + 1])))
-		sh_fatal_err(MALLOC_ERR);
+	GET_MEM(MALLOC_ERR, e.key, ft_strsub, env, 0, i - env);
+	GET_MEM(MALLOC_ERR, e.value, ft_strdup, &env[(i - env) + 1]);
 	res = env_set(&g_sh.env_start, &g_sh.env_end, &e, true);
-	// env_del_body(&e);
+	env_del_body(&e);
 	return (res);
 }
 

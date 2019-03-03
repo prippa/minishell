@@ -1,7 +1,7 @@
 #-------------------------- Key Values -----------------------------------------
 NAME		:=	minishell
 CFLAGS		:=	-Wall -Werror -Wextra
-CC			:=	gcc
+CC			:=	gcc -g
 
 DIR_INC		:=	includes/
 DIR_SRC		:=	source/
@@ -69,7 +69,8 @@ ENV_C		:=	$(DIR_ENV_SRC)env_convert.c\
 				$(DIR_ENV_SRC)env_get.c\
 				$(DIR_ENV_SRC)env_print.c\
 				$(DIR_ENV_SRC)env_set.c\
-				$(DIR_ENV_SRC)env_unset.c
+				$(DIR_ENV_SRC)env_unset.c\
+				$(DIR_ENV_SRC)env_make_clone.c
 
 LNP_C		:=	$(DIR_LNP_SRC)line_parser.c\
 				$(DIR_LNP_SRC)lp_arg_buf_control.c\

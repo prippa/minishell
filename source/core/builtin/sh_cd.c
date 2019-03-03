@@ -47,16 +47,13 @@ static void		sh_cd_make_move(const char *path)
 	char *pwd;
 
 	if ((pwd = env_get_vlu_by_key(g_sh.env_start, PWD_ENV)))
-		env_set(&g_sh.env_start, &g_sh.env_end,
-			&(t_env){.key = OLDPWD_ENV, .value = pwd}, true);
+		env_set(&g_sh.env_start, &g_sh.env_end, ENV(OLDPWD_ENV, pwd), true);
 	else if (env_get_vlu_by_key(g_sh.env_start, OLDPWD_ENV))
 		env_unset(&g_sh.env_start, &g_sh.env_end, OLDPWD_ENV);
 	if ((chdir(path)) == ERR)
 		sh_fatal_err(CHDIR_FAILED);
-	if (!(pwd = getcwd(NULL, 0)))
-		sh_fatal_err(GETCWD_FAILED);
-	env_set(&g_sh.env_start, &g_sh.env_end,
-		&(t_env){.key = PWD_ENV, .value = pwd}, true);
+	GET_MEM(GETCWD_FAILED, pwd, getcwd, NULL, 0);
+	env_set(&g_sh.env_start, &g_sh.env_end, ENV(PWD_ENV, pwd), true);
 	ft_memdel((void **)&pwd);
 }
 
@@ -71,8 +68,7 @@ static void		sh_cd_by_env(const char *env_key)
 	}
 	if (!sh_cd_path_valid(path))
 		return ;
-	if (!(path = ft_strdup(path)))
-		sh_fatal_err(MALLOC_ERR);
+	GET_MEM(MALLOC_ERR, path, ft_strdup, path);
 	sh_cd_make_move(path);
 	ft_memdel((void **)&path);
 }

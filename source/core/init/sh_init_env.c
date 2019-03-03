@@ -21,15 +21,13 @@ static void	sh_set_shell_lvl(void)
 
 	if ((value = env_get_vlu_by_key(g_sh.env_start, SHELL_LVL_ENV)))
 	{
-		if (!(value = ft_itoa_max(ft_atoi_max(value) + 1)))
-			sh_fatal_err(MALLOC_ERR);
+		GET_MEM(MALLOC_ERR, value, ft_itoa_max, ft_atoi_max(value) + 1);
 		env_set(&g_sh.env_start, &g_sh.env_end,
-			&(t_env){.key = SHELL_LVL_ENV, .value = value}, true);
+			ENV(SHELL_LVL_ENV, value), true);
 		ft_memdel((void **)&value);
 	}
 	else
-		env_set(&g_sh.env_start, &g_sh.env_end,
-			&(t_env){.key = SHELL_LVL_ENV, .value = "1"}, true);
+		env_set(&g_sh.env_start, &g_sh.env_end, ENV(SHELL_LVL_ENV, "1"), true);
 }
 
 static void	sh_set_pwd(void)
@@ -38,10 +36,9 @@ static void	sh_set_pwd(void)
 
 	if (!(value = env_get_vlu_by_key(g_sh.env_start, PWD_ENV)))
 	{
-		if (!(value = getcwd(NULL, 0)))
-			sh_fatal_err(GETCWD_FAILED);
-		env_set(&g_sh.env_start, &g_sh.env_end,
-			&(t_env){.key = PWD_ENV, .value = value}, true);
+		GET_MEM(GETCWD_FAILED, value, getcwd, NULL, 0);
+		env_set(&g_sh.env_start, &g_sh.env_end, ENV(PWD_ENV, value), true);
+		ft_memdel((void **)&value);
 	}
 }
 
@@ -51,8 +48,7 @@ void		sh_init_env(void)
 
 	if (*environ)
 		sh_setenv(environ);
-	env_set(&g_sh.env_start, &g_sh.env_end,
-		&(t_env){.key = SHELL_ENV, .value = SHELL_NAME}, true);
+	env_set(&g_sh.env_start, &g_sh.env_end, ENV(SHELL_ENV, SHELL_NAME), true);
 	sh_set_pwd();
 	sh_set_shell_lvl();
 }
