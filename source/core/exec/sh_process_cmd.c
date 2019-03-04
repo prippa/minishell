@@ -15,7 +15,7 @@
 #include "builtin_static_arr.h"
 #include "environ_manipulation.h"
 
-#define SH_CMD_NOT_FOUND	SHELL_NAME ": %s: command not found"
+#define SH_CMD_NOT_FOUND	"%s: command not found"
 
 static t_bool		sh_base_cmd_search(t_build *b)
 {
@@ -55,7 +55,7 @@ static t_bool		sh_env_path_cmd_search(t_build *b)
 	char	**paths;
 	size_t	i;
 
-	if ((path_value = env_get_vlu_by_key(*b->env_start, PATH_ENV)))
+	if ((path_value = env_get_vlu_by_key(g_sh.env_start, PATH_ENV)))
 	{
 		GET_MEM(MALLOC_ERR, paths, ft_strsplit, path_value, PATH_ENV_SEPARATOR);
 		i = -1;
@@ -70,15 +70,15 @@ static t_bool		sh_env_path_cmd_search(t_build *b)
 	return (false);
 }
 
-static t_bool		sh_full_path_cmd_search(t_build *b)
+static t_bool		sh_full_path_cmd_search(t_build *b, const char *cmd_prefix)
 {
 	char *value;
 
 	if (!ft_strchr(*b->args, UNIX_PATH_SEPARATOR) &&
-		(value = env_get_vlu_by_key(*b->env_start, PATH_ENV)) &&
+		(value = env_get_vlu_by_key(g_sh.env_start, PATH_ENV)) &&
 		ft_strcmp(value, EMPTY_STR))
 		return (false);
-	if (!sh_path_access(*b->args, SHELL_NAME ": "))
+	if (!sh_path_access(*b->args, cmd_prefix))
 	{
 		if (sh_is_dir(*b->args))
 		{
@@ -90,13 +90,14 @@ static t_bool		sh_full_path_cmd_search(t_build *b)
 	return (true);
 }
 
-void				sh_process_cmd(t_build *b)
+void				sh_process_cmd(t_build *b, const char *cmd_prefix)
 {
 	ft_to_str_lower(b->args);
 	if (!sh_base_cmd_search(b) &&
-		!sh_full_path_cmd_search(b) &&
+		!sh_full_path_cmd_search(b, cmd_prefix) &&
 		!sh_env_path_cmd_search(b))
 	{
+		ft_putstr_fd(cmd_prefix, STDERR_FILENO);
 		PRINT_ERR(EXIT_FAILURE, SH_CMD_NOT_FOUND, *b->args);
 	}
 }

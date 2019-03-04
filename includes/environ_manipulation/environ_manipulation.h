@@ -28,12 +28,14 @@ void			env_del_list(void *content, size_t content_size);
 
 t_list2			*env_get_obj_by_key(t_list2 *env_start, const char *key);
 char			*env_get_vlu_by_key(t_list2 *env_start, const char *key);
-int32_t			env_set(t_list2 **env_start, t_list2 **env_end,
+void			env_set(t_list2 **env_start, t_list2 **env_end,
 					const t_env *new_env, t_bool overwrite);
 int32_t			env_unset(t_list2 **env_start, t_list2 **env_end,
 					const char *key);
 void			env_print(t_list2 *env_start);
 char			**env_convert_to_arr(t_list2 *env_start);
 t_env			env_make_clone_of_body(const t_env *origin);
+void			env_make_clone(t_list2 **dst_start, t_list2 **dst_end,
+					t_list2 *src_start);
 
 #endif
