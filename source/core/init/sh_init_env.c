@@ -41,6 +41,13 @@ static void	sh_set_pwd(t_build *b)
 	}
 }
 
+static void	sh_set_path(t_build *b)
+{
+	if (!env_get_vlu_by_key(*b->env_start, PATH_ENV))
+		env_set(b->env_start, b->env_end,
+			ENV(PATH_ENV, DEFAULT_BIN_PATH), true);
+}
+
 void		sh_init_env(void)
 {
 	extern char	**environ;
@@ -53,4 +60,5 @@ void		sh_init_env(void)
 	env_set(b.env_start, b.env_end, ENV(SHELL_ENV, SHELL_NAME), true);
 	sh_set_pwd(&b);
 	sh_set_shell_lvl(&b);
+	sh_set_path(&b);
 }

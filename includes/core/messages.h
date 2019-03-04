@@ -27,6 +27,8 @@
 # define PREV_CMD_ENV	"_"
 # define SHELL_LVL_ENV	"SHLVL"
 
+# define DEFAULT_BIN_PATH	"/bin"
+
 # define CHDIR_FAILED 	"chdir() failed"
 # define GETCWD_FAILED 	"getcwd() failed"
 # define FORK_FAILED	"fork() failed"
