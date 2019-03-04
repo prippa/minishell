@@ -13,12 +13,22 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-void	sh_cd(char **args);
-void	sh_echo(char **args);
-void	sh_env(char **args);
-void	sh_setenv(char **args);
-void	sh_unsetenv(char **args);
-void	sh_exit(char **args);
+typedef struct	s_builtin
+{
+	t_list2		**env_start;
+	t_list2		**env_end;
+	char		**args;
+}				t_build;
+
+void	sh_cd(t_build *b);
+void	sh_echo(t_build *b);
+void	sh_env(t_build *b);
+void	sh_setenv(t_build *b);
+void	sh_unsetenv(t_build *b);
+void	sh_exit(t_build *b);
+
+void	sh_process_cmd(t_build *b);
+void	sh_exec(const char *path, t_build *b);
 
 # define SH_CMD_SIZE	6
 

@@ -33,13 +33,13 @@ static int32_t	sh_exit_get_arg_value(char **args)
 	return (ft_atoi(*args));
 }
 
-void			sh_exit(char **args)
+void			sh_exit(t_build *b)
 {
 	int32_t exit_code;
 
-	if (args && *args)
+	if (b && *b->args)
 	{
-		if ((exit_code = sh_exit_get_arg_value(args)) == ERR)
+		if ((exit_code = sh_exit_get_arg_value(b->args)) == ERR)
 			return ;
 	}
 	else

@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "line_parser.h"
+#include "builtin.h"
+#include "messages.h"
+#include "environ_manipulation.h"
 
 static char	**lp_get_command(t_line_parser *lp)
 {
@@ -30,6 +33,17 @@ static char	**lp_get_command(t_line_parser *lp)
 	return (args);
 }
 
+static void	lp_run_command(char **args)
+{
+	t_build	b;
+
+	b.env_start = &g_sh.env_start;
+	b.env_end = &g_sh.env_end;
+	b.args = args;
+	env_set(b.env_start, b.env_end, ENV(PREV_CMD_ENV, *b.args), true);
+	sh_process_cmd(&b);
+}
+
 void		lp_push_command(t_line_parser *lp)
 {
 	char	**args;
@@ -39,7 +53,7 @@ void		lp_push_command(t_line_parser *lp)
 		return ;
 	ft_lstrev(&lp->args);
 	args = lp_get_command(lp);
-	sh_process_cmd(&g_sh.env_start, &g_sh.env_end, args);
+	lp_run_command(args);
 	ft_arrdel(&args);
 	ft_lstdel(&lp->args, NULL);
 	lp->args_size = 0;

@@ -15,7 +15,7 @@
 
 # include "builtin.h"
 
-typedef void		(*t_func_cmd)(char **args);
+typedef void		(*t_func_cmd)(t_build *b);
 static const		t_func_cmd	g_cmd_func[SH_CMD_SIZE] =
 {
 	sh_cd, sh_echo, sh_env, sh_setenv,

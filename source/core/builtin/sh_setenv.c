@@ -17,34 +17,34 @@
 
 #define SH_SETENV_INVALID_ARG	"setenv: '%s' not a valid identifier"
 
-static int32_t	sh_setenv_one_env(const char *env)
+static int32_t	sh_setenv_one_env(t_build *b)
 {
 	char	*i;
 	int32_t	res;
 	t_env	e;
 
-	if (!(i = ft_strchr(env, KEY_VALUE_SEPARATOR)))
+	if (!(i = ft_strchr(*b->args, KEY_VALUE_SEPARATOR)))
 		return (ERR);
-	GET_MEM(MALLOC_ERR, e.key, ft_strsub, env, 0, i - env);
-	GET_MEM(MALLOC_ERR, e.value, ft_strdup, &env[(i - env) + 1]);
-	res = env_set(&g_sh.env_start, &g_sh.env_end, &e, true);
+	GET_MEM(MALLOC_ERR, e.key, ft_strsub, *b->args, 0, i - *b->args);
+	GET_MEM(MALLOC_ERR, e.value, ft_strdup, &(*b->args)[(i - *b->args) + 1]);
+	res = env_set(b->env_start, b->env_end, &e, true);
 	env_del_body(&e);
 	return (res);
 }
 
-void			sh_setenv(char **args)
+void			sh_setenv(t_build *b)
 {
-	if (!*args)
+	if (!*b->args)
 	{
-		env_print(g_sh.env_start);
+		env_print(*b->env_start);
 		return ;
 	}
-	while (*args)
+	while (*b->args)
 	{
-		if (sh_setenv_one_env(*args))
+		if (sh_setenv_one_env(b))
 		{
-			PRINT_ERR(EXIT_FAILURE, SH_SETENV_INVALID_ARG, *args);
+			PRINT_ERR(EXIT_FAILURE, SH_SETENV_INVALID_ARG, *b->args);
 		}
-		++args;
+		++b->args;
 	}
 }

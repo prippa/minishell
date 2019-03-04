@@ -11,24 +11,25 @@
 /* ************************************************************************** */
 
 #include "shell.h"
+#include "builtin.h"
 #include "environ_manipulation.h"
 
 #define SH_UNSETENV_USG		"unsetenv: usage: unsetenv [key] ..."
 #define SH_UNSETENV_NO_NAME	"unsetenv: '%s' not found"
 
-void	sh_unsetenv(char **args)
+void	sh_unsetenv(t_build *b)
 {
-	if (!*args)
+	if (!*b->args)
 	{
 		PRINT_ERR(EXIT_FAILURE, SH_UNSETENV_USG, NULL);
 		return ;
 	}
-	while (*args)
+	while (*b->args)
 	{
-		if (env_unset(&g_sh.env_start, &g_sh.env_end, *args))
+		if (env_unset(b->env_start, b->env_end, *b->args))
 		{
-			PRINT_ERR(EXIT_FAILURE, SH_UNSETENV_NO_NAME, *args);
+			PRINT_ERR(EXIT_FAILURE, SH_UNSETENV_NO_NAME, *b->args);
 		}
-		++args;
+		++b->args;
 	}
 }

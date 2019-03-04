@@ -11,14 +11,15 @@
 /* ************************************************************************** */
 
 #include "shell.h"
+#include "builtin.h"
 #include "environ_manipulation.h"
 
 #define ENV_I_F		"-i"
 
-static void		sh_env_check_kv(t_bool i_flag,
-					t_list2 *env_start, t_list2 *env_end, char ***args)
+static void		sh_env_check_kv(t_bool i_flag, t_build *b)
 {
-	
+	(void)i_flag;
+	(void)b;
 }
 
 static t_bool	sh_env_check_flag(char ***args)
@@ -37,21 +38,22 @@ static t_bool	sh_env_check_flag(char ***args)
 	return (f);
 }
 
-void			sh_env(char **args)
+void			sh_env(t_build *b)
 {
+	t_build	nb;
 	t_list2	*env_start;
 	t_list2	*env_end;
-
+	
 	env_start = NULL;
 	env_end = NULL;
-	sh_env_check_kv(sh_env_check_flag(&args), env_start, env_end, &args);
-	if (*args)
+	nb.env_start = &env_start;
+	nb.env_end = &env_end;
+	sh_env_check_kv(sh_env_check_flag(&b->args), b);
+	if (*b->args)
 	{
-		if (env_start)
-			sh_process_cmd(&env_start, &env_end, args);
-		else
-			sh_process_cmd(&g_sh.env_start, &g_sh.env_end, args);
+		nb.args = b->args;
+		sh_process_cmd(*nb.env_start ? &nb : b);
 	}
 	else
-		env_print(g_sh.env_start);
+		env_print(*nb.env_start ? *nb.env_start : *b->env_start);
 }

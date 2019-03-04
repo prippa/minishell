@@ -13,6 +13,7 @@
 #include "shell.h"
 #include "messages.h"
 #include "environ_manipulation.h"
+#include "builtin.h"
 #include <sys/wait.h>
 
 static void		sh_do_magic(const char *path, char **args, char **env)
@@ -38,7 +39,7 @@ static void		sh_do_magic(const char *path, char **args, char **env)
 	}
 }
 
-void			sh_exec(const char *path, char **args)
+void			sh_exec(const char *path, t_build *b)
 {
 	char		**env;
 
@@ -47,7 +48,7 @@ void			sh_exec(const char *path, char **args)
 		PRINT_ERR(EXIT_FAILURE, SH_PERM_DENIED, path);
 		return ;
 	}
-	env = env_convert_to_arr(g_sh.env_start);
-	sh_do_magic(path, args, env);
+	env = env_convert_to_arr(*b->env_start);
+	sh_do_magic(path, b->args, env);
 	ft_arrdel(&env);
 }

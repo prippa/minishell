@@ -17,49 +17,50 @@
 
 #define SH_CMD_NOT_FOUND	SHELL_NAME ": %s: command not found"
 
-static t_bool		sh_base_cmd_search(char **args)
+static t_bool		sh_base_cmd_search(t_build *b)
 {
 	size_t	i;
 
 	i = -1;
 	while (++i < SH_CMD_SIZE)
-		if (!ft_strcmp(*args, g_cmd_string[i]))
+		if (!ft_strcmp(*b->args, g_cmd_string[i]))
 		{
-			g_cmd_func[i](args + 1);
+			++b->args;
+			g_cmd_func[i](b);
 			return (true);
 		}
 	return (false);
 }
 
-static t_bool		sh_check_path(const char *path, char **args)
+static t_bool		sh_check_path(const char *path, t_build *b)
 {
 	char	*full_path;
 	int32_t	res;
 
 	GET_MEM(MALLOC_ERR, full_path, ft_strnew,
-		ft_strlen(path) + ft_strlen(*args) + 1);
+		ft_strlen(path) + ft_strlen(*b->args) + 1);
 	ft_strcpy(full_path, path);
 	ft_strcat(full_path, (char[2]){ UNIX_PATH_SEPARATOR, 0 });
-	ft_strcat(full_path, *args);
+	ft_strcat(full_path, *b->args);
 	if (!(res = access(full_path, F_OK)) &&
 		!(res = sh_is_dir(full_path)))
-		sh_exec(full_path, args);
+		sh_exec(full_path, b);
 	ft_memdel((void **)&full_path);
 	return (res ? false : true);
 }
 
-static t_bool		sh_env_path_cmd_search(t_list2 *env_start, char **args)
+static t_bool		sh_env_path_cmd_search(t_build *b)
 {
 	char	*path_value;
 	char	**paths;
 	size_t	i;
 
-	if ((path_value = env_get_vlu_by_key(env_start, PATH_ENV)))
+	if ((path_value = env_get_vlu_by_key(*b->env_start, PATH_ENV)))
 	{
 		GET_MEM(MALLOC_ERR, paths, ft_strsplit, path_value, PATH_ENV_SEPARATOR);
 		i = -1;
 		while (paths[++i])
-			if (sh_check_path(paths[i], args))
+			if (sh_check_path(paths[i], b))
 			{
 				ft_arrdel(&paths);
 				return (true);
@@ -69,36 +70,33 @@ static t_bool		sh_env_path_cmd_search(t_list2 *env_start, char **args)
 	return (false);
 }
 
-static t_bool		sh_full_path_cmd_search(t_list2 *env_start,
-						const char *full_path, char **args)
+static t_bool		sh_full_path_cmd_search(t_build *b)
 {
 	char *value;
 
-	if (!ft_strchr(full_path, UNIX_PATH_SEPARATOR) &&
-		(value = env_get_vlu_by_key(env_start, PATH_ENV)) &&
+	if (!ft_strchr(*b->args, UNIX_PATH_SEPARATOR) &&
+		(value = env_get_vlu_by_key(*b->env_start, PATH_ENV)) &&
 		ft_strcmp(value, EMPTY_STR))
 		return (false);
-	if (!sh_path_access(full_path, SHELL_NAME ": "))
+	if (!sh_path_access(*b->args, SHELL_NAME ": "))
 	{
-		if (sh_is_dir(full_path))
+		if (sh_is_dir(*b->args))
 		{
-			PRINT_ERR(EXIT_FAILURE, SH_IS_A_DIR, full_path);
+			PRINT_ERR(EXIT_FAILURE, SH_IS_A_DIR, *b->args);
 		}
 		else
-			sh_exec(full_path, args);
+			sh_exec(*b->args, b);
 	}
 	return (true);
 }
 
-void				sh_process_cmd(t_list2 **env_start, t_list2 **env_end,
-						char **args)
+void				sh_process_cmd(t_build *b)
 {
-	env_set(env_start, env_end, ENV(PREV_CMD_ENV, *args), true);
-	ft_to_str_lower(args);
-	if (!sh_base_cmd_search(args) &&
-		!sh_full_path_cmd_search(*env_start, *args, args) &&
-		!sh_env_path_cmd_search(*env_start, args))
+	ft_to_str_lower(b->args);
+	if (!sh_base_cmd_search(b) &&
+		!sh_full_path_cmd_search(b) &&
+		!sh_env_path_cmd_search(b))
 	{
-		PRINT_ERR(EXIT_FAILURE, SH_CMD_NOT_FOUND, *args);
+		PRINT_ERR(EXIT_FAILURE, SH_CMD_NOT_FOUND, *b->args);
 	}
 }
