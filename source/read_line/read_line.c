@@ -24,6 +24,7 @@ t_read_line		*rl(void)
 static void	read_line_loop(void)
 {
 	ssize_t		ret;
+	int32_t		rl_ls_res;
 	char		buf[RL_BUFF_SIZE];
 
 	ft_bzero(&buf, RL_BUFF_SIZE);
@@ -32,11 +33,17 @@ static void	read_line_loop(void)
 		rl()->new_line_flag = true;
 		if (!rl()->line && !(rl()->line = ft_strdup("")))
 			sh_fatal_err(MALLOC_ERR);
-		if (buf[0] == '\n' && !rl_line_syntax())
-			break ;
-		else if (rl()->new_line_flag &&
+		if (buf[0] == '\n')
+		{
+			if (!(rl_ls_res = rl_line_syntax()))
+				break ;
+			ls_print_info(rl_ls_res);
+			if (rl_ls_res < 0)
+				break ;
+		}
+		if (rl()->new_line_flag &&
 			!(ft_strjoin_free(&rl()->line, buf, ft_strlen(rl()->line), 1)))
-			sh_fatal_err(MALLOC_ERR);
+				sh_fatal_err(MALLOC_ERR);
 	}
 	if (ret == -1)
 		sh_fatal_err(READ_ERR);
@@ -44,11 +51,12 @@ static void	read_line_loop(void)
 
 char			*read_line(void)
 {
-	signal(SIGINT, sh_handle_sigint_rl);
 	ft_bzero(rl(), sizeof(t_read_line));
-	write(STDOUT_FILENO, sh()->prompt, ft_strlen(sh()->prompt));
+	ft_putstr(sh()->prompt);
+	signal(SIGINT, sh_handle_sigint_rl);
 	read_line_loop();
-	sh()->ok = true;
 	signal(SIGINT, sh_handle_sigint_base);
+	if (rl()->line)
+		ls_check_for_unexpected_eof(rl_line_syntax());
 	return (rl()->line);
 }

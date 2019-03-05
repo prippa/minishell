@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "shell.h"
-// #include <signal.h>
 
 void		sh_init(void)
 {
@@ -19,6 +18,6 @@ void		sh_init(void)
 	sh_init_env();
 	sh()->ok = true;
 	sh_update_curent_dir_name();
-	sh_update_prompt();
+	sh_update_prompt(true);
 	signal(SIGINT, sh_handle_sigint_base);
 }

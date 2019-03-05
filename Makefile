@@ -87,7 +87,8 @@ LNP_C		:=	$(DIR_LNP_SRC)line_parser.c\
 
 RL_C		:=	$(DIR_RL_SRC)read_line.c\
 				$(DIR_LS)rl_line_syntax.c\
-				$(DIR_LS)rl_ls_commands.c
+				$(DIR_LS)rl_ls_commands.c\
+				$(DIR_LS)rl_ls_print_info.c
 
 #-------------------------- Init OBJ, INC --------------------------------------
 OBJ			:=	$(patsubst $(DIR_COR_SRC)%,$(DIR_OBJ)%,\

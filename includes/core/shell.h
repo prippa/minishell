@@ -55,7 +55,7 @@ t_bool			sh_is_valid_path(const char *path);
 // char			*sh_join_to_pwd(const char *name);
 t_bool			sh_path_access(const char *path, const char *prefix);
 void			sh_update_curent_dir_name(void);
-void			sh_update_prompt(void);
+void			sh_update_prompt(t_bool ok);
 
 char			*read_line(void);
 

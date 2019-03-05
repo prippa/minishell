@@ -17,9 +17,9 @@
 #define SH_OK_ICON		BOLD_GREEN "✓"
 #define SH_ERROR_ICON	BOLD_RED "✕"
 
-void		sh_update_prompt(void)
+void		sh_update_prompt(t_bool ok)
 {
-	ft_strcpy(sh()->prompt, (sh()->ok ? SH_OK_ICON : SH_ERROR_ICON));
+	ft_strcpy(sh()->prompt, (ok ? SH_OK_ICON : SH_ERROR_ICON));
 	ft_strcat(sh()->prompt, COLOR_RESET);
 	ft_strcat(sh()->prompt, BOLD_MAGENTA);
 	ft_strcat(sh()->prompt, " (");
@@ -38,10 +38,11 @@ static void	sh_loop(void)
 	{
 		if (!ft_is_str_space(sh()->line))
 		{
-			line_parser();
+			if (sh()->ok)
+				line_parser();
 			if (sh()->ok)
 				sh()->exec_code = EXIT_SUCCESS;
-			sh_update_prompt();
+			sh_update_prompt(sh()->ok);
 			sh()->ok = true;
 		}
 		ft_memdel((void **)&sh()->line);

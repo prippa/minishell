@@ -27,12 +27,25 @@ typedef struct	s_read_line
 	t_bool		new_line_flag;
 }				t_read_line;
 
+enum
+{
+	RL_SEMIX1 = -2,
+	RL_SEMIX2,
+	RL_OK,
+	RL_Q,
+	RL_DQ,
+	RL_SLASH
+};
+
 t_read_line		*rl(void);
 
-t_bool			rl_line_syntax(void);
-t_bool			ls_backslash_check(t_line_syntax *ls);
-t_bool			ls_dobule_q_check(t_line_syntax *ls);
-t_bool			ls_single_q_check(t_line_syntax *ls);
-t_bool			ls_semi_check(t_line_syntax *ls);
+int32_t			rl_line_syntax(void);
+int32_t			ls_backslash_check(t_line_syntax *ls);
+int32_t			ls_dobule_q_check(t_line_syntax *ls);
+int32_t			ls_single_q_check(t_line_syntax *ls);
+int32_t			ls_semi_check(t_line_syntax *ls);
+
+void			ls_print_info(int32_t key);
+void			ls_check_for_unexpected_eof(int32_t key);
 
 #endif

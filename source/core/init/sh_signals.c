@@ -6,8 +6,9 @@ void		sh_handle_sigint_rl(int sig)
 	if (sig == SIGINT)
 	{
 		ft_memdel((void **)&rl()->line);
-		PRINT_ERR(SIGINT, EMPTY_STR, NULL);
-		sh_update_prompt();
+		sh()->exec_code = SIGINT;
+		ft_putchar_fd('\n', STDERR_FILENO);
+		sh_update_prompt(false);
 		ft_putstr(sh()->prompt);
 	}
 }
@@ -16,8 +17,9 @@ void		sh_handle_sigint_base(int sig)
 {
 	if (sig == SIGINT)
 	{
-		PRINT_ERR(SIGINT, EMPTY_STR, NULL);
-		sh_update_prompt();
+		sh()->exec_code = SIGINT;
+		ft_putchar_fd('\n', STDERR_FILENO);
+		sh_update_prompt(false);
 		ft_putstr(sh()->prompt);
 	}
 }
