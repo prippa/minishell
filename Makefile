@@ -53,6 +53,7 @@ RL_H		:=	$(DIR_RL_INC)read_line.h
 COR_C		:=	$(DIR_COR_SRC)main.c\
 				$(DIR_INI)sh_init.c\
 				$(DIR_INI)sh_init_env.c\
+				$(DIR_INI)sh_signals.c\
 				$(DIR_BLT)sh_cd.c\
 				$(DIR_BLT)sh_exit.c\
 				$(DIR_BLT)sh_echo.c\
@@ -62,7 +63,8 @@ COR_C		:=	$(DIR_COR_SRC)main.c\
 				$(DIR_EXC)sh_exec.c\
 				$(DIR_EXC)sh_process_cmd.c\
 				$(DIR_HLP)sh_check_path_permision.c\
-				$(DIR_HLP)sh_utility.c
+				$(DIR_HLP)sh_utility.c\
+				$(DIR_HLP)sh_is.c
 
 ENV_C		:=	$(DIR_ENV_SRC)env_convert.c\
 				$(DIR_ENV_SRC)env_free.c\

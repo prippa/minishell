@@ -27,10 +27,12 @@ typedef struct	s_read_line
 	t_bool		new_line_flag;
 }				t_read_line;
 
-t_bool			rl_line_syntax(t_read_line *rl);
-t_bool			ls_backslash_check(t_read_line *rl, t_line_syntax *ls);
-t_bool			ls_dobule_q_check(t_read_line *rl, t_line_syntax *ls);
-t_bool			ls_single_q_check(t_read_line *rl, t_line_syntax *ls);
-t_bool			ls_semi_check(t_read_line *rl, t_line_syntax *ls);
+t_read_line		*rl(void);
+
+t_bool			rl_line_syntax(void);
+t_bool			ls_backslash_check(t_line_syntax *ls);
+t_bool			ls_dobule_q_check(t_line_syntax *ls);
+t_bool			ls_single_q_check(t_line_syntax *ls);
+t_bool			ls_semi_check(t_line_syntax *ls);
 
 #endif

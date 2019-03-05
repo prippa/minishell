@@ -55,7 +55,7 @@ static t_bool		sh_env_path_cmd_search(t_build *b)
 	char	**paths;
 	size_t	i;
 
-	if ((path_value = env_get_vlu_by_key(g_sh.env_start, PATH_ENV)))
+	if ((path_value = env_get_vlu_by_key(sh()->env_start, PATH_ENV)))
 	{
 		GET_MEM(MALLOC_ERR, paths, ft_strsplit, path_value, PATH_ENV_SEPARATOR);
 		i = -1;
@@ -75,7 +75,7 @@ static t_bool		sh_full_path_cmd_search(t_build *b, const char *cmd_prefix)
 	char *value;
 
 	if (!ft_strchr(*b->args, UNIX_PATH_SEPARATOR) &&
-		(value = env_get_vlu_by_key(g_sh.env_start, PATH_ENV)) &&
+		(value = env_get_vlu_by_key(sh()->env_start, PATH_ENV)) &&
 		ft_strcmp(value, EMPTY_STR))
 		return (false);
 	if (!sh_path_access(*b->args, cmd_prefix))

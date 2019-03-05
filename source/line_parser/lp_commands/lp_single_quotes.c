@@ -19,11 +19,11 @@ void	lp_single_quotes(t_line_parser *lp)
 	size_t	len;
 
 	len = 0;
-	start = &g_sh.line[++g_sh.i];
-	while (g_sh.line[g_sh.i] != SINGLE_QUOTES_C)
+	start = &sh()->line[++sh()->i];
+	while (sh()->line[sh()->i] != SINGLE_QUOTES_C)
 	{
 		++len;
-		++g_sh.i;
+		++sh()->i;
 	}
 	if (len)
 		lp_write_to_arg_buf_str(lp, start, len);

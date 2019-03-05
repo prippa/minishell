@@ -32,7 +32,7 @@ static t_bool	sh_cd_path_valid(const char *path)
 		PRINT_ERR(EXIT_FAILURE, CD_FILENAME_TO_LONG, path);
 	}
 	else if (sh_path_access(path, CD))
-		return (g_ok);
+		return (sh()->ok);
 	else if (!sh_is_dir(path))
 	{
 		PRINT_ERR(EXIT_FAILURE, CD_NOT_DIR, path);
@@ -41,8 +41,13 @@ static t_bool	sh_cd_path_valid(const char *path)
 	{
 		PRINT_ERR(EXIT_FAILURE, CD_PERM_DENIED, path);
 	}
-	return (g_ok);
+	return (sh()->ok);
 }
+
+// static char		*sh_cd_get_full_pwd(const char *path)
+// {
+	
+// }
 
 static void		sh_cd_make_move(t_list2 *env_start, t_list2 *env_end,
 					const char *path, t_bool slf)
@@ -60,7 +65,7 @@ static void		sh_cd_make_move(t_list2 *env_start, t_list2 *env_end,
 	ft_memdel((void **)&pwd);
 }
 
-static void		sh_cd_by_env(t_list2 *env_start, t_list2 *env_end,
+static t_bool	sh_cd_by_env(t_list2 *env_start, t_list2 *env_end,
 					const char *env_key, t_bool slf)
 {
 	char *path;
@@ -68,13 +73,14 @@ static void		sh_cd_by_env(t_list2 *env_start, t_list2 *env_end,
 	if (!(path = env_get_vlu_by_key(env_start, env_key)))
 	{
 		PRINT_ERR(EXIT_FAILURE, CD_NO_ENV, env_key);
-		return ;
+		return (false);
 	}
 	if (!sh_cd_path_valid(path))
-		return ;
+		return (false);
 	GET_MEM(MALLOC_ERR, path, ft_strdup, path);
 	sh_cd_make_move(env_start, env_end, path, slf);
 	ft_memdel((void **)&path);
+	return (true);
 }
 
 static t_bool	sh_cd_check_flags(char ***args)
@@ -98,7 +104,6 @@ static t_bool	sh_cd_check_flags(char ***args)
 void			sh_cd(t_build *b)
 {
 	t_bool	symb_link_flag;
-	// char	*path;
 
 	symb_link_flag = sh_cd_check_flags(&b->args);
 	if (!*b->args)
@@ -107,20 +112,11 @@ void			sh_cd(t_build *b)
 	{
 		PRINT_ERR(EXIT_FAILURE, CD_TO_MANY_ARGS, NULL);
 	}
-	else if (!ft_strcmp(*b->args, CD_DASH_F))
-		sh_cd_by_env(*b->env_start, *b->env_end, OLDPWD_ENV, symb_link_flag);
+	else if (!ft_strcmp(*b->args, CD_DASH_F) &&
+		sh_cd_by_env(*b->env_start, *b->env_end, OLDPWD_ENV, symb_link_flag))
+			ft_putendl(env_get_vlu_by_key(*b->env_start, PWD_ENV));
 	else if (sh_cd_path_valid(*b->args))
 		sh_cd_make_move(*b->env_start, *b->env_end, *b->args, symb_link_flag);
-	// {
-	// 	if (**args == UNIX_PATH_SEPARATOR)
-	// 		sh_cd_make_move(*args, symb_link_flag);
-	// 	else
-	// 	{
-	// 		path = sh_join_to_pwd(*args);
-	// 		sh_cd_make_move(path, symb_link_flag);
-	// 		ft_memdel((void **)&path);
-	// 	}
-	// }
-	if (g_ok)
+	if (sh()->ok)
 		sh_update_curent_dir_name();
 }

@@ -37,8 +37,8 @@ static void	lp_run_command(char **args)
 {
 	t_build	b;
 
-	b.env_start = &g_sh.env_start;
-	b.env_end = &g_sh.env_end;
+	b.env_start = &sh()->env_start;
+	b.env_end = &sh()->env_end;
 	b.args = args;
 	env_set(b.env_start, b.env_end, ENV(PREV_CMD_ENV, *b.args), true);
 	sh_process_cmd(&b, SHELL_NAME ": ");

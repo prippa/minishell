@@ -20,23 +20,26 @@ static void		sh_do_magic(const char *path, char **args, char **env)
 {
 	pid_t	father;
 
+	signal(SIGINT, sh_handle_sigint_incase);
 	if ((father = fork()) == ERR)
 		sh_fatal_err(FORK_FAILED);
 	if (father)
 	{
-		if (wait(&g_exec_code) == ERR)
+		if (wait(&sh()->exec_code) == ERR)
 			sh_fatal_err(WAIT_FAILED);
-		if (WIFEXITED(g_exec_code) && g_exec_code)
+		if (WIFEXITED(sh()->exec_code) && sh()->exec_code)
 		{
-			g_exec_code = WEXITSTATUS(g_exec_code);
-			g_ok = false;
+			sh()->exec_code = WEXITSTATUS(sh()->exec_code);
+			sh()->ok = false;
 		}
 	}
 	if (!father)
 	{
+		signal(SIGINT, SIG_DFL);
 		execve(path, args, env);
 		exit(EXIT_FAILURE);
 	}
+	signal(SIGINT, sh_handle_sigint_base);
 }
 
 void			sh_exec(const char *path, t_build *b)

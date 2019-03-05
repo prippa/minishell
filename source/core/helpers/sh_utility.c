@@ -14,43 +14,8 @@
 #include "messages.h"
 #include "syntax_characters.h"
 #include "environ_manipulation.h"
-#include <sys/stat.h>
 
 #define SH_ERR		"ERROR: " SHELL_NAME " : %s\n"
-
-t_bool		sh_is_dir(const char *path)
-{
-	struct stat	sb;
-
-	if ((stat(path, &sb)) == ERR)
-		sh_fatal_err(STAT_FAILED);
-	return (S_ISDIR(sb.st_mode));
-}
-
-t_bool		sh_is_link(const char *path)
-{
-	struct stat	sb;
-
-	if ((lstat(path, &sb)) == ERR)
-		sh_fatal_err(LSTAT_FAILED);
-	return (S_ISLNK(sb.st_mode));
-}
-
-t_bool		sh_is_valid_path(const char *path)
-{
-	uint16_t	i;
-
-	i = 0;
-	while (*path)
-	{
-		if (*path == UNIX_PATH_SEPARATOR)
-			i = 0;
-		else if (++i > FILE_NAME_MAX)
-			return (true);
-		++path;
-	}
-	return (false);
-}
 
 // char		*sh_join_to_pwd(const char *name)
 // {
@@ -64,6 +29,13 @@ t_bool		sh_is_valid_path(const char *path)
 // 	return (pwd);
 // }
 
+t_shell		*sh(void)
+{
+	static t_shell sh;
+
+	return (&sh);
+}
+
 void		sh_update_curent_dir_name(void)
 {
 	char	*home;
@@ -71,17 +43,17 @@ void		sh_update_curent_dir_name(void)
 	char	*pwd;
 
 	GET_MEM(GETCWD_FAILED, pwd, getcwd, NULL, 0);
-	if (((home = env_get_vlu_by_key(g_sh.env_start, HOME_ENV)) &&
+	if (((home = env_get_vlu_by_key(sh()->env_start, HOME_ENV)) &&
 		!ft_strcmp(home, pwd)))
-		ft_strcpy(g_sh.curent_path, (char[2]){ TILDE_C, 0 });
+		ft_strcpy(sh()->curent_path, (char[2]){ TILDE_C, 0 });
 	else if ((file = ft_strrchr(pwd, UNIX_PATH_SEPARATOR)))
 	{
 		if (*(file + 1))
 			++file;
-		ft_strcpy(g_sh.curent_path, file);
+		ft_strcpy(sh()->curent_path, file);
 	}
 	else
-		ft_strcpy(g_sh.curent_path, pwd);
+		ft_strcpy(sh()->curent_path, pwd);
 	ft_memdel((void **)&pwd);
 }
 

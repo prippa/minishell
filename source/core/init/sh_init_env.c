@@ -53,8 +53,8 @@ void		sh_init_env(void)
 	extern char	**environ;
 	t_build		b;
 
-	b.env_start = &g_sh.env_start;
-	b.env_end = &g_sh.env_end;
+	b.env_start = &sh()->env_start;
+	b.env_end = &sh()->env_end;
 	b.args = environ;
 	sh_setenv(&b);
 	env_set(b.env_start, b.env_end, ENV(SHELL_ENV, SHELL_NAME), true);

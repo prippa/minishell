@@ -12,27 +12,43 @@
 
 #include "read_line.h"
 
-char			*read_line(const char *prompt)
-{
-	t_read_line	rl;
-	ssize_t		ret;
-	char		buf[2];
+#define RL_BUFF_SIZE 2
 
-	ft_bzero(&buf, 2);
-	ft_bzero(&rl, sizeof(t_read_line));
-	write(STDOUT_FILENO, prompt, ft_strlen(prompt));
+t_read_line		*rl(void)
+{
+	static t_read_line rl;
+
+	return (&rl);
+}
+
+static void	read_line_loop(void)
+{
+	ssize_t		ret;
+	char		buf[RL_BUFF_SIZE];
+
+	ft_bzero(&buf, RL_BUFF_SIZE);
 	while ((ret = read(STDIN_FILENO, buf, 1)) > 0)
 	{
-		rl.new_line_flag = true;
-		if (!rl.line && !(rl.line = ft_strdup("")))
+		rl()->new_line_flag = true;
+		if (!rl()->line && !(rl()->line = ft_strdup("")))
 			sh_fatal_err(MALLOC_ERR);
-		if (buf[0] == '\n' && !rl_line_syntax(&rl))
+		if (buf[0] == '\n' && !rl_line_syntax())
 			break ;
-		else if (rl.new_line_flag &&
-			!(ft_strjoin_free(&rl.line, buf, ft_strlen(rl.line), 1)))
+		else if (rl()->new_line_flag &&
+			!(ft_strjoin_free(&rl()->line, buf, ft_strlen(rl()->line), 1)))
 			sh_fatal_err(MALLOC_ERR);
 	}
 	if (ret == -1)
 		sh_fatal_err(READ_ERR);
-	return (rl.line);
+}
+
+char			*read_line(void)
+{
+	signal(SIGINT, sh_handle_sigint_rl);
+	ft_bzero(rl(), sizeof(t_read_line));
+	write(STDOUT_FILENO, sh()->prompt, ft_strlen(sh()->prompt));
+	read_line_loop();
+	sh()->ok = true;
+	signal(SIGINT, sh_handle_sigint_base);
+	return (rl()->line);
 }

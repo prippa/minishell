@@ -18,7 +18,7 @@ static void	lp_dollar_write(t_line_parser *lp, char *s, size_t len)
 	char *key;
 
 	GET_MEM(MALLOC_ERR, key, ft_strsub, s, 0, len);
-	if ((s = env_get_vlu_by_key(g_sh.env_start, key)))
+	if ((s = env_get_vlu_by_key(sh()->env_start, key)))
 		lp_write_to_arg_buf_str(lp, s, ft_strlen(s));
 	ft_memdel((void **)&key);
 }
@@ -28,18 +28,18 @@ void		lp_dollar(t_line_parser *lp)
 	char	*s;
 	size_t	len;
 
-	if (!ft_isalnum_in_case(g_sh.line[g_sh.i + 1]))
+	if (!ft_isalnum_in_case(sh()->line[sh()->i + 1]))
 	{
-		lp_write_to_arg_buf_char(lp, g_sh.line[g_sh.i]);
+		lp_write_to_arg_buf_char(lp, sh()->line[sh()->i]);
 		return ;
 	}
-	s = &g_sh.line[++g_sh.i];
-	if (ft_isalpha_in_case(g_sh.line[g_sh.i]))
+	s = &sh()->line[++sh()->i];
+	if (ft_isalpha_in_case(sh()->line[sh()->i]))
 	{
 		len = 1;
-		while (ft_isalnum_in_case(g_sh.line[++g_sh.i]))
+		while (ft_isalnum_in_case(sh()->line[++sh()->i]))
 			++len;
 		lp_dollar_write(lp, s, len);
-		--g_sh.i;
+		--sh()->i;
 	}
 }

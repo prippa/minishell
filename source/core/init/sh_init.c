@@ -11,17 +11,14 @@
 /* ************************************************************************** */
 
 #include "shell.h"
-
-t_bool	g_ok;
-int32_t	g_exec_code;
-t_shell	g_sh;
+// #include <signal.h>
 
 void		sh_init(void)
 {
-	ft_bzero(&g_sh, sizeof(t_shell));
+	ft_bzero(sh(), sizeof(t_shell));
 	sh_init_env();
-	g_ok = true;
-	g_exec_code = EXIT_SUCCESS;
+	sh()->ok = true;
 	sh_update_curent_dir_name();
 	sh_update_prompt();
+	signal(SIGINT, sh_handle_sigint_base);
 }

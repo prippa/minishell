@@ -43,7 +43,7 @@ void			sh_exit(t_build *b)
 			return ;
 	}
 	else
-		exit_code = g_exec_code;
+		exit_code = sh()->exec_code;
 	ft_putendl(EXIT_MSG);
 	exit(exit_code);
 }

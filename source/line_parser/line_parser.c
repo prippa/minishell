@@ -31,18 +31,18 @@ static void			lp_loop(t_line_parser *lp)
 {
 	uint8_t i;
 
-	g_sh.i = -1;
-	while (g_sh.line[++g_sh.i])
+	sh()->i = -1;
+	while (sh()->line[++sh()->i])
 	{
 		i = -1;
 		while (++i < LP_BASE_SIZE)
-			if (g_sh.line[g_sh.i] == g_base_c[i])
+			if (sh()->line[sh()->i] == g_base_c[i])
 			{
 				g_base_f[i](lp);
 				break ;
 			}
 		if (i == LP_BASE_SIZE)
-			lp_write_to_arg_buf_char(lp, g_sh.line[g_sh.i]);
+			lp_write_to_arg_buf_char(lp, sh()->line[sh()->i]);
 	}
 	lp_push_command(lp);
 }

@@ -19,33 +19,32 @@
 
 void		sh_update_prompt(void)
 {
-	ft_strcpy(g_sh.prompt, (g_ok ? SH_OK_ICON : SH_ERROR_ICON));
-	ft_strcat(g_sh.prompt, COLOR_RESET);
-	ft_strcat(g_sh.prompt, BOLD_MAGENTA);
-	ft_strcat(g_sh.prompt, " (");
-	ft_strcat(g_sh.prompt, COLOR_RESET);
-	ft_strcat(g_sh.prompt, BOLD_YELLOW);
-	ft_strcat(g_sh.prompt, g_sh.curent_path);
-	ft_strcat(g_sh.prompt, COLOR_RESET);
-	ft_strcat(g_sh.prompt, BOLD_MAGENTA);
-	ft_strcat(g_sh.prompt, ") ");
-	ft_strcat(g_sh.prompt, COLOR_RESET);
+	ft_strcpy(sh()->prompt, (sh()->ok ? SH_OK_ICON : SH_ERROR_ICON));
+	ft_strcat(sh()->prompt, COLOR_RESET);
+	ft_strcat(sh()->prompt, BOLD_MAGENTA);
+	ft_strcat(sh()->prompt, " (");
+	ft_strcat(sh()->prompt, COLOR_RESET);
+	ft_strcat(sh()->prompt, BOLD_YELLOW);
+	ft_strcat(sh()->prompt, sh()->curent_path);
+	ft_strcat(sh()->prompt, COLOR_RESET);
+	ft_strcat(sh()->prompt, BOLD_MAGENTA);
+	ft_strcat(sh()->prompt, ") ");
+	ft_strcat(sh()->prompt, COLOR_RESET);
 }
 
 static void	sh_loop(void)
 {
-	while ((g_sh.line = read_line(g_sh.prompt)))
+	while ((sh()->line = read_line()))
 	{
-		if (!ft_is_str_space(g_sh.line))
+		if (!ft_is_str_space(sh()->line))
 		{
-			if (g_ok)
-				line_parser();
-			if (g_ok)
-				g_exec_code = EXIT_SUCCESS;
+			line_parser();
+			if (sh()->ok)
+				sh()->exec_code = EXIT_SUCCESS;
 			sh_update_prompt();
-			g_ok = true;
+			sh()->ok = true;
 		}
-		ft_memdel((void **)&g_sh.line);
+		ft_memdel((void **)&sh()->line);
 	}
 }
 
