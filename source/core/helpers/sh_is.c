@@ -23,15 +23,6 @@ t_bool		sh_is_dir(const char *path)
 	return (S_ISDIR(sb.st_mode));
 }
 
-t_bool		sh_is_link(const char *path)
-{
-	struct stat	sb;
-
-	if ((lstat(path, &sb)) == ERR)
-		sh_fatal_err(LSTAT_FAILED);
-	return (S_ISLNK(sb.st_mode));
-}
-
 t_bool		sh_is_valid_path(const char *path)
 {
 	uint16_t	i;

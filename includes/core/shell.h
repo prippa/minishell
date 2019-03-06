@@ -51,7 +51,6 @@ void			sh_handle_sigint_incase(int sig);
 void			sh_init(void);
 void			sh_init_env(void);
 t_bool			sh_is_dir(const char *path);
-t_bool			sh_is_link(const char *path);
 t_bool			sh_is_valid_path(const char *path);
 t_bool			sh_path_access(const char *path, const char *prefix);
 char			*sh_join_path_to_pwd(const char *cur_pwd, const char *path);
