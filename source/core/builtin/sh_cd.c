@@ -44,11 +44,6 @@ static t_bool	sh_cd_path_valid(const char *path)
 	return (sh()->ok);
 }
 
-// static char		*sh_cd_get_full_pwd(const char *path)
-// {
-	
-// }
-
 static void		sh_cd_make_move(t_list2 *env_start, t_list2 *env_end,
 					const char *path, t_bool slf)
 {
@@ -114,7 +109,7 @@ void			sh_cd(t_build *b)
 	}
 	else if (!ft_strcmp(*b->args, CD_DASH_F) &&
 		sh_cd_by_env(*b->env_start, *b->env_end, OLDPWD_ENV, symb_link_flag))
-			ft_putendl(env_get_vlu_by_key(*b->env_start, PWD_ENV));
+		ft_putendl(env_get_vlu_by_key(*b->env_start, PWD_ENV));
 	else if (sh_cd_path_valid(*b->args))
 		sh_cd_make_move(*b->env_start, *b->env_end, *b->args, symb_link_flag);
 	if (sh()->ok)

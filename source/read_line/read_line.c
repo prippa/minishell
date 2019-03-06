@@ -21,7 +21,7 @@ t_read_line		*rl(void)
 	return (&rl);
 }
 
-static void	read_line_loop(void)
+static void		read_line_loop(void)
 {
 	ssize_t		ret;
 	int32_t		rl_ls_res;
@@ -43,7 +43,7 @@ static void	read_line_loop(void)
 		}
 		if (rl()->new_line_flag &&
 			!(ft_strjoin_free(&rl()->line, buf, ft_strlen(rl()->line), 1)))
-				sh_fatal_err(MALLOC_ERR);
+			sh_fatal_err(MALLOC_ERR);
 	}
 	if (ret == -1)
 		sh_fatal_err(READ_ERR);

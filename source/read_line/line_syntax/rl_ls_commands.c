@@ -69,7 +69,7 @@ int32_t	ls_semi_check(t_line_syntax *ls)
 	{
 		if (rl()->line[rl()->i + 1] == SEMICOLON_C || (rl()->i &&
 			rl()->line[rl()->i - 1] == SEMICOLON_C))
-				return (RL_SEMIX2);
+			return (RL_SEMIX2);
 		else
 			return (RL_SEMIX1);
 	}

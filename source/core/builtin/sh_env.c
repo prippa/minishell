@@ -60,7 +60,7 @@ void			sh_env(t_build *b)
 	t_build	nb;
 	t_list2	*env_start;
 	t_list2	*env_end;
-	
+
 	env_start = NULL;
 	env_end = NULL;
 	nb.env_start = &env_start;

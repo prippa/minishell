@@ -1,8 +1,6 @@
-env -i ./minishell
-
-#define WTF_EOF	"\n" LS_ERR "unexpected EOF while looking for matching `%c'"
-
 cd:
 	sh_update_curent_dir_name
 	env cd
 	sh()->pwd
+
+sh()->ok
