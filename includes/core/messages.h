@@ -19,6 +19,9 @@
 # define UNIX_PATH_SEPARATOR	'/'
 # define PATH_ENV_SEPARATOR		':'
 
+# define CUR_DIR				"."
+# define PREV_DIR				".."
+
 # define HOME_ENV		"HOME"
 # define PWD_ENV		"PWD"
 # define OLDPWD_ENV		"OLDPWD"

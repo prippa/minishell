@@ -47,7 +47,7 @@ static t_bool	sh_cd_path_valid(const char *path)
 static void		sh_cd_make_move(t_list2 *env_start, t_list2 *env_end,
 					const char *path, t_bool slf)
 {
-	char *pwd;(void)slf;
+	char *pwd;
 
 	if ((pwd = env_get_vlu_by_key(env_start, PWD_ENV)))
 		env_set(&env_start, &env_end, ENV(OLDPWD_ENV, pwd), true);
@@ -55,7 +55,18 @@ static void		sh_cd_make_move(t_list2 *env_start, t_list2 *env_end,
 		env_unset(&env_start, &env_end, OLDPWD_ENV);
 	if ((chdir(path)) == ERR)
 		sh_fatal_err(CHDIR_FAILED);
-	GET_MEM(GETCWD_FAILED, pwd, getcwd, NULL, 0);
+	if (!slf)
+	{
+		pwd = sh()->pwd;
+		sh()->pwd = sh_join_path_to_pwd(pwd, path);
+		ft_memdel((void **)&pwd);
+		GET_MEM(MALLOC_ERR, pwd, ft_strdup, sh()->pwd);
+	}
+	else
+	{
+		GET_MEM(GETCWD_FAILED, pwd, getcwd, NULL, 0);
+		GET_MEM(MALLOC_ERR, sh()->pwd, ft_strdup_free, &sh()->pwd, pwd);
+	}
 	env_set(&env_start, &env_end, ENV(PWD_ENV, pwd), true);
 	ft_memdel((void **)&pwd);
 }

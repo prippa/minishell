@@ -4,3 +4,4 @@ cd:
 	sh()->pwd
 
 sh()->ok
+is_link

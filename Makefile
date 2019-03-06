@@ -64,7 +64,8 @@ COR_C		:=	$(DIR_COR_SRC)main.c\
 				$(DIR_EXC)sh_process_cmd.c\
 				$(DIR_HLP)sh_check_path_permision.c\
 				$(DIR_HLP)sh_utility.c\
-				$(DIR_HLP)sh_is.c
+				$(DIR_HLP)sh_is.c\
+				$(DIR_HLP)sh_join_path_to_pwd.c
 
 ENV_C		:=	$(DIR_ENV_SRC)env_convert.c\
 				$(DIR_ENV_SRC)env_free.c\
