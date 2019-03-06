@@ -65,6 +65,7 @@ void			sh_env(t_build *b)
 	env_end = NULL;
 	nb.env_start = &env_start;
 	nb.env_end = &env_end;
+	sh()->env_exec_flag = true;
 	if (sh_env_check_kv(sh_env_check_flag(&b->args), &nb, b))
 	{
 		if (*b->args)
@@ -76,4 +77,5 @@ void			sh_env(t_build *b)
 			env_print(*nb.env_start);
 	}
 	ft_lst2del(nb.env_start, nb.env_end, env_del_list);
+	sh()->env_exec_flag = false;
 }

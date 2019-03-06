@@ -1,7 +1,2 @@
-cd:
-	sh_update_curent_dir_name
-	env cd
-	sh()->pwd
-
 sh()->ok
 is_link

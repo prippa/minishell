@@ -28,6 +28,7 @@ typedef struct	s_shell
 	t_list2		*env_end;
 	char		*line;
 	size_t		i;
+	t_bool		env_exec_flag;
 	t_bool		ok;
 	int32_t		exec_code;
 	char		*pwd;

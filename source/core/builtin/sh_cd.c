@@ -49,11 +49,13 @@ static void		sh_cd_make_move(t_list2 *env_start, t_list2 *env_end,
 {
 	char *pwd;
 
+	if (sh()->env_exec_flag)
+		return ;
 	if ((pwd = env_get_vlu_by_key(env_start, PWD_ENV)))
 		env_set(&env_start, &env_end, ENV(OLDPWD_ENV, pwd), true);
 	else if (env_get_vlu_by_key(env_start, OLDPWD_ENV))
 		env_unset(&env_start, &env_end, OLDPWD_ENV);
-	if ((chdir(path)) == ERR)
+	if (chdir(path) == ERR)
 		sh_fatal_err(CHDIR_FAILED);
 	if (!slf)
 	{
