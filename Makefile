@@ -90,6 +90,7 @@ RL_C		:=	$(DIR_RL_SRC)read_line.c\
 				$(DIR_RL_SRC)rl_join_to_line.c\
 				$(DIR_RL_SRC)rl_back_space.c\
 				$(DIR_RL_SRC)rl_tab.c\
+				$(DIR_RL_SRC)rl_tab_2.c\
 				$(DIR_RL_SRC)rl_ctrl_d.c\
 				$(DIR_RL_SRC)rl_new_line.c\
 				$(DIR_LS)rl_line_syntax.c\

@@ -39,6 +39,7 @@ typedef struct	s_read_line
 	size_t		len;
 	size_t		i;
 	t_bool		new_line_flag;
+	t_bool		if_inhibitors_in_use_flag;
 }				t_read_line;
 
 enum
@@ -67,8 +68,11 @@ void			ls_print_info(int32_t key);
 void			ls_check_for_unexpected_eof(int32_t key);
 
 void			rl_back_space(void);
-void			rl_tab(void);
 void			rl_ctrl_d(void);
 int32_t			rl_new_line(void);
+void			rl_tab(void);
+
+void			rl_t_read_dir(t_list **m, char **paths, const char *bc);
+void			rl_t_gm_push_cmd(t_list **m, const char *bc, const char *c);
 
 #endif
