@@ -19,6 +19,7 @@ void		sh_handle_sigint_rl(int sig)
 	{
 		ft_memdel((void **)&rl()->line);
 		rl()->len = 0;
+		rl()->if_inhibitors_in_use_flag = false;
 		sh()->exec_code = SIGINT;
 		ft_putchar_fd('\n', STDERR_FILENO);
 		sh_update_prompt(false);

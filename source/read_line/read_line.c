@@ -72,7 +72,5 @@ char			*read_line(void)
 	if ((tcsetattr(0, TCSANOW, &sh()->oldtio)) == ERR)
 		sh_fatal_err(TCSETATTR_FAILED);
 	signal(SIGINT, sh_handle_sigint_base);
-	// if (rl()->line)
-	// 	ls_check_for_unexpected_eof(rl_line_syntax());
 	return (rl()->line);
 }

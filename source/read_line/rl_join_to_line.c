@@ -7,7 +7,7 @@ void			rl_join_char_to_line(char c)
 	++rl()->len;
 }
 
-void			rl_join_str_to_line(char *str)
+void			rl_join_str_to_line(const char *str)
 {
 	size_t str_len;
 

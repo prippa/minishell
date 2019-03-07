@@ -32,7 +32,7 @@ t_bool		sh_is_valid_path(const char *path)
 	{
 		if (*path == UNIX_PATH_SEPARATOR)
 			i = 0;
-		else if (++i > FILE_NAME_MAX)
+		else if (++i > 255)
 			return (true);
 		++path;
 	}

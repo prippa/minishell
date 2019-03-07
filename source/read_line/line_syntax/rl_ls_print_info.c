@@ -12,30 +12,14 @@
 
 #include "read_line.h"
 #include "messages.h"
-#include "shell.h"
-#include "builtin.h"
-#include "syntax_characters.h"
 
 #define LS_ERR				SHELL_NAME ": syntax error : "
-// #define WTF_EOF	"\n" LS_ERR "unexpected EOF while looking for matching `%c'"
 #define WTF_SEMICOLON_X1	LS_ERR "near unexpected token `;'"
 #define WTF_SEMICOLON_X2	LS_ERR "near unexpected token `;;'"
 
 #define QUOT_PROMPT			"quote> "
 #define DQUOT_PROMPT		"dquote> "
 #define SLASH_PROMPT		"> "
-
-// void	ls_check_for_unexpected_eof(int32_t key)
-// {
-// 	if (key == RL_Q)
-// 	{
-// 		PRINT_ERR(EXIT_FAILURE, WTF_EOF, SINGLE_QUOTES_C);
-// 	}
-// 	else if (key == RL_DQ)
-// 	{
-// 		PRINT_ERR(EXIT_FAILURE, WTF_EOF, DOUBLE_QUOTES_C);
-// 	}
-// }
 
 void	ls_print_info(int32_t key)
 {

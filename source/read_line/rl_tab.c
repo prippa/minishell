@@ -1,10 +1,11 @@
+#include <dirent.h>
 #include "read_line.h"
 #include "syntax_characters.h"
 #include "builtin_static_arr.h"
 #include "environ_manipulation.h"
 #include "messages.h"
 
-void			rl_t_gm_push_cmd(t_list **m, const char *bc, const char *c)
+static void		rl_t_gm_push_cmd(t_list **m, const char *bc, const char *c)
 {
 	char	*cmd;
 	t_list	*new_obj;
@@ -17,6 +18,34 @@ void			rl_t_gm_push_cmd(t_list **m, const char *bc, const char *c)
 		return ;
 	GET_MEM(MALLOC_ERR, new_obj, ft_lstnew, cmd, 0);
 	ft_lstadd(m, new_obj);
+}
+
+static void		rl_t_read_dir(t_list **m, char **paths, const char *bc)
+{
+	DIR				*dip;
+	struct dirent	*dit;
+	char			*bin;
+
+	while (*paths)
+	{
+		if (access(*paths, F_OK) || access(*paths, X_OK))
+			continue ;
+		if (!(dip = opendir(*paths)))
+			sh_fatal_err(OPENDIR_FAILED);
+		while ((dit = readdir(dip)))
+		{
+			GET_MEM(MALLOC_ERR, bin, ft_strjoin,
+				*paths, (char[2]){UNIX_PATH_SEPARATOR, 0});
+			GET_MEM(MALLOC_ERR, bin, ft_strjoin_free,
+				&bin, dit->d_name, ft_strlen(bin), ft_strlen(dit->d_name));
+			if (!access(bin, X_OK) && dit->d_type != DT_DIR)
+				rl_t_gm_push_cmd(m, bc, dit->d_name);
+			ft_memdel((void **)&bin);
+		}
+		if ((closedir(dip)) == ERR)
+			sh_fatal_err(CLOSEDIR_FAILED);
+		++paths;
+	}
 }
 
 static t_list	*rl_t_get_matches(const char *bc)
@@ -56,26 +85,12 @@ static char		*rl_t_get_cmd_from_line(void)
 			space_flag = true;
 		else if (space_flag && ft_isascii(rl()->line[size]))
 			return (NULL);
-		else if (!space_flag && !ft_isalnum(rl()->line[size]))
-			return (NULL);
 		if (!space_flag)
 			++len;
 	}
 	GET_MEM(MALLOC_ERR, cmd, ft_strsub,
 		rl()->line, ft_strlen(rl()->line) - len, len);
 	return (cmd);
-}
-
-static void		rl_t_process_matches(const t_list *m)
-{
-	ft_putchar('\n');
-	while (m)
-	{
-		ft_putendl((char *)m->content);
-		m = m->next;
-	}
-	ft_putstr(sh()->prompt);
-	ft_putstr(rl()->line);
 }
 
 void			rl_tab(void)
@@ -89,7 +104,8 @@ void			rl_tab(void)
 		return ;
 	if ((matches = rl_t_get_matches(base_cmd)))
 	{
-		rl_t_process_matches(matches);
+		ft_lstrev(&matches);
+		rl_t_process_matches(matches, ft_strlen(base_cmd));
 		ft_lstdel(&matches, ft_lstdel_content);
 	}
 	ft_memdel((void **)&base_cmd);

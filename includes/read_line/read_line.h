@@ -56,7 +56,7 @@ enum
 
 t_read_line		*rl(void);
 void			rl_join_char_to_line(char c);
-void			rl_join_str_to_line(char *str);
+void			rl_join_str_to_line(const char *str);
 
 int32_t			rl_line_syntax(void);
 int32_t			ls_backslash_check(t_line_syntax *ls);
@@ -72,7 +72,6 @@ void			rl_ctrl_d(void);
 int32_t			rl_new_line(void);
 void			rl_tab(void);
 
-void			rl_t_read_dir(t_list **m, char **paths, const char *bc);
-void			rl_t_gm_push_cmd(t_list **m, const char *bc, const char *c);
+void			rl_t_process_matches(const t_list *m, size_t len);
 
 #endif

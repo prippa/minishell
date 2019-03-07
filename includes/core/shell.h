@@ -18,8 +18,7 @@
 # include <termios.h>
 
 # define PATH_MAX		4096
-# define FILE_NAME_MAX	255
-# define PROMPT_SIZE	FILE_NAME_MAX * 2
+# define PROMPT_SIZE	FILENAME_MAX + 256
 
 typedef struct		s_shell
 {
