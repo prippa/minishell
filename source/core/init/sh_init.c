@@ -13,11 +13,23 @@
 #include "shell.h"
 #include "messages.h"
 
+void		sh_init_termios(void)
+{
+	struct termios	newtio;
+
+	newtio = sh()->oldtio;
+	newtio.c_lflag &= ~(ICANON | ECHO | ECHONL);
+	if ((tcsetattr(0, TCSANOW, &newtio)) == ERR)
+		sh_fatal_err(TCSETATTR_FAILED);
+}
+
 void		sh_init(void)
 {
 	char *pwd;
 
 	ft_bzero(sh(), sizeof(t_shell));
+	if ((tcgetattr(0, &sh()->oldtio)) == ERR)
+		sh_fatal_err(TCGETATTR_FAILED);
 	sh()->ok = true;
 	GET_MEM(GETCWD_FAILED, pwd, getcwd, NULL, 0);
 	sh()->pwd = pwd;

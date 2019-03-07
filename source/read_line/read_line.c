@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "read_line.h"
+#include "messages.h"
 
-#define RL_BUFF_SIZE 2
+#define RL_BUFF_SIZE 8
 
 t_read_line		*rl(void)
 {
@@ -21,32 +22,44 @@ t_read_line		*rl(void)
 	return (&rl);
 }
 
+static int32_t	rl_key_events(char buf[RL_BUFF_SIZE])
+{
+	if (UP || DOWN || LEFT || RIGHT || WTF_UP || WTF_DOWN || BACK_SPACE ||
+		TAB || CTRL_D || NEW_LINE)
+	{
+		if BACK_SPACE
+			rl_back_space();
+		else if TAB
+			rl_tab();
+		else if CTRL_D
+			rl_ctrl_d();
+		else if NEW_LINE
+			return (rl_new_line());
+		return (RL_CONTINUE);
+	}
+	return (RL_OK);
+}
+
 static void		read_line_loop(void)
 {
-	ssize_t		ret;
-	int32_t		rl_ls_res;
-	char		buf[RL_BUFF_SIZE];
+	int32_t		ke_res;
+	char		buf[RL_BUFF_SIZE + 1];
 
-	ft_bzero(&buf, RL_BUFF_SIZE);
-	while ((ret = read(STDIN_FILENO, buf, 1)) > 0)
+	while (true)
 	{
 		rl()->new_line_flag = true;
+		ft_bzero(buf, RL_BUFF_SIZE + 1);
+		if (read(STDIN_FILENO, buf, RL_BUFF_SIZE) == ERR)
+			sh_fatal_err(READ_ERR);
 		if (!rl()->line && !(rl()->line = ft_strdup("")))
 			sh_fatal_err(MALLOC_ERR);
-		if (buf[0] == '\n')
-		{
-			if (!(rl_ls_res = rl_line_syntax()))
-				break ;
-			ls_print_info(rl_ls_res);
-			if (rl_ls_res < 0)
-				break ;
-		}
-		if (rl()->new_line_flag &&
-			!(ft_strjoin_free(&rl()->line, buf, ft_strlen(rl()->line), 1)))
-			sh_fatal_err(MALLOC_ERR);
+		if ((ke_res = rl_key_events(buf)) == RL_BREAK)
+			break ;
+		else if (ke_res == RL_CONTINUE)
+			continue ;
+		rl_join_str_to_line(buf);
+		ft_putstr(buf);
 	}
-	if (ret == -1)
-		sh_fatal_err(READ_ERR);
 }
 
 char			*read_line(void)
@@ -54,9 +67,12 @@ char			*read_line(void)
 	ft_bzero(rl(), sizeof(t_read_line));
 	ft_putstr(sh()->prompt);
 	signal(SIGINT, sh_handle_sigint_rl);
+	sh_init_termios();
 	read_line_loop();
+	if ((tcsetattr(0, TCSANOW, &sh()->oldtio)) == ERR)
+		sh_fatal_err(TCSETATTR_FAILED);
 	signal(SIGINT, sh_handle_sigint_base);
-	if (rl()->line)
-		ls_check_for_unexpected_eof(rl_line_syntax());
+	// if (rl()->line)
+	// 	ls_check_for_unexpected_eof(rl_line_syntax());
 	return (rl()->line);
 }

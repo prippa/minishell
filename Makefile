@@ -87,6 +87,11 @@ LNP_C		:=	$(DIR_LNP_SRC)line_parser.c\
 				$(DIR_LPCMD)lp_tilde.c
 
 RL_C		:=	$(DIR_RL_SRC)read_line.c\
+				$(DIR_RL_SRC)rl_join_to_line.c\
+				$(DIR_RL_SRC)rl_back_space.c\
+				$(DIR_RL_SRC)rl_tab.c\
+				$(DIR_RL_SRC)rl_ctrl_d.c\
+				$(DIR_RL_SRC)rl_new_line.c\
 				$(DIR_LS)rl_line_syntax.c\
 				$(DIR_LS)rl_ls_commands.c\
 				$(DIR_LS)rl_ls_print_info.c

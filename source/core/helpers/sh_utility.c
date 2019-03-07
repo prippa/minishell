@@ -45,5 +45,7 @@ void		sh_update_curent_dir_name(void)
 void		sh_fatal_err(const char *message)
 {
 	ft_dprintf(STDERR_FILENO, SH_ERR, message);
+	if ((tcsetattr(0, TCSANOW, &sh()->oldtio)) == ERR)
+		sh_fatal_err(TCSETATTR_FAILED);
 	exit(EXIT_FAILURE);
 }

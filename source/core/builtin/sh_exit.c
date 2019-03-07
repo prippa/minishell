@@ -45,5 +45,7 @@ void			sh_exit(t_build *b)
 	else
 		exit_code = sh()->exec_code;
 	ft_putendl(EXIT_MSG);
+	if ((tcsetattr(0, TCSANOW, &sh()->oldtio)) == ERR)
+		sh_fatal_err(TCSETATTR_FAILED);
 	exit(exit_code);
 }
