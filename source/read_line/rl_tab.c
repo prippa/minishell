@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rl_tab.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: prippa <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/08 10:50:16 by prippa            #+#    #+#             */
+/*   Updated: 2019/03/08 10:50:17 by prippa           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <dirent.h>
 #include "read_line.h"
 #include "syntax_characters.h"
@@ -26,7 +38,8 @@ static void		rl_t_read_dir(t_list **m, char **paths, const char *bc)
 	struct dirent	*dit;
 	char			*bin;
 
-	while (*paths)
+	--paths;
+	while (*(++paths))
 	{
 		if (access(*paths, F_OK) || access(*paths, X_OK))
 			continue ;
@@ -44,7 +57,6 @@ static void		rl_t_read_dir(t_list **m, char **paths, const char *bc)
 		}
 		if ((closedir(dip)) == ERR)
 			sh_fatal_err(CLOSEDIR_FAILED);
-		++paths;
 	}
 }
 

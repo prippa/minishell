@@ -15,18 +15,18 @@
 
 # include "shell.h"
 
-# define UP (buf[0] == 27 && buf[1] == 91 && buf[2] == 65)
-# define DOWN (buf[0] == 27 && buf[1] == 91 && buf[2] == 66)
-# define RIGHT (buf[0] == 27 && buf[1] == 91 && buf[2] == 67)
-# define LEFT (buf[0] == 27 && buf[1] == 91 && buf[2] == 68)
+# define UP buf[0] == 27 && buf[1] == 91 && buf[2] == 65
+# define DOWN buf[0] == 27 && buf[1] == 91 && buf[2] == 66
+# define RIGHT buf[0] == 27 && buf[1] == 91 && buf[2] == 67
+# define LEFT buf[0] == 27 && buf[1] == 91 && buf[2] == 68
 
-# define WTF_UP (buf[0] == 27 && buf[1] == 91 && buf[2] == 72)
-# define WTF_DOWN (buf[0] == 27 && buf[1] == 91 && buf[2] == 70)
+# define WTF_UP buf[0] == 27 && buf[1] == 91 && buf[2] == 72
+# define WTF_DOWN buf[0] == 27 && buf[1] == 91 && buf[2] == 70
 
-# define TAB (buf[0] == 9)
-# define BACK_SPACE (buf[0] == 127)
-# define CTRL_D (buf[0] == 4)
-# define NEW_LINE (buf[0] == 10)
+# define TAB buf[0] == 9
+# define BACK_SPACE buf[0] == 127
+# define CTRL_D buf[0] == 4
+# define NEW_LINE buf[0] == 10
 
 typedef struct	s_line_syntax
 {
@@ -36,8 +36,8 @@ typedef struct	s_line_syntax
 typedef struct	s_read_line
 {
 	char		*line;
-	size_t		len;
 	size_t		i;
+	size_t		len;
 	t_bool		new_line_flag;
 	t_bool		if_inhibitors_in_use_flag;
 }				t_read_line;

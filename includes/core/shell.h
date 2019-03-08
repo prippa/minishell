@@ -35,7 +35,7 @@ typedef struct		s_shell
 	char			*pwd;
 }					t_shell;
 
-t_shell			*sh(void);
+t_shell				*sh(void);
 
 # define PE_P(f, a ...) ft_dprintf(STDERR_FILENO, f, a)
 # define PE_NL ft_putendl_fd(EMPTY_STR, STDERR_FILENO)

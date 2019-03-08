@@ -24,16 +24,16 @@ t_read_line		*rl(void)
 
 static int32_t	rl_key_events(char buf[RL_BUFF_SIZE])
 {
-	if (UP || DOWN || LEFT || RIGHT || WTF_UP || WTF_DOWN || BACK_SPACE ||
-		TAB || CTRL_D || NEW_LINE)
+	if ((UP) || (DOWN) || (LEFT) || (RIGHT) || (WTF_UP) || (WTF_DOWN) ||
+	(BACK_SPACE) || (TAB) || (CTRL_D) || (NEW_LINE))
 	{
-		if BACK_SPACE
+		if (BACK_SPACE)
 			rl_back_space();
-		else if TAB
+		else if (TAB)
 			rl_tab();
-		else if CTRL_D
+		else if (CTRL_D)
 			rl_ctrl_d();
-		else if NEW_LINE
+		else if (NEW_LINE)
 			return (rl_new_line());
 		return (RL_CONTINUE);
 	}
