@@ -5,18 +5,18 @@ Project from UNIX branch in school 42
 
 \[✓\] Manage the errors without using **errno**, by displaying a message adapted to the error output
 
-\[✓\] Deal correctly with the PATH and the environment (copy of system char \*\*environ)
+\[✓\] Deal correctly with the **PATH** and the environment (copy of system char \*\*environ)
 
 \[✓\] Series of builtins: **echo**, **cd**, **setenv**, **unsetenv**, **env**, **exit**
 
-\[✓\] Deal correctly with the PATH and the environment (copy of system char \*\*environ)
+\[✓\] Deal correctly with the **PATH** and the environment (copy of system char \*\*environ)
 
 \[✓\] Manage expansions **$** and **˜**
 
 ## Bonuses
 \[✓\] Manage the Ctrl-C signal
 
-\[✓\] Management of execution rights in the PATH
+\[✓\] Management of execution rights in the **PATH**
 
 \[✓\] Simple Auto completion
 
