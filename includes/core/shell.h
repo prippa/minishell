@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "ft_printf.h"
 # include <termios.h>
+# include <stdio.h>
 
 # define PATH_MAX		4096
 # define PROMPT_SIZE	FILENAME_MAX + 256

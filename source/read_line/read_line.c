@@ -12,6 +12,7 @@
 
 #include "read_line.h"
 #include "messages.h"
+#include <signal.h>
 
 #define RL_BUFF_SIZE 8
 

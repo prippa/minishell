@@ -12,6 +12,7 @@
 
 #include "shell.h"
 #include "read_line.h"
+#include <signal.h>
 
 void		sh_handle_sigint_rl(int sig)
 {

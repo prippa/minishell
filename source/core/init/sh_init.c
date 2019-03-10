@@ -12,6 +12,7 @@
 
 #include "shell.h"
 #include "messages.h"
+#include <signal.h>
 
 void		sh_init_termios(void)
 {
