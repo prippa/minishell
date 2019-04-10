@@ -9,8 +9,6 @@ Project from UNIX branch in school 42
 
 \[✓\] Series of builtins: **echo**, **cd**, **setenv**, **unsetenv**, **env**, **exit**
 
-\[✓\] Deal correctly with the **PATH** and the environment (copy of system char \*\*environ)
-
 \[✓\] Manage expansions **$** and **˜**
 
 ## Bonuses
